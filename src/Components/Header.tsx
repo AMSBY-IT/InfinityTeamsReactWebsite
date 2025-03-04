@@ -3,15 +3,17 @@ import { CandidateContext } from "../Provider/CandidateContext";
 import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom"
 
-function Header() {
+const Header=()=> {
+    const context = useContext(CandidateContext);
 
-    const data = useContext(CandidateContext);
+    if (!context) {
+        return <p>Error: CandidateContext is not provided!</p>;
+    }
+
+
+    const {dispatch} = context
         
-    if (!data){
-        return <div>error data is undefined</div>  
-      }
-
-    const {setLogin}=data
+    
     const navigate = useNavigate()
 
     const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -29,7 +31,7 @@ function Header() {
 
     const Logout =()=>{
         localStorage.removeItem("token")
-        setLogin(false)
+        dispatch({ type: "SET_LOGIN", payload: false })
         navigate("/login")
     }
 
@@ -80,11 +82,11 @@ function Header() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="tw-w-6" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M18 6L6 18M6 6l12 12" /></svg>
                     </button>
                 </div>
-                {/* <nav className="tw-flex tw-flex-col tw-gap-4 tw-p-4">
-                    <a href="/candidatelist" className={`tw-text-white tw-text-base ${isActive("/candidatelist") ? "tw-opacity-100" : "tw-opacity-50"}`}>
-                        Candidate List
+                <nav className="tw-flex tw-flex-col tw-gap-4 tw-p-4">
+                    <a className={`tw-text-white tw-text-base tw-cursor-pointer`} onClick={Logout}>
+                        Logout
                     </a>
-                    <a href="/services" className={`tw-text-white tw-text-base ${isActive("/services") ? "tw-opacity-100" : "tw-opacity-50"}`}>
+                    {/* <a href="/services" className={`tw-text-white tw-text-base ${isActive("/services") ? "tw-opacity-100" : "tw-opacity-50"}`}>
                         Services
                     </a>
                     <a href="/about" className={`tw-text-white tw-text-base ${isActive("/about") ? "tw-opacity-100" : "tw-opacity-50"}`}>
@@ -92,8 +94,8 @@ function Header() {
                     </a>
                     <a href="/contact" className={`tw-text-white tw-text-base ${isActive("/contact") ? "tw-opacity-100" : "tw-opacity-50"}`}>
                         Contact
-                    </a>
-                </nav> */}
+                    </a> */}
+                </nav>
             </div>
 
             {isSidebarOpen && (

@@ -1,34 +1,64 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CandidateContext } from "../../Provider/CandidateContext"
+import { Levels } from "../../Types/types";
+import { useQuery } from "@tanstack/react-query";
+import { fetchlevels } from "../../api/services";
 
 
 const CheckBoxes = () => {
-    const data = useContext(CandidateContext);
 
-    if (!data){
-        return <div>error data is undefined</div>  
+    const context = useContext(CandidateContext);
+
+    if (!context) {
+        return <p>Error: CandidateContext is not provided!</p>;
     }
 
-    const { levels, setLevelIds, isChecked,setChecked}=data
+    const {levels,isChecked,dispatch} = context
+
+    const { data:levelData } = useQuery({queryKey:['level'], queryFn:()=>fetchlevels()});
+  
+  useEffect(()=>{
+    if (levelData){
+      dispatch({ type: "SET_LEVEL", payload: levelData });
+    }
+  },[levelData])
+
+    // const levelMutation = useMutation({
+    //     mutationFn: () => fetchlevels(),
+    //     onSuccess: (data) => {
+    //       console.log("titledata", data);
+    //       dispatch({ type: "SET_LEVEL", payload: data });
+    //     },
+    //     onError: (error) => {
+    //       console.log("error", error.message);
+    //     },
+    //   });
+
+
+    // useEffect(() => {
+    //     if (token) {
+    //         levelMutation.mutate();
+    //       }
+    //     }, [token]);
 
 
     const [isDropdownOpen, setDropdownOpen] = useState<boolean>(true);
 
-    const toggleChecked = (id:number, guid:string) => {
-        setChecked((prevState) => ({
-            ...prevState,
-            [id]: !prevState[id],
-
-    }));
-
-    setLevelIds((prevGuids) => {
-            if (prevGuids.includes(guid)) {
-                return prevGuids.filter((existingGuid) => existingGuid !== guid);
-            } else {
-                return [...prevGuids, guid];
-            }
+    const toggleChecked = (id:string) => {
+        dispatch({ 
+            type: "SET_CHECKED", 
+            payload: { id, checked: !isChecked[id] }
         });
-    }
+    };
+
+    // setLevelIds((prevGuids) => {
+    //         if (prevGuids.includes(guid)) {
+    //             return prevGuids.filter((existingGuid) => existingGuid !== guid);
+    //         } else {
+    //             return [...prevGuids, guid];
+    //         }
+    //     });
+    // }
 
     // const SelectedSearch = () => {
     //     setLevelIds(selectedIDs)
@@ -57,10 +87,10 @@ const CheckBoxes = () => {
                         </div>
                         {isDropdownOpen && (
                             <div className="search__item__list" id="chkbxLevels">
-                                {levels.map((item) => {
+                                {levels.map((item:Levels) => {
                                     return (
                                         <div className="tw-flex tw-items-center tw-py-1">
-                                            <div key={item.id} className="tw-text-base tw-font-normal tw-flex tw-items-center tw-cursor-pointer" onClick={() => toggleChecked(item.id, item.guid)}>
+                                            <div key={item.id} className="tw-text-base tw-font-normal tw-flex tw-items-center tw-cursor-pointer" onClick={()=>toggleChecked(item.id)}>
                                                 <input type="checkbox" className="tw-hidden group" />
                                                 <span id={item.id.toString()} className={`tw-w-[16px] tw-h-[16px] tw-border tw-border-[#c8c9d0] tw-rounded-[2px] tw-mr-[10px] tw-inline-block tw-relative ${isChecked[item.id] ? 'tw-bg-untitled-ui--primary800 tw-border-untitled-ui--primary800' : 'tw-bg-transparent'}`}>
                                                     <span className={`tw-absolute  tw-left-[4px] tw-w-[6px] tw-h-[10px] tw-border-white tw-border-r-[2px] tw-border-b-[2px] tw-rotate-45 ${isChecked[item.id] ? 'tw-block' : 'tw-hidden'}`}>

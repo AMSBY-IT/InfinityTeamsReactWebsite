@@ -1,66 +1,91 @@
-import { useContext} from "react"
+import { useContext, useEffect} from "react"
 import Select from 'react-select'
-import { MultiValue,StylesConfig } from "react-select"
+import { StylesConfig } from "react-select"
 import { CandidateContext } from "../../Provider/CandidateContext"
-import {Selected} from "../../Types/types"
+import {Countries, Selected, Skill, Title} from "../../Types/types"
+import { useQuery } from "@tanstack/react-query"
+import { fetchcountries, fetchskills, fetchTitle } from "../../api/services"
 
 
-export default function CandidateFilter() {
+export  const CandidateFilter=()=> {
 
-  const data = useContext(CandidateContext)
+  const context = useContext(CandidateContext);
 
-  if (!data){
-    return <div>error data is undefined</div>  
-  }
+    if (!context) {
+        return <p>Error: CandidateContext is not provided!</p>;
+    }
 
-  const { title, skill, countries, setSkillIds, setDevelopertagIds, setCountryIds,selectedTitle,
-    setSelectedTitle,
-    selectedCountries,
-    setSelectedCountries,
-    selectedSkills,
-    setSelectedSkills }=data
 
-  const developerOptions = title.map((t) => (
+  const {dispatch,title,skills,countries} = context
+
+  
+
+  const { data:titleData } = useQuery({queryKey:['title'], queryFn:()=>fetchTitle()});
+  
+  useEffect(()=>{
+    if (titleData){
+      dispatch({ type: "SET_TITLE", payload: titleData });
+    }
+  },[titleData])
+
+  const { data:skillData } = useQuery({queryKey:['skill'], queryFn:()=>fetchskills()});
+  
+  useEffect(()=>{
+    if (skillData){
+      dispatch({ type: "SET_SKILLS", payload: skillData });
+    }
+  },[skillData])
+
+  const { data:countryData} = useQuery({queryKey:['country'], queryFn:()=>fetchcountries()});
+  
+  useEffect(()=>{
+    if (countryData){
+      dispatch({ type: "SET_COUNTRY", payload: countryData });
+    }
+  },[countryData])
+
+  
+  const developerOptions = title.map((t:Title) => (
     {
       value: t.name,
       label: t.name,
-      id: t.id,
-      guid: t.guid
+      id: Number(t.id),
+      guid: t.id
     }
   ))
 
-  const skills = skill.map((s) => (
+  const skill = skills.map((s:Skill) => (
     {
       value: s.name,
       label: s.name,
-      id: s.id,
-      guid: s.guid
+      id: Number(s.id),
+      guid: s.id
     }
   ))
 
-  const country = countries.map((c) => (
+  const country = countries.map((c:Countries) => (
     {
       value: c.name,
       label: c.name,
-      id: c.id,
-      guid: c.guid
+      id: Number(c.id),
+      guid: c.id
     }
   ))
 
 
-  const handleSelectChange = (selected:MultiValue<Selected>, type:string) => {
-    const selectedGuids = selected.map((option) => option.guid);
-    if (type === "titles") {
-      setSelectedTitle(selected)
-      setDevelopertagIds(selectedGuids);
-    } else if (type === "skills") {
-      setSelectedSkills(selected)
-      setSkillIds(selectedGuids);
-    } else if (type === "countries") {
-      setSelectedCountries(selected)
-      setCountryIds(selectedGuids.toString());
-    }
-  };
+  // const handleSelectChange = (selected:MultiValue<Selected>, type:string) => {
+  //   const selectedGuids = selected.map((option) => option.guid);
+  //   if (type === "titles") {
+  //     setSelectedTitle(selected)
+  //     setDevelopertagIds(selectedGuids);
+  //   } else if (type === "skills") {
+  //     setSelectedSkills(selected)
+  //     setSkillIds(selectedGuids);
+  //   } else if (type === "countries") {
+  //     setSelectedCountries(selected)
+  //     setCountryIds(selectedGuids.toString());
+  //   }
+  // };
 
   const customStyles:StylesConfig<Selected,true> = {
     control: (base) => ({
@@ -122,8 +147,8 @@ export default function CandidateFilter() {
                   placeholder="Add Keywords"
                   isMulti
                   styles={customStyles}
-                  value={selectedTitle}
-                  onChange={(selected) => handleSelectChange(selected, "titles")}
+                  // value={selectedTitle}
+                  // onChange={(selected) => handleSelectChange(selected, "titles")}
                 />
               </div>
 
@@ -139,8 +164,8 @@ export default function CandidateFilter() {
                   placeholder="All Countries"
                   isMulti
                   styles={customStyles}
-                  value={selectedCountries}
-                  onChange={(selected) => handleSelectChange(selected, "countries")}
+                  // value={selectedCountries}
+                  // onChange={(selected) => handleSelectChange(selected, "countries")}
                 />
               </div>
 
@@ -152,12 +177,12 @@ export default function CandidateFilter() {
                   <svg xmlns="http://www.w3.org/2000/svg" className='tw-w-5' viewBox="0 0 22 22"><g fill="none" stroke="#7f56d9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm5-2V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-4 5v.01" /><path d="M3 13a20 20 0 0 0 18 0" /></g></svg>
                 </div>
                 <Select
-                  options={skills}
+                  options={skill}
                   placeholder="Add Skills"
                   isMulti
                   styles={customStyles}
-                  value={selectedSkills}
-                  onChange={(selected) => handleSelectChange(selected, "skills")}
+                  // value={selectedSkills}
+                  // onChange={(selected) => handleSelectChange(selected, "skills")}
                 />
               </div>
 
