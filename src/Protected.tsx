@@ -1,21 +1,23 @@
 // import { useContext } from "react";
 // import { CandidateContext } from "./Provider/CandidateContext"
-import { Navigate } from "react-router-dom";
+import { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+import { CandidateContext } from './Provider/CandidateContext';
 
+const Protected = ({ children }: any) => {
+  // const data = useContext(CandidateContext);
 
-const Protected = ({children}:any)=>{
+  //     if (!data){
+  //         return <div>error data is undefined</div>
+  //       }
 
-    // const data = useContext(CandidateContext);
-    
-    //     if (!data){
-    //         return <div>error data is undefined</div>  
-    //       }
-    
-    //     const {isLogin}=data
+  //     const {isLogin}=data
 
-        const isAuth=localStorage.getItem("token")
+  const { token } = useContext(CandidateContext);
 
-    return isAuth ? children : <Navigate to="/login"/>
-}
+  const isAuth = localStorage.getItem('token');
 
-export default Protected
+  return isAuth ? children : <Navigate to='/login' />;
+};
+
+export default Protected;

@@ -1,48 +1,19 @@
-import { ReactNode } from "react";
-import { MultiValue } from "react-select"
+import { Dispatch, ReactNode } from "react";
+import { Action } from "../Provider/CandidateContext";
 
 
 export interface CandidateContextProps {
-    title:Title[];
-    skill: Skill[];
+    title: Title[];
+    skills: Skill[];
     countries: Countries[];
     levels: Levels[];
     candidates: Candidates[];
-    currentPage: number;
-    totalPage: number;
-    total: number;
-    pagesize: number;
     loading: boolean;
-    skillIds:string[];
-    developertagIds:string[];
-    levelIds:string[];
-    countryIds:string;
-    prevClick: () => void;
-    nextClick: () => void;
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-    setSkillIds: React.Dispatch<React.SetStateAction<string[]>>;
-    setDevelopertagIds: React.Dispatch<React.SetStateAction<string[]>>;
-    setLevelIds: React.Dispatch<React.SetStateAction<string[]>>;
-    setCountryIds: React.Dispatch<React.SetStateAction<string>>;
-    isChecked:{[id:number]:boolean};
-    setChecked:React.Dispatch<React.SetStateAction<{[id:number]:boolean}>>;
-    selectedTitle:MultiValue<Selected>;
-    setSelectedTitle:React.Dispatch<React.SetStateAction<MultiValue<Selected>>>;
-    selectedCountries:MultiValue<Selected>;
-    setSelectedCountries:React.Dispatch<React.SetStateAction<MultiValue<Selected>>>;
-    selectedSkills:MultiValue<Selected>;
-    setSelectedSkills:React.Dispatch<React.SetStateAction<MultiValue<Selected>>>;
-    isLogin:boolean;
-    setLogin:React.Dispatch<React.SetStateAction<boolean>>;
-    setLoading:React.Dispatch<React.SetStateAction<boolean>>;
-    setCandidates:React.Dispatch<React.SetStateAction<Candidates[]>>;
-    setTotalPage:React.Dispatch<React.SetStateAction<number>>;
-    setTotal:React.Dispatch<React.SetStateAction<number>>;
-    setPageSize:React.Dispatch<React.SetStateAction<number>>;
-    setTitle:React.Dispatch<React.SetStateAction<Title[]>>;
-    setSkills:React.Dispatch<React.SetStateAction<Skill[]>>;
-    setCountries:React.Dispatch<React.SetStateAction<Countries[]>>;
-    setLevels:React.Dispatch<React.SetStateAction<Levels[]>>;
+    isChecked: Record<string, boolean>;
+    isLogin: boolean;
+    errorMessage:string;
+    token:string;
+    dispatch: Dispatch<Action>;
 }
 
 export interface CandidateProviderProps {
@@ -58,67 +29,86 @@ export interface FetchCandidatesParams {
     countryGuid?: string;
 }
 
-export interface Title{
-    guid:string;
-    id:number;
-    name:string
+export interface Title {
+    id: string;
+    name: string
 }
 
-export interface Skill{
-    guid:string;
-    id:number;
-    name:string
+export interface Skill {
+    id: string;
+    name: string
 }
 
-export interface Countries{
-    guid:string;
-    id:number;
-    name:string
+export interface Countries {
+    id: string;
+    name: string
 }
 
-export interface Levels{
-    experienceRangeEnd:number;
-    experienceRangeStart:number;
-    guid:string;
-    id:number;
-    name:string
+export interface Levels {
+    id: string;
+    name: string
 }
 
 export interface Candidates {
-    cctc:number;
-    communicationSkills:string;
-    contactNumber:string;
-    country:string;
-    currentCompanyName:string;
-    currentMostRecentJobTitle:string;
-    cvUrl:string;
-    ectc:number;
-    emailAddress:string;
-    firstName:string;
-    gender:string;
-    id:number;
-    lastCompanyName:string;
-    lastContactedDate:string;
-    lastName:string;
-    locationCity:string;
-    sector:string;
-    skills:string[];
-    totalYearsOfExperience:string
+    id: string;
+    firstName: string;
+    middleName: string;
+    lastName: string
+    email: string;
+    phone: number;
+    dateOfBirth: null;
+    currentAddress: string;
+    permanentAddress: string;
+    gender: string;
+    currentJobTitle: string;
+    currentEmployer: string;
+    yearsOfExperience: number;
+    yearsOfRelevantExperience: number;
+    previousJobTitle: string;
+    previousEmployer: string;
+    currentCTC: number;
+    expectedCTC: number;
+    dateOfAppointment: string;
+    dateOfJoining: string;
+    lastContactedDate: string;
+    resumeFileName: string;
+    // cctc:number;
+    // communicationSkills:string;
+    // contactNumber:string;
+    // country:string;
+    // currentCompanyName:string;
+    // currentMostRecentJobTitle:string;
+    // cvUrl:string;
+    // ectc:number;
+    // emailAddress:string;
+    // firstName:string;
+    // gender:string;
+    // id:number;
+    // lastCompanyName:string;
+    // lastContactedDate:string;
+    // lastName:string;
+    // locationCity:string;
+    // sector:string;
+    // skills:string[];
+    // totalYearsOfExperience:string
 }
 
+
+
 export interface Selected {
-    guid:string;
-    id:number;
-    label:string;
-    value:string; 
+    guid: string;
+    id: number;
+    label: string;
+    value: string;
 }
 
 export interface Ischecked {
-    [id:number]:boolean
+    id: string; 
+    checked: boolean
 }
 
 export interface User {
-    username:string;
-    password:string
+    username: string;
+    password: string
 }
 

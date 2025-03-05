@@ -1,6 +1,6 @@
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import CandidateFilter from "../Components/Candidates/CandidateFilter";
+import {CandidateFilter} from "../Components/Candidates/CandidateFilter";
 import { useContext} from "react";
 import Candidate from "../Components/Candidates/Candidate";
 import { CandidateContext } from "../Provider/CandidateContext";
@@ -12,13 +12,15 @@ import CheckBoxes from "../Components/Candidates/CheckBoxes";
 
 const CandidateList=()=> {
 
-    const data=useContext(CandidateContext);
+    const context = useContext(CandidateContext);
 
-    if (!data){
-        return <div>error data is undefined</div>  
+    if (!context) {
+        return <p>Error: CandidateContext is not provided!</p>;
     }
 
-    const {loading}=data
+    const { loading } = context;
+
+    
 
     return (
         <>
