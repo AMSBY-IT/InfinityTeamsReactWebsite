@@ -1,25 +1,27 @@
-import { useContext, useRef, useState } from "react";
-import { CandidateContext } from "../Provider/CandidateContext";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../api/services";
+import { useContext, useRef, useState } from 'react';
+import { CandidateContext } from '../Provider/CandidateContext';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from '../api/services';
+import { Button, buttonVariants } from './ui/button';
+import { cn } from '@/lib/utils';
+import UserAuthForm from './Auth/UserAuthForm';
 
 const LoginPage = () => {
   const errRef = useRef<HTMLParagraphElement | null>(null);
 
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   // const [loading, setLoading] = useState(false);
   // const [errMsg, setErrMsg] = useState('');
 
   const context = useContext(CandidateContext);
 
-    if (!context) {
-        return <p>Error: CandidateContext is not provided!</p>;
-    }
+  if (!context) {
+    return <p>Error: CandidateContext is not provided!</p>;
+  }
 
-
-  const { dispatch, errorMessage, loading } = context
+  const { dispatch, errorMessage, loading } = context;
 
   const navigate = useNavigate();
 
@@ -32,13 +34,13 @@ const LoginPage = () => {
       password: string;
     }) => loginUser(username, password),
     onSuccess: (data) => {
-      localStorage.setItem("token", data.token);
-      dispatch({ type: "SET_LOGIN", payload: true });
-      dispatch({ type: "SET_LOADING", payload: true })
-      navigate("/");
+      localStorage.setItem('token', data.token);
+      dispatch({ type: 'SET_LOGIN', payload: true });
+      dispatch({ type: 'SET_LOADING', payload: true });
+      navigate('/');
     },
     onError: (error) => {
-      dispatch({ type: "SET_ERROR", payload: error.message });
+      dispatch({ type: 'SET_ERROR', payload: error.message });
     },
   });
 
@@ -73,113 +75,88 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="tw-w-full tw-h-screen">
-        <div className="tw-flex tw-items-center tw-w-full tw-h-full tw-justify-center tw-bg-gray-50">
-          <div className="tw-bg-white tw-rounded-lg tw-shadow-sm tw-p-8">
-            <div className="tw-flex tw-justify-between tw-items-center tw-mb-6">
-              <h1 className="tw-text-2xl tw-font-semibold">Login</h1>
-              <button className="tw-text-gray-400 hover:tw-text-gray-600">
-                {/* <X className="tw-h-5 tw-w-5" /> */}
-              </button>
-            </div>
-
-            <div className="tw-text-center tw-text-gray-500 tw-mb-6">
-              <div className="tw-relative">
-                <div className="tw-absolute tw-inset-0 tw-flex tw-items-center">
-                  <div className="tw-w-full tw-border-t tw-border-gray-200"></div>
-                </div>
-                <div className="tw-relative tw-flex tw-justify-center tw-text-sm">
-                  <span className="tw-px-2 tw-bg-white">
-                    Choose your Account Type
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="tw-grid tw-grid-cols-2 tw-gap-4 tw-mb-6">
-              <button className="tw-bg-[#6039C8] tw-py-3 tw-px-7 tw-rounded-md tw-text-white">
-                Candidate
-              </button>
-              <button className="tw-bg-gray-100 tw-py-3 tw-px-7 tw-rounded-md tw-text-gray-600">
-                Employer
-              </button>
-            </div>
-
-            <div className="tw-space-y-4">
-              {errorMessage && (
-                <p
-                  ref={errRef}
-                  className="tw-text-sm tw-text-red-600"
-                  aria-live="assertive"
-                >
-                  {errorMessage}
-                </p>
-              )}
-              <div>
-                <label className="tw-block tw-text-sm tw-font-medium tw-mb-1">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  className="tw-w-full tw-outline-none tw-py-3 tw-px-3 tw-border tw-rounded-md"
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className="tw-block tw-text-sm tw-font-medium tw-mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="tw-w-full tw-outline-none tw-py-3 tw-px-3 tw-border tw-rounded-md"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-
-              <div className="tw-flex tw-items-center tw-justify-between">
-                <div className="tw-flex tw-items-center tw-space-x-2">
-                  <input type="checkbox" id="remember" />
-                  <label
-                    htmlFor="remember"
-                    className="tw-text-sm tw-text-gray-500"
-                  >
-                    Remember me
-                  </label>
-                </div>
-                <a
-                  href="#"
-                  className="tw-text-sm tw-text-gray-500 hover:tw-text-gray-700"
-                >
-                  Forgot Password?
-                </a>
-              </div>
-
-              <button
-                className="tw-w-full tw-bg-[#6039C8] tw-py-3 tw-px-7 tw-text-white tw-rounded-md"
-                onClick={() => loginMutation.mutate({ username, password })}
-                disabled={loading}
-              >
-                {loading ? "Logging in..." : "Login"}
-              </button>
-
-              <div className="tw-relative tw-my-6">
-                <div className="tw-absolute tw-inset-0 tw-flex tw-items-center">
-                  <div className="tw-w-full tw-border-t tw-border-gray-200"></div>
-                </div>
-                <div className="tw-relative tw-flex tw-justify-center tw-text-sm">
-                  <span className="tw-px-2 tw-bg-white tw-text-gray-500">
-                    Or
-                  </span>
-                </div>
-              </div>
-              <p className="tw-text-center tw-text-gray-500 tw-text-sm tw-mt-6">
-                Don't have an account?
-                <a href="/signup" className="tw-text-[#6039C8] tw-ml-1">
-                  Sign Up
-                </a>
+      <div className='md:hidden'>
+        <img
+          src='/examples/authentication-light.png'
+          width={1280}
+          height={843}
+          alt='Authentication'
+          className='block dark:hidden'
+        />
+        <img
+          src='/examples/authentication-dark.png'
+          width={1280}
+          height={843}
+          alt='Authentication'
+          className='hidden dark:block'
+        />
+      </div>
+      <div className='container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
+        <a
+          href='/examples/authentication'
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'absolute right-4 top-4 md:right-8 md:top-8'
+          )}
+        >
+          Login
+        </a>
+        <div className='relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex'>
+          <div className='absolute inset-0 bg-zinc-900' />
+          <div className='relative z-20 flex items-center text-lg font-medium'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              className='mr-2 h-6 w-6'
+            >
+              <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
+            </svg>
+            Acme Inc
+          </div>
+          <div className='relative z-20 mt-auto'>
+            <blockquote className='space-y-2'>
+              <p className='text-lg'>
+                &ldquo;This library has saved me countless hours of work and
+                helped me deliver stunning designs to my clients faster than
+                ever before.&rdquo;
+              </p>
+              <footer className='text-sm'>Sofia Davis</footer>
+            </blockquote>
+          </div>
+        </div>
+        <div className='lg:p-8'>
+          <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
+            <div className='flex flex-col space-y-2 text-center'>
+              <h1 className='text-2xl font-semibold tracking-tight'>
+                Create an account
+              </h1>
+              <p className='text-sm text-muted-foreground'>
+                Enter your email below to create your account
               </p>
             </div>
+            <UserAuthForm isLoading={false} />
+            <p className='px-8 text-center text-sm text-muted-foreground'>
+              By clicking continue, you agree to our{' '}
+              <a
+                href='/terms'
+                className='underline underline-offset-4 hover:text-primary'
+              >
+                Terms of Service
+              </a>{' '}
+              and{' '}
+              <a
+                href='/privacy'
+                className='underline underline-offset-4 hover:text-primary'
+              >
+                Privacy Policy
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>
