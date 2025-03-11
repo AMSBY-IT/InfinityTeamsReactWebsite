@@ -4,14 +4,9 @@ import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom"
 
 const Header=()=> {
-    const context = useContext(CandidateContext);
+    
 
-    if (!context) {
-        return <p>Error: CandidateContext is not provided!</p>;
-    }
-
-
-    const {dispatch} = context
+    const {dispatch} = useContext(CandidateContext);
         
     
     const navigate = useNavigate()

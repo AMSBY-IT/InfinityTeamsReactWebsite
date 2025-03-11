@@ -5,13 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchlevels } from '../../api/services';
 
 const CheckBoxes = () => {
-  const context = useContext(CandidateContext);
+  
 
-  if (!context) {
-    return <p>Error: CandidateContext is not provided!</p>;
-  }
-
-  const { levels, isChecked, dispatch } = context;
+  const { levels, isChecked, dispatch } = useContext(CandidateContext);
 
   const { data: levelData } = useQuery({
     queryKey: ['level'],
@@ -22,7 +18,7 @@ const CheckBoxes = () => {
     if (levelData) {
       dispatch({ type: 'SET_LEVEL', payload: levelData });
     }
-  }, [levelData]);
+  }, [levelData,dispatch]);
 
   // const levelMutation = useMutation({
   //     mutationFn: () => fetchlevels(),

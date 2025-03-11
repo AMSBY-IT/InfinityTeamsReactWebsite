@@ -6,45 +6,45 @@ const NameSection = () => {
     const location = useLocation();
     const candidate = location.state?.candidate;
 
-    const handleDownload = async (event:any) => {
-        event.preventDefault();
+    // const handleDownload = async (event:any) => {
+    //     event.preventDefault();
     
-        if (candidate?.cvUrl) {
-          const fileUrl = `https://vaibhavarora2-001-site16.dtempurl.com${candidate.cvUrl}`;
+    //     if (candidate?.cvUrl) {
+    //       const fileUrl = `https://vaibhavarora2-001-site16.dtempurl.com${candidate.cvUrl}`;
     
-          try {
-            // Fetch the file as a Blob (handles CORS)
-            const response = await fetch(fileUrl, {
-              method: 'GET',
-            });
+    //       try {
+    //         // Fetch the file as a Blob (handles CORS)
+    //         const response = await fetch(fileUrl, {
+    //           method: 'GET',
+    //         });
     
-            if (!response.ok) {
-              throw new Error(`Failed to fetch file: ${response.statusText}`);
-            }
+    //         if (!response.ok) {
+    //           throw new Error(`Failed to fetch file: ${response.statusText}`);
+    //         }
     
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
+    //         const blob = await response.blob();
+    //         const url = window.URL.createObjectURL(blob);
     
-            // Extract the filename from the URL path
-            const fileName = fileUrl.split('/').pop() || 'downloaded_file';
+    //         // Extract the filename from the URL path
+    //         const fileName = fileUrl.split('/').pop() || 'downloaded_file';
     
-            // Trigger download
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = fileName; // Use extracted filename
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+    //         // Trigger download
+    //         const link = document.createElement('a');
+    //         link.href = url;
+    //         link.download = fileName; // Use extracted filename
+    //         document.body.appendChild(link);
+    //         link.click();
+    //         document.body.removeChild(link);
     
-            // Cleanup the URL
-            window.URL.revokeObjectURL(url);
-          } catch (error) {
-            alert(`download failed ${error}`);
-          }
-        } else {
-          alert('Candidate CV URL is missing or invalid.');
-        }
-      };
+    //         // Cleanup the URL
+    //         window.URL.revokeObjectURL(url);
+    //       } catch (error) {
+    //         alert(`download failed ${error}`);
+    //       }
+    //     } else {
+    //       alert('Candidate CV URL is missing or invalid.');
+    //     }
+    //   };
 
 
     return (
@@ -73,7 +73,7 @@ const NameSection = () => {
                 </div>
 
                 <div className="tw-flex max-sm:tw-w-full tw-hidden">
-                    <a href="#" onClick={handleDownload} className="tw-py-5 tw-px-[30px] max-sm:tw-py-4 tw-flex tw-items-center tw-justify-center max-sm:tw-w-full tw-text-lg max-sm:tw-text-base tw-font-normal tw-rounded-md tw-text-white tw-bg-untitled-ui--primary800">Cv Download</a>
+                    <a href="#" className="tw-py-5 tw-px-[30px] max-sm:tw-py-4 tw-flex tw-items-center tw-justify-center max-sm:tw-w-full tw-text-lg max-sm:tw-text-base tw-font-normal tw-rounded-md tw-text-white tw-bg-untitled-ui--primary800">Cv Download</a>
                 </div>
             </div>
         </>

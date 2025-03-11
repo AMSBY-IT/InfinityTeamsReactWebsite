@@ -7,13 +7,8 @@ import { candidateFetch } from "../../api/services";
 
 const CandidateCard = () => {
 
-    const context = useContext(CandidateContext);
-
-    if (!context) {
-        return <p>Error: CandidateContext is not provided!</p>;
-    }
-
-    const {candidates ,dispatch} = context
+   
+    const {candidates ,dispatch} = useContext(CandidateContext);
 
 
     const { data:candidateData,isFetched} = useQuery({queryKey:['candidate'], queryFn:()=>candidateFetch()});
@@ -22,35 +17,13 @@ const CandidateCard = () => {
         if(isFetched){
             dispatch({ type: "SET_LOADING", payload: false })
         }
-    },[isFetched])
+    },[isFetched,dispatch])
   
   useEffect(()=>{
     if (candidateData){
       dispatch({ type: "SET_CANDIDATES", payload: candidateData });
     }
-  },[candidateData])
-
-    // const candidatesMutation = useMutation({
-    //     mutationFn: () => candidateFetch(),
-    //     onSuccess: (data) => {
-    //       console.log("candidatedata", data);
-    //       dispatch({ type: "SET_CANDIDATES", payload: data });
-    //     },
-    //     onError: (error) => {
-    //       console.log("error", error.message);
-    //     },
-    //   });
-
-    //   useEffect(() => {
-    //     if (token) {
-    //       candidatesMutation.mutate()
-    //     }
-    //   }, [token]);
-
-    // const navigate = useNavigate()
-    // const handleCandidateClick = (candidate:Candidates) => {
-    //     navigate(`/candidatedetail/${candidate.id}`, { state: { candidate } });
-    // };
+  },[candidateData,dispatch])
     
     return (
         <div className="" role="tabpanel" id="grid">

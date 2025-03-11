@@ -1,134 +1,124 @@
 import axios from "axios";
 
-
-// const API_URL = import.meta.env.VITE_API_URL;
-
-const API_URL = import.meta.env.VITE_API_URL
-
-
-
 export const loginUser = async (username: string, password: string) => {
-    try {
         const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/auth/login`, { username, password });
         return response.data;
-    } catch (err) {
-        throw err;
-    }
+    
 };
 
 
-export const fetchCandidates = async(requestModel:any)=>{
-        const token = localStorage.getItem("token");
-        if (!token) {
-            console.error("No token found");
-            return;
-        }
+// export const fetchCandidates = async(requestModel:any)=>{
+//         const token = localStorage.getItem("token");
+//         if (!token) {
+//             console.error("No token found");
+//             return;
+//         }
         
         
 
-        const queryParams = new URLSearchParams({
-            request: JSON.stringify(requestModel)
-        }).toString();
+//         const queryParams = new URLSearchParams({
+//             request: JSON.stringify(requestModel)
+//         }).toString();
 
-        const url = `${API_URL}/umbraco/surface/candidatelistsurface/getcandidates?${queryParams}`
+//         const url = `${API_URL}/umbraco/surface/candidatelistsurface/getcandidates?${queryParams}`
 
 
         
-        try{
-            const response= await axios.get(url
-                ,{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        )
-        return response.data.data
+//         try{
+//             const response= await axios.get(url
+//                 ,{
+//                 headers:{
+//                     Authorization: `Bearer ${token}`
+//                 }
+//             }
+//         )
+//         return response.data.data
             
-        }catch(err){
-            throw(err)
-        }
-    }
+//         }catch(err){
+//             throw(err)
+//         }
+//     }
 
 
-export const fetchDeveloperTags = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        console.error("No token found.");
-        return;
-    }
-    try {
-        const response = await axios.get(`${API_URL}/umbraco/surface/common/getdevelopertags`
-            ,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        }
-        );
-        return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
-};
+// export const fetchDeveloperTags = async () => {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//         console.error("No token found.");
+//         return;
+//     }
+//     try {
+//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getdevelopertags`
+//             ,{
+//             headers:{
+//                 Authorization: `Bearer ${token}`
+//             }
+//         }
+//         );
+//         return response.data.data;
+//     } catch (err) {
+//         throw(err)
+//     }
+// };
 
-export const fetchSkills = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        console.error("No token found");
-        return;
-    }
-    try {
-        const response = await axios.get(`${API_URL}/umbraco/surface/common/getskills`
-            ,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        }
-        );
-        return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
-};
+// export const fetchSkills = async () => {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//         console.error("No token found");
+//         return;
+//     }
+//     try {
+//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getskills`
+//             ,{
+//             headers:{
+//                 Authorization: `Bearer ${token}`
+//             }
+//         }
+//         );
+//         return response.data.data;
+//     } catch (err) {
+//         throw(err)
+//     }
+// };
 
-export const fetchCountries = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        console.error("No token found");
-        return;
-    }
-    try {
-        const response = await axios.get(`${API_URL}/umbraco/surface/common/getcountries`
-            ,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        }
-        );
-        return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
-};
+// export const fetchCountries = async () => {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//         console.error("No token found");
+//         return;
+//     }
+//     try {
+//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getcountries`
+//             ,{
+//             headers:{
+//                 Authorization: `Bearer ${token}`
+//             }
+//         }
+//         );
+//         return response.data.data;
+//     } catch (err) {
+//         throw(err)
+//     }
+// };
 
-export const fetchLevels = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        console.error("No token found");
-        return;
-    }
-    try {
-        const response = await axios.get(`${API_URL}/umbraco/surface/common/getlevels`
-            ,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        }
-        );
-        return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
-};
+// export const fetchLevels = async () => {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//         console.error("No token found");
+//         return;
+//     }
+//     try {
+//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getlevels`
+//             ,{
+//             headers:{
+//                 Authorization: `Bearer ${token}`
+//             }
+//         }
+//         );
+//         return response.data.data;
+//     } catch (err) {
+//         throw(err)
+//     }
+// };
 
 export const fetchTitle = async () => {
     const token = localStorage.getItem("token");
@@ -136,7 +126,6 @@ export const fetchTitle = async () => {
         console.error("No token found fetchtitle.");
         return;
     }
-    try {
         const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/Industry/list`
             ,{
             headers:{
@@ -145,9 +134,6 @@ export const fetchTitle = async () => {
         }
         );
         return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
 };
 
 export const fetchskills = async () => {
@@ -156,7 +142,6 @@ export const fetchskills = async () => {
         console.error("No token found.");
         return;
     }
-    try {
         const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/skill/list`
             ,{
             headers:{
@@ -165,9 +150,6 @@ export const fetchskills = async () => {
         }
         );
         return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
 };
 
 export const fetchcountries = async () => {
@@ -176,7 +158,6 @@ export const fetchcountries = async () => {
         console.error("No token found.");
         return;
     }
-    try {
         const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/country/list`
             ,{
             headers:{
@@ -185,9 +166,6 @@ export const fetchcountries = async () => {
         }
         );
         return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
 };
 
 export const fetchlevels = async () => {
@@ -196,7 +174,6 @@ export const fetchlevels = async () => {
         console.error("No token found.");
         return;
     }
-    try {
         const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/level/list`
             ,{
             headers:{
@@ -205,9 +182,6 @@ export const fetchlevels = async () => {
         }
         );
         return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
 };
 
 
@@ -217,7 +191,6 @@ export const candidateFetch = async () => {
         console.error("No token found.");
         return;
     }
-    try {
         const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/list`
             ,{
             headers:{
@@ -226,7 +199,4 @@ export const candidateFetch = async () => {
         }
         );
         return response.data.data;
-    } catch (err) {
-        throw(err)
-    }
 };

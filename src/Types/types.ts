@@ -1,5 +1,6 @@
 import { Dispatch, ReactNode } from "react";
-import { Action } from "../Provider/CandidateContext";
+import { Action } from "../Provider/CandidateProvider";
+
 
 
 export interface CandidateContextProps {

@@ -9,14 +9,8 @@ import { fetchcountries, fetchskills, fetchTitle } from "../../api/services"
 
 export  const CandidateFilter=()=> {
 
-  const context = useContext(CandidateContext);
-
-    if (!context) {
-        return <p>Error: CandidateContext is not provided!</p>;
-    }
-
-
-  const {dispatch,title,skills,countries} = context
+  
+  const {dispatch,title,skills,countries} = useContext(CandidateContext);
 
   
 
@@ -26,7 +20,7 @@ export  const CandidateFilter=()=> {
     if (titleData){
       dispatch({ type: "SET_TITLE", payload: titleData });
     }
-  },[titleData])
+  },[titleData,dispatch])
 
   const { data:skillData } = useQuery({queryKey:['skill'], queryFn:()=>fetchskills()});
   
@@ -34,7 +28,7 @@ export  const CandidateFilter=()=> {
     if (skillData){
       dispatch({ type: "SET_SKILLS", payload: skillData });
     }
-  },[skillData])
+  },[skillData,dispatch])
 
   const { data:countryData} = useQuery({queryKey:['country'], queryFn:()=>fetchcountries()});
   
@@ -42,7 +36,7 @@ export  const CandidateFilter=()=> {
     if (countryData){
       dispatch({ type: "SET_COUNTRY", payload: countryData });
     }
-  },[countryData])
+  },[countryData,dispatch])
 
   
   const developerOptions = title.map((t:Title) => (

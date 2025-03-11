@@ -1,19 +1,13 @@
-// import { useContext } from "react";
-// import { CandidateContext } from "./Provider/CandidateContext"
-import { useContext } from 'react';
+import { ReactNode } from 'react';
+
 import { Navigate } from 'react-router-dom';
-import { CandidateContext } from './Provider/CandidateContext';
 
-const Protected = ({ children }: any) => {
-  // const data = useContext(CandidateContext);
+interface ProtectedProps {
+  children: ReactNode;
+}
 
-  //     if (!data){
-  //         return <div>error data is undefined</div>
-  //       }
+const Protected = ({ children }: ProtectedProps) => {
 
-  //     const {isLogin}=data
-
-  const { token } = useContext(CandidateContext);
 
   const isAuth = localStorage.getItem('token');
 
