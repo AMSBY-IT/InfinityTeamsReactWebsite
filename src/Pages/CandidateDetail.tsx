@@ -5,7 +5,7 @@ import CandidateInfo from "../Components/CandidateDetail/CandidateInfo";
 import Footer from "../Components/Footer";
 
 
-function CandidateDetail() {
+const CandidateDetail=()=> {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
