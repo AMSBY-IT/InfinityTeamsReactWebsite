@@ -1,37 +1,38 @@
-import { useContext, useRef, useState } from 'react';
-import { CandidateContext } from '../Provider/CandidateContext';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { loginUser } from '../api/services';
-import { Button, buttonVariants } from './ui/button';
-import { cn } from '@/lib/utils';
+
+import React from 'react';
+// import { CandidateContext } from '../Provider/CandidateContext';
+// import { useNavigate } from 'react-router-dom';
+// import { useMutation } from '@tanstack/react-query';
+// import { loginUser } from '../api/services';
+import { buttonVariants } from './ui/button';
 import UserAuthForm from './Auth/UserAuthForm';
+import { cn } from "../lib/utils";
 
 const LoginPage = () => {
   
 
-  const { dispatch } = useContext(CandidateContext);
+  // const { dispatch } = useContext(CandidateContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const loginMutation = useMutation({
-    mutationFn: ({
-      username,
-      password,
-    }: {
-      username: string;
-      password: string;
-    }) => loginUser(username, password),
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
-      dispatch({ type: 'SET_LOGIN', payload: true });
-      dispatch({ type: 'SET_LOADING', payload: true });
-      navigate('/');
-    },
-    onError: (error) => {
-      dispatch({ type: 'SET_ERROR', payload: error.message });
-    },
-  });
+  // const loginMutation = useMutation({
+  //   mutationFn: ({
+  //     username,
+  //     password,
+  //   }: {
+  //     username: string;
+  //     password: string;
+  //   }) => loginUser(username, password),
+  //   onSuccess: (data) => {
+  //     localStorage.setItem('token', data.token);
+  //     dispatch({ type: 'SET_LOGIN', payload: true });
+  //     dispatch({ type: 'SET_LOADING', payload: true });
+  //     navigate('/');
+  //   },
+  //   onError: (error) => {
+  //     dispatch({ type: 'SET_ERROR', payload: error.message });
+  //   },
+  // });
 
 
   return (
