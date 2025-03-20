@@ -1,7 +1,54 @@
+import { registerUser } from "@/api/services";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export const CandidateRegisterForm = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    FirstName: "",
+    LastName: "",
+    Email: "",
+    Password: "",
+});
+
+const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+const regitserMutation = useMutation({
+  mutationFn:registerUser,
+  onSuccess:(data:{success:string,message:string})=>{
+    if(data.success ){
+      alert(data.message)
+      navigate("/auth/login")
+    } else {
+      alert("Login failed: " + data.message);
+    }
+    
+  },
+  onError:(error)=>{
+    if (axios.isAxiosError(error)) {
+      
+      const errorMessage = error.response?.data?.message || "An unknown error occurred.";
+      alert("Error: " + errorMessage);
+    } else {
+      
+      alert("Error: " + error.message);
+    }
+  },
+});
+
+const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  regitserMutation.mutate(formData)
+};
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* <!-- firstName Field --> */}
         <div className="mb-3 sm:mb-4">
           <label
@@ -30,6 +77,8 @@ export const CandidateRegisterForm = () => {
             <input
               type="text"
               id="name"
+              name="FirstName"
+              onChange={handleChange}
               placeholder="Enter your firstname"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
@@ -63,7 +112,9 @@ export const CandidateRegisterForm = () => {
             </div>
             <input
               type="text"
-              id="name"
+              id="lastname"
+              name="LastName"
+              onChange={handleChange}
               placeholder="Enter your lastname"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
@@ -98,6 +149,8 @@ export const CandidateRegisterForm = () => {
             <input
               type="email"
               id="email"
+              name="Email"
+              onChange={handleChange}
               placeholder="Enter your email"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
@@ -132,13 +185,12 @@ export const CandidateRegisterForm = () => {
             <input
               type="password"
               id="password"
+              name="Password"
+              onChange={handleChange}
               placeholder="Create password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
           </div>
-          <p className="text-xs text-gray-500 mt-1">
-            Must be at least 8 characters.
-          </p>
         </div>
 
         <div className="mb-4 sm:mb-6">
@@ -167,7 +219,7 @@ export const CandidateRegisterForm = () => {
             </div>
             <input
               type="password"
-              id="password"
+              id="passwordconfirm"
               placeholder="Re-type Password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>

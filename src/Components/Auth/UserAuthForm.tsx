@@ -1,10 +1,55 @@
+import { loginUser } from "@/api/services";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const UserAuthForm = () => {
+
+  const navigate = useNavigate();
+
+  const [ credentials, setCredentials]=useState({
+    Email:"",
+    Password:""
+  })
+
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const loginMutation = useMutation({
+    mutationFn:loginUser,
+    onSuccess: (data)=>{
+      if (data.success) {
+        localStorage.setItem("token", data.data.token);
+        alert(data.message);
+        navigate("/onboarding/personal");
+      } else {
+        alert("Login failed: " + data.message);
+      }
+    },
+    onError:(error)=>{
+      if (axios.isAxiosError(error)) {
+        
+        const errorMessage = error.response?.data?.message || "An unknown error occurred.";
+        alert("Error: " + errorMessage);
+      } else {
+        
+        alert("Error: " + error.message);
+      }
+    },
+  })
+
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    loginMutation.mutate(credentials)
+  };
+
   return (
     <>
-      <form>
+      <form  onSubmit={handleSubmit}>
         {/* <!-- Email Field --> */}
         <div className="mb-3 sm:mb-4">
           <label
@@ -33,6 +78,8 @@ const UserAuthForm = () => {
             <input
               type="email"
               id="email"
+              name="Email"
+              onChange={handleChange}
               placeholder="Enter your email"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
@@ -67,6 +114,8 @@ const UserAuthForm = () => {
             <input
               type="password"
               id="password"
+              name="Password"
+              onChange={handleChange}
               placeholder="Enter password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
