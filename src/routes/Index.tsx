@@ -6,6 +6,7 @@ import CVSkills from "../Pages/onboarding/CVSkills";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/auth/Login";
 import Register from "../Pages/auth/Register";
+import StepFormPage from '@/Components/StepFormPage';
 
 
 function Index() {
@@ -17,9 +18,12 @@ function Index() {
 	  <Route path="/404" element={<>4040 page</>} />
 		<Route path="/auth/login" element={<Login/>} />
 		<Route path="/auth/register" element={<Register/>} />
-		<Route path="/onboarding/personal" element={<PersonalPage/>} />
-		<Route path="/onboarding/professional" element={<ProfessionPage/>} />
-		<Route path="/onboarding/cv-skills" element={<CVSkills/>} />
+		<Route path="/onboarding" element={<StepFormPage />}>
+          <Route path="personal" element={<PersonalPage />} />
+          <Route path="professional" element={<ProfessionPage />} />
+          <Route path="cv-skills" element={<CVSkills />} />
+          <Route index element={<Navigate to="personal" />} /> 
+        </Route>
 	  <Route path="*" element={<Navigate replace to="/404" />} />
 	</Routes>
   </BrowserRouter>
