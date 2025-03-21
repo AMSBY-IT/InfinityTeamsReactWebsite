@@ -1,8 +1,14 @@
 import React from 'react'
+import BoardingContainer from "@/components/onboarding/BoardingContainer"
 
 function PersonalPage() {
   return (
-	<div>PersonalPage</div>
+    <div>
+      <BoardingContainer>
+
+
+      </BoardingContainer>
+    </div>
   )
 }
 

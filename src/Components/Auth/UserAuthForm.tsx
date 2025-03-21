@@ -3,25 +3,25 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const UserAuthForm = () => {
 
   const navigate = useNavigate();
 
-  const [ credentials, setCredentials]=useState({
-    Email:"",
-    Password:""
+  const [credentials, setCredentials] = useState({
+    Email: "",
+    Password: ""
   })
 
-  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const loginMutation = useMutation({
-    mutationFn:loginUser,
-    onSuccess: (data)=>{
+    mutationFn: loginUser,
+    onSuccess: (data) => {
       if (data.success) {
         localStorage.setItem("token", data.data.token);
         navigate("/onboarding/personal");
@@ -29,26 +29,26 @@ const UserAuthForm = () => {
         toast.error("Login failed: " + data.message);
       }
     },
-    onError:(error)=>{
+    onError: (error) => {
       if (axios.isAxiosError(error)) {
-        
+
         const errorMessage = error.response?.data?.message || "An unknown error occurred.";
         toast.error("Error: " + errorMessage);
       } else {
-        
+
         toast.error("Error: " + error.message);
       }
     },
   })
 
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     loginMutation.mutate(credentials)
   };
 
   return (
     <>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {/* <!-- Email Field --> */}
         <div className="mb-3 sm:mb-4">
           <label
