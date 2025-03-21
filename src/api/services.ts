@@ -1,124 +1,18 @@
+import { usercredentials, userdata } from "@/Types/types";
 import axios from "axios";
 
-export const loginUser = async (username: string, password: string) => {
-        const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/auth/login`, { username, password });
+export const loginUser = async (userCredentials:usercredentials) => {
+        const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/login`, userCredentials);
         return response.data;
     
 };
 
 
-// export const fetchCandidates = async(requestModel:any)=>{
-//         const token = localStorage.getItem("token");
-//         if (!token) {
-//             console.error("No token found");
-//             return;
-//         }
-        
-        
+export const registerUser = async (userData:userdata) => {
+    const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/register`, userData);
+    return response.data;
 
-//         const queryParams = new URLSearchParams({
-//             request: JSON.stringify(requestModel)
-//         }).toString();
-
-//         const url = `${API_URL}/umbraco/surface/candidatelistsurface/getcandidates?${queryParams}`
-
-
-        
-//         try{
-//             const response= await axios.get(url
-//                 ,{
-//                 headers:{
-//                     Authorization: `Bearer ${token}`
-//                 }
-//             }
-//         )
-//         return response.data.data
-            
-//         }catch(err){
-//             throw(err)
-//         }
-//     }
-
-
-// export const fetchDeveloperTags = async () => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//         console.error("No token found.");
-//         return;
-//     }
-//     try {
-//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getdevelopertags`
-//             ,{
-//             headers:{
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }
-//         );
-//         return response.data.data;
-//     } catch (err) {
-//         throw(err)
-//     }
-// };
-
-// export const fetchSkills = async () => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//         console.error("No token found");
-//         return;
-//     }
-//     try {
-//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getskills`
-//             ,{
-//             headers:{
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }
-//         );
-//         return response.data.data;
-//     } catch (err) {
-//         throw(err)
-//     }
-// };
-
-// export const fetchCountries = async () => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//         console.error("No token found");
-//         return;
-//     }
-//     try {
-//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getcountries`
-//             ,{
-//             headers:{
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }
-//         );
-//         return response.data.data;
-//     } catch (err) {
-//         throw(err)
-//     }
-// };
-
-// export const fetchLevels = async () => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//         console.error("No token found");
-//         return;
-//     }
-//     try {
-//         const response = await axios.get(`${API_URL}/umbraco/surface/common/getlevels`
-//             ,{
-//             headers:{
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }
-//         );
-//         return response.data.data;
-//     } catch (err) {
-//         throw(err)
-//     }
-// };
+};
 
 export const fetchTitle = async () => {
     const token = localStorage.getItem("token");
