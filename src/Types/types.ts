@@ -113,3 +113,15 @@ export interface User {
     password: string
 }
 
+export interface userdata{
+    FirstName:string;
+    LastName:string;
+    Email:string;
+    Password:string,
+    ConfirmPassword:string,
+}
+
+export interface usercredentials {
+    Email:string;
+    Password:string
+}
