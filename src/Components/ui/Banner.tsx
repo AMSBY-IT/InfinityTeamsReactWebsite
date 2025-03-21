@@ -4,8 +4,8 @@ export const Banner = ()=>{
     return(
         <>
         {/* <!-- Left Side - Purple Section --> */}
-        <div className="flex justify-center items-center bg-[#6c5ce7] w-full md:w-1/2">
-            <div className="w-full  lg:w-3/4 h-full p-4 sm:p-6 md:p-8 text-white relative">
+        <div className="flex justify-center items-start bg-[#6c5ce7] w-full md:w-1/2">
+            <div className="w-full  lg:w-3/4 h-1/2 p-4 sm:p-6 md:p-8 text-white relative">
               {/* <!-- Logo/Icon --> */}
               <div className="mb-4 sm:mb-6">
                 <div className="bg-white/20 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center">

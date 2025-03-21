@@ -117,7 +117,8 @@ export interface userdata{
     FirstName:string;
     LastName:string;
     Email:string;
-    Password:string
+    Password:string,
+    ConfirmPassword:string,
 }
 
 export interface usercredentials {

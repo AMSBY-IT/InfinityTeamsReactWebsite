@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {  toast } from 'react-toastify';
 
 export const CandidateRegisterForm = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export const CandidateRegisterForm = () => {
     LastName: "",
     Email: "",
     Password: "",
+    ConfirmPassword:"",
 });
 
 const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -22,10 +24,10 @@ const regitserMutation = useMutation({
   mutationFn:registerUser,
   onSuccess:(data:{success:string,message:string})=>{
     if(data.success ){
-      alert(data.message)
+      toast.success(data.message)
       navigate("/auth/login")
     } else {
-      alert("Login failed: " + data.message);
+      toast.error("Login failed: " + data.message);
     }
     
   },
@@ -33,16 +35,20 @@ const regitserMutation = useMutation({
     if (axios.isAxiosError(error)) {
       
       const errorMessage = error.response?.data?.message || "An unknown error occurred.";
-      alert("Error: " + errorMessage);
+      toast.error("Error: " + errorMessage);
     } else {
       
-      alert("Error: " + error.message);
+      toast.error("Error: " + error.message);
     }
   },
 });
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  if (formData.Password !== formData.ConfirmPassword) {
+    toast.error("Passwords do not match!");
+    return;
+  }
   regitserMutation.mutate(formData)
 };
 
@@ -76,6 +82,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
             </div>
             <input
               type="text"
+              required
               id="name"
               name="FirstName"
               onChange={handleChange}
@@ -112,6 +119,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
             </div>
             <input
               type="text"
+              required
               id="lastname"
               name="LastName"
               onChange={handleChange}
@@ -148,6 +156,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
             </div>
             <input
               type="email"
+              required
               id="email"
               name="Email"
               onChange={handleChange}
@@ -184,6 +193,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
             </div>
             <input
               type="password"
+              required
               id="password"
               name="Password"
               onChange={handleChange}
@@ -219,7 +229,10 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
             </div>
             <input
               type="password"
-              id="passwordconfirm"
+              required
+              id="confirmpassword"
+              name="ConfirmPassword"
+              onChange={handleChange}
               placeholder="Re-type Password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>

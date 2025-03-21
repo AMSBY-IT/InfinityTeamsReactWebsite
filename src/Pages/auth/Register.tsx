@@ -5,8 +5,8 @@ import { CandidateRegisterForm } from "@/Components/Auth/CandidateRegisterForm";
 function Register() {
   return (
     <>
-      <div className="flex justify-center items-center min-h-full">
-        <div className="flex flex-col md:flex-row w-full min-h-full bg-white shadow-lg overflow-hidden">
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col md:flex-row w-full min-h-screen bg-white shadow-lg overflow-hidden">
           <Banner></Banner>
 
           {/* <!-- Right Side - Form Section --> */}
@@ -76,7 +76,7 @@ function Register() {
                 <div className="text-center text-xs sm:text-sm">
                   Already have an account?{" "}
                   <a
-                    href="#"
+                    href="/auth/login"
                     className="text-[#6c5ce7] font-medium hover:underline"
                   >
                     Sign in

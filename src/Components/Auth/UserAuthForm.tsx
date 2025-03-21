@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {  toast } from 'react-toastify';
 
 
 const UserAuthForm = () => {
@@ -24,20 +24,19 @@ const UserAuthForm = () => {
     onSuccess: (data)=>{
       if (data.success) {
         localStorage.setItem("token", data.data.token);
-        alert(data.message);
         navigate("/onboarding/personal");
       } else {
-        alert("Login failed: " + data.message);
+        toast.error("Login failed: " + data.message);
       }
     },
     onError:(error)=>{
       if (axios.isAxiosError(error)) {
         
         const errorMessage = error.response?.data?.message || "An unknown error occurred.";
-        alert("Error: " + errorMessage);
+        toast.error("Error: " + errorMessage);
       } else {
         
-        alert("Error: " + error.message);
+        toast.error("Error: " + error.message);
       }
     },
   })
@@ -77,6 +76,7 @@ const UserAuthForm = () => {
             </div>
             <input
               type="email"
+              required
               id="email"
               name="Email"
               onChange={handleChange}
@@ -113,6 +113,7 @@ const UserAuthForm = () => {
             </div>
             <input
               type="password"
+              required
               id="password"
               name="Password"
               onChange={handleChange}
