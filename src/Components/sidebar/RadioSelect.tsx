@@ -1,7 +1,7 @@
 import type React from "react"
 import { Calendar, Clock, ClipboardCheck } from "lucide-react"
 
-export default function EmploymentTypeSection() {
+export default function RadioSelect() {
 	return (
 		<div>
 			<h4 className="text-sm font-medium mb-3">Employment Type</h4>
