@@ -17,7 +17,7 @@ const DropDown = (props: Props) => {
 				<h4 className="text-sm font-medium mb-2">{props.label}</h4>
 				<div className="relative">
 					<select
-						className="w-full appearance-none border rounded-md px-4 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-purple-500"
+						className="w-full bg-white appearance-none border rounded-md px-4 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-purple-500"
 						defaultValue="hourly"
 					>
 						{props.options.map((opt) => {

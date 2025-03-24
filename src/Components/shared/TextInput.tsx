@@ -13,7 +13,7 @@ export default function TextInput({ label, placeHolder, helperText }: Props) {
 
 					<input
 						type="text"
-						className="block w-full pl-2 py-2.5 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
+						className="block w-full bg-white pl-2 py-2.5 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
 						placeholder={placeHolder}
 					/>
 
