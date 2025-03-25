@@ -1,9 +1,6 @@
 import React, {  useReducer } from 'react';
 import {
-  Title,
-  Skill,
-  Countries,
-  Levels,
+  commonType,
   Candidates,
   CandidateProviderProps,
 } from '../Types/types';
@@ -16,10 +13,13 @@ export type Action =
   | { type: 'SET_ERROR'; payload: string }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_TOKEN'; payload: string }
-  | { type: 'SET_TITLE'; payload: Title[] }
-  | { type: 'SET_SKILLS'; payload: Skill[] }
-  | { type: 'SET_COUNTRY'; payload: Countries[] }
-  | { type: 'SET_LEVEL'; payload: Levels[] }
+  | { type: 'SET_TITLE'; payload: commonType[] }
+  | { type: 'SET_SKILLS'; payload: commonType[] }
+  | { type: 'SET_COUNTRY'; payload: commonType[] }
+  | { type: 'SET_LEVEL'; payload: commonType[] }
+  | { type: 'SET_DESIGNATION'; payload: commonType[] }
+  | { type: 'SET_DEGREE'; payload: commonType[] }
+  | { type: 'SET_LANGUAGES'; payload: commonType[] }
   | { type: 'SET_CANDIDATES'; payload: Candidates[] }
   | { type: 'SET_CHECKED'; payload: { id: string; checked: boolean } };
 
@@ -44,6 +44,12 @@ const Reducer = (state: typeof initialState, action: Action) => {
       return { ...state, countries: action.payload };
     case 'SET_LEVEL':
       return { ...state, levels: action.payload };
+    case 'SET_LANGUAGES':
+      return { ...state, languages: action.payload };
+    case 'SET_DESIGNATION':
+      return { ...state, designation: action.payload };
+    case 'SET_DEGREE':
+      return { ...state, degree: action.payload };
     case 'SET_CANDIDATES':
       return { ...state, candidates: action.payload };
     case 'SET_CHECKED':

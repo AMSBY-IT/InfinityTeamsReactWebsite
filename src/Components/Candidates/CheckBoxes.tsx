@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { CandidateContext } from '../../Provider/CandidateContext';
-import { Levels } from '../../Types/types';
+import { commonType } from '../../Types/types';
 import { useQuery } from '@tanstack/react-query';
-import { fetchlevels } from '../../api/services';
+import { getlevels } from '../../api/services';
 
 const CheckBoxes = () => {
   
@@ -11,7 +11,7 @@ const CheckBoxes = () => {
 
   const { data: levelData } = useQuery({
     queryKey: ['level'],
-    queryFn: () => fetchlevels(),
+    queryFn: () => getlevels(),
   });
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const CheckBoxes = () => {
             </div>
             {isDropdownOpen && (
               <div className='search__item__list' id='chkbxLevels'>
-                {levels.map((item: Levels) => {
+                {levels.map((item: commonType) => {
                   return (
                     <div className='tw-flex tw-items-center tw-py-1'>
                       <div

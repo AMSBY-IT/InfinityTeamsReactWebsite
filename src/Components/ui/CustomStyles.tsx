@@ -2,7 +2,7 @@ import { StylesConfig } from "react-select";
 
 type OptionType = { label: string; value: string };
 
-export const customStyles: StylesConfig<OptionType, false> = {
+export const customStyles: StylesConfig<OptionType> = {
   control: (provided, state) => ({
     ...provided,
     paddingLeft: "2.5rem",

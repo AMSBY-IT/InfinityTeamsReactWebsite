@@ -47,13 +47,17 @@ export default function StepFormPage() {
           <Outlet />
 
           {/* Navigation buttons */}
-          <div className="buttons">
-        {currentStep > 0 && <button onClick={prevStep}>Previous</button>}
+          <div className="buttons mt-7 flex justify-between">
+        <div className="items-start">
+        {currentStep > 0 && <button onClick={prevStep} className="py-2 px-3 bg-[#6c5ce7] text-white rounded-xl">Previous</button>}
+        </div>
+        <div className="flex items-center">
         {currentStep < totalSteps - 1 ? (
-          <button onClick={nextStep}>Next</button>
+          <button className="py-2 px-3 bg-[#6c5ce7] text-white rounded-xl" onClick={nextStep}>Next</button>
         ) : (
-          <button onClick={() => alert("Form Submitted!")}>Complete Registration</button>
+          <button className="py-2 px-3 bg-[#6c5ce7] text-white rounded-xl" onClick={() => alert("Form Submitted!")}>Complete Registration</button>
         )}
+        </div>
       </div>
         </div>
       </div>

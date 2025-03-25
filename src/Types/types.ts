@@ -1,19 +1,24 @@
 import { Dispatch, ReactNode } from "react";
 import { Action } from "../Provider/CandidateProvider";
+import { MultiValue, SingleValue } from "react-select";
 
 
+export type OptionTypeParameter<T>=SingleValue<T> | MultiValue<T>
 
 export interface CandidateContextProps {
-    title: Title[];
-    skills: Skill[];
-    countries: Countries[];
-    levels: Levels[];
+    title: commonType[];
+    skills: commonType[];
+    countries: commonType[];
+    levels: commonType[];
+    languages: commonType[];
+    designation: commonType[];
+    degree: commonType[];
     candidates: Candidates[];
     loading: boolean;
     isChecked: Record<string, boolean>;
     isLogin: boolean;
-    errorMessage:string;
-    token:string;
+    errorMessage: string;
+    token: string;
     dispatch: Dispatch<Action>;
 }
 
@@ -30,22 +35,9 @@ export interface FetchCandidatesParams {
     countryGuid?: string;
 }
 
-export interface Title {
-    id: string;
-    name: string
-}
 
-export interface Skill {
-    id: string;
-    name: string
-}
 
-export interface Countries {
-    id: string;
-    name: string
-}
-
-export interface Levels {
+export interface commonType {
     id: string;
     name: string
 }
@@ -104,7 +96,7 @@ export interface Selected {
 }
 
 export interface Ischecked {
-    id: string; 
+    id: string;
     checked: boolean
 }
 
@@ -113,15 +105,49 @@ export interface User {
     password: string
 }
 
-export interface userdata{
-    FirstName:string;
-    LastName:string;
-    Email:string;
-    Password:string,
-    ConfirmPassword:string,
+export interface userdata {
+    FirstName: string;
+    LastName: string;
+    Email: string;
+    Password: string,
+    ConfirmPassword: string,
 }
 
 export interface usercredentials {
-    Email:string;
-    Password:string
+    Email: string;
+    Password: string
+}
+
+export interface personalData {
+    country: string;
+    city: string;
+    language: { id: string }[];
+    isFresher: boolean
+}
+
+export interface OptionType {
+    value: string;
+    label: string;
+};
+
+export interface professionalData {
+    education: [
+        {
+            instituteName: string;
+            courseName: string;
+            startYear: number;
+            endYear: number
+        }
+    ];
+    professional: [
+        {
+            isCurrent: boolean;
+            companyName: string;
+            designation: { id: string, name: string };
+            startDate: string | null;
+            endDate: string | null;
+            jobDetail: string;
+        }
+    ];
+    experienceLevel: string;
 }

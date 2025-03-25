@@ -1,11 +1,9 @@
 import  { createContext } from 'react';
 import {
-  Title,
-  Skill,
-  Countries,
-  Levels,
+  commonType,
   Candidates,
   CandidateContextProps,
+  
 } from '../Types/types';
 
 
@@ -14,10 +12,13 @@ export const initialState = {
   loading: false,
   errorMessage: '',
   token: '',
-  title: [] as Title[],
-  skills: [] as Skill[],
-  countries: [] as Countries[],
-  levels: [] as Levels[],
+  title: [] as commonType[],
+  skills: [] as commonType[],
+  countries: [] as commonType[],
+  levels: [] as commonType[],
+  languages:[] as commonType[],
+  designation:[] as commonType[],
+  degree:[] as commonType[],
   candidates: [] as Candidates[],
   isChecked: {} as Record<string, boolean>,
   dispatch: ()=>{}

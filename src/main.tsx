@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CandidateProvider } from './Provider/CandidateProvider.tsx'
 import Index from "./routes/Index.tsx"
+import "react-datepicker/dist/react-datepicker.css";
 
 const queryClient = new QueryClient();
 
