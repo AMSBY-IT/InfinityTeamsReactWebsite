@@ -1,6 +1,7 @@
-import React from "react";
+
 import Select, { MultiValue } from "react-select";
 import { customStyles } from "../ui/customStyle";
+
 
 export type Options = {
   id: string;

@@ -1,6 +1,6 @@
 import BoardingContainer from "@/components/onboarding/BoardingContainer"
 import CvSkills from "@/components/onboarding/CvSkills"
-import React from 'react'
+
 
 function CVSkills() {
   return (

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BoardingContainer from "@/components/onboarding/BoardingContainer"
 import PersonaInformation from "@/components/onboarding/PersonaInformation"
 

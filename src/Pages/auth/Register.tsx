@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Banner } from "@/components/ui/Banner";
 import { CandidateRegisterForm } from "@/components/Auth/CandidateRegisterForm";
 
