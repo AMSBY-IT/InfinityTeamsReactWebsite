@@ -2,9 +2,9 @@ import { useContext, useEffect} from "react"
 import Select from 'react-select'
 import { StylesConfig } from "react-select"
 import { CandidateContext } from "../../Provider/CandidateContext"
-import {Countries, Selected, Skill, Title} from "../../Types/types"
+import {commonType, Selected} from "../../Types/types"
 import { useQuery } from "@tanstack/react-query"
-import { fetchcountries, fetchskills, fetchTitle } from "../../api/services"
+import { getcountries, getskills, fetchTitle } from "../../api/services"
 
 
 export  const CandidateFilter=()=> {
@@ -22,7 +22,7 @@ export  const CandidateFilter=()=> {
     }
   },[titleData,dispatch])
 
-  const { data:skillData } = useQuery({queryKey:['skill'], queryFn:()=>fetchskills()});
+  const { data:skillData } = useQuery({queryKey:['skill'], queryFn:()=>getskills()});
   
   useEffect(()=>{
     if (skillData){
@@ -30,7 +30,7 @@ export  const CandidateFilter=()=> {
     }
   },[skillData,dispatch])
 
-  const { data:countryData} = useQuery({queryKey:['country'], queryFn:()=>fetchcountries()});
+  const { data:countryData} = useQuery({queryKey:['country'], queryFn:()=>getcountries()});
   
   useEffect(()=>{
     if (countryData){
@@ -39,7 +39,7 @@ export  const CandidateFilter=()=> {
   },[countryData,dispatch])
 
   
-  const developerOptions = title.map((t:Title) => (
+  const developerOptions = title.map((t:commonType) => (
     {
       value: t.name,
       label: t.name,
@@ -48,7 +48,7 @@ export  const CandidateFilter=()=> {
     }
   ))
 
-  const skill = skills.map((s:Skill) => (
+  const skill = skills.map((s:commonType) => (
     {
       value: s.name,
       label: s.name,
@@ -57,7 +57,7 @@ export  const CandidateFilter=()=> {
     }
   ))
 
-  const country = countries.map((c:Countries) => (
+  const country = countries.map((c:commonType) => (
     {
       value: c.name,
       label: c.name,

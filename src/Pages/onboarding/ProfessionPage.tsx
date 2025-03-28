@@ -1,6 +1,6 @@
 import BoardingContainer from "@/components/onboarding/BoardingContainer"
 import ProfessionalInformation from "@/components/onboarding/ProfessionalInformation"
-import React from 'react'
+
 
 
 function ProfessionPage() {
