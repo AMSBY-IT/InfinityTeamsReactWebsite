@@ -33,7 +33,7 @@ export default function ProgressSteps({ step }: { step: number }) {
 							<div className="flex-shrink-0 cursor-pointer h-6 w-6 rounded-full bg-purple-600 flex items-center justify-center">
 								<Check className="h-4 w-4 text-white" />
 							</div>
-						) : stepIdx === step ? (
+						) : stepIdx+1 === step ? (
 							<div onClick={() => handleNavigation(s.id)} className="flex-shrink-0 cursor-pointer h-6 w-6 rounded-full border-2 border-purple-600 flex items-center justify-center">
 								<span className="text-xs font-medium text-purple-600">{s.id}</span>
 							</div>

@@ -1,13 +1,17 @@
 import { Dispatch, ReactNode } from "react";
 import { Action } from "../Provider/CandidateProvider";
+import { MultiValue, SingleValue } from "react-select";
 
 
 
 export interface CandidateContextProps {
-    title: Title[];
-    skills: Skill[];
-    countries: Countries[];
-    levels: Levels[];
+    title: commonType[];
+    skills: commonType[];
+    countries: commonType[];
+    levels: commonType[];
+    languages: commonType[];
+    designation: commonType[];
+    degree: commonType[];
     candidates: Candidates[];
     loading: boolean;
     isChecked: Record<string, boolean>;
@@ -30,22 +34,7 @@ export interface FetchCandidatesParams {
     countryGuid?: string;
 }
 
-export interface Title {
-    id: string;
-    name: string
-}
-
-export interface Skill {
-    id: string;
-    name: string
-}
-
-export interface Countries {
-    id: string;
-    name: string
-}
-
-export interface Levels {
+export interface commonType {
     id: string;
     name: string
 }
@@ -125,3 +114,43 @@ export interface usercredentials {
     Email:string;
     Password:string
 }
+
+export interface personalData {
+    country: string;
+    city: string;
+    language: { id: string }[];
+    isFresher: boolean
+}
+
+export interface OptionType {
+    value: string;
+    label: string;
+};
+
+export interface professionalData {
+    education: [
+        {
+            instituteName: string;
+            courseName: string;
+            startYear: number;
+            endYear: number
+        }
+    ];
+    professional: [
+        {
+            isCurrent: boolean;
+            companyName: string;
+            designation: { id: string, name: string };
+            startDate: string | null;
+            endDate: string | null;
+            jobDetail: string;
+        }
+    ];
+    experienceLevel: string;
+}
+
+export interface skillsData {
+    skills:{id:string}[]
+}
+
+export type OptionTypeParameter<T>=SingleValue<T> | MultiValue<T>

@@ -8,17 +8,26 @@ export type Options = {
 type Props = {
 	label: string
 	options: Options[]
+	onChange:(option: Options)=>void
 }
 
 const DropDown = (props: Props) => {
+
+	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedOption = props.options.find(opt => opt.id === event.target.value);
+		if (selectedOption) {
+		  props.onChange(selectedOption);
+		}
+	  };
 	return (
 		<div className="py-2">
 			<div>
 				<h4 className="text-sm font-medium mb-2">{props.label}</h4>
 				<div className="relative">
 					<select
-						className="w-full bg-white appearance-none border rounded-md px-4 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-purple-500"
+						className="w-full bg-white appearance-none border rounded-md px-2 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-purple-500"
 						defaultValue="hourly"
+						onChange={handleChange}
 					>
 						{props.options.map((opt) => {
 							return <option value={opt.id}>{opt.name}</option>

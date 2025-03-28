@@ -1,14 +1,24 @@
 import type React from "react"
-import { Calendar, Clock, ClipboardCheck } from "lucide-react"
+import { Clock, ClipboardCheck } from "lucide-react"
 
-export default function RadioSelect() {
+
+interface RadioSelectProps {
+	selectedType: string;
+	setSelectedType: (type: string) => void;
+}
+
+export default function RadioSelect({ selectedType, setSelectedType }: RadioSelectProps) {
+	
+	const handleClick = (label:string) => {
+        setSelectedType(label);
+    };
 	return (
-		<div>
+		<div className="py-2">
 			<h4 className="text-sm font-medium mb-3">Employment Type</h4>
-			<div className="grid grid-cols-3 gap-3">
-				<EmploymentTypeButton icon={<Clock className="h-5 w-5" />} label="Full Time" selected />
-				<EmploymentTypeButton icon={<ClipboardCheck className="h-5 w-5" />} label="Contract" />
-				<EmploymentTypeButton icon={<Calendar className="h-5 w-5" />} label="Partime" />
+			<div className="grid grid-cols-2 gap-3">
+				<EmploymentTypeButton icon={<Clock className="h-5 w-5" />} label="Fresher" selected={selectedType === 'Fresher'} onClick={()=>handleClick('Fresher')}/>
+				<EmploymentTypeButton icon={<ClipboardCheck className="h-5 w-5" />} label="Experienced" selected={selectedType === 'Experienced'} onClick={()=>handleClick('Experienced')}/>
+	
 			</div>
 		</div>
 	)
@@ -18,11 +28,13 @@ interface EmploymentTypeButtonProps {
 	icon: React.ReactNode
 	label: string
 	selected?: boolean
+	onClick:()=>void
 }
 
-function EmploymentTypeButton({ icon, label, selected }: EmploymentTypeButtonProps) {
+function EmploymentTypeButton({ icon, label, selected,onClick}: EmploymentTypeButtonProps) {
 	return (
 		<button
+		onClick={onClick}
 			className={`flex items-center gap-2 px-4 py-3 border rounded-md ${selected ? "border-purple-600 bg-purple-50 text-purple-600" : "border-gray-300 hover:border-gray-400"
 				}`}
 		>
