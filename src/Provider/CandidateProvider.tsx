@@ -1,52 +1,49 @@
-import React, {  useReducer } from 'react';
-import {
-  Title,
-  Skill,
-  Countries,
-  Levels,
-  Candidates,
-  CandidateProviderProps,
-} from '../Types/types';
-import { CandidateContext, initialState } from './CandidateContext';
-
-
+import React, { useReducer } from "react";
+import { commonType, Candidates, CandidateProviderProps } from "../Types/types";
+import { CandidateContext, initialState } from "./CandidateContext";
 
 export type Action =
-  | { type: 'SET_LOGIN'; payload: boolean }
-  | { type: 'SET_ERROR'; payload: string }
-  | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_TOKEN'; payload: string }
-  | { type: 'SET_TITLE'; payload: Title[] }
-  | { type: 'SET_SKILLS'; payload: Skill[] }
-  | { type: 'SET_COUNTRY'; payload: Countries[] }
-  | { type: 'SET_LEVEL'; payload: Levels[] }
-  | { type: 'SET_CANDIDATES'; payload: Candidates[] }
-  | { type: 'SET_CHECKED'; payload: { id: string; checked: boolean } };
-
-
-
+  | { type: "SET_LOGIN"; payload: boolean }
+  | { type: "SET_ERROR"; payload: string }
+  | { type: "SET_LOADING"; payload: boolean }
+  | { type: "SET_TOKEN"; payload: string }
+  | { type: "SET_TITLE"; payload: commonType[] }
+  | { type: "SET_SKILLS"; payload: commonType[] }
+  | { type: "SET_COUNTRY"; payload: commonType[] }
+  | { type: "SET_LEVEL"; payload: commonType[] }
+  | { type: "SET_DESIGNATION"; payload: commonType[] }
+  | { type: "SET_DEGREE"; payload: commonType[] }
+  | { type: "SET_LANGUAGES"; payload: commonType[] }
+  | { type: "SET_CANDIDATES"; payload: Candidates[] }
+  | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } };
 
 const Reducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
-    case 'SET_LOGIN':
+    case "SET_LOGIN":
       return { ...state, isLogin: action.payload };
-    case 'SET_ERROR':
+    case "SET_ERROR":
       return { ...state, errorMessage: action.payload };
-    case 'SET_LOADING':
+    case "SET_LOADING":
       return { ...state, loading: action.payload };
-    case 'SET_TOKEN':
+    case "SET_TOKEN":
       return { ...state, token: action.payload };
-    case 'SET_TITLE':
+    case "SET_TITLE":
       return { ...state, title: action.payload };
-    case 'SET_SKILLS':
+    case "SET_SKILLS":
       return { ...state, skills: action.payload };
-    case 'SET_COUNTRY':
+    case "SET_COUNTRY":
       return { ...state, countries: action.payload };
-    case 'SET_LEVEL':
+    case "SET_LEVEL":
       return { ...state, levels: action.payload };
-    case 'SET_CANDIDATES':
+    case "SET_LANGUAGES":
+      return { ...state, languages: action.payload };
+    case "SET_DESIGNATION":
+      return { ...state, designation: action.payload };
+    case "SET_DEGREE":
+      return { ...state, degree: action.payload };
+    case "SET_CANDIDATES":
       return { ...state, candidates: action.payload };
-    case 'SET_CHECKED':
+    case "SET_CHECKED":
       return {
         ...state,
         isChecked: {

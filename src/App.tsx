@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import CandidateList from './Pages/CandidateList';
-import LoginPage from './Components/LoginPage';
-import SignupPage from './Components/SignupPage';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import Protected from './Protected';
 
 const App = () => {

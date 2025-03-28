@@ -1,9 +1,13 @@
+import BoardingContainer from "@/components/onboarding/BoardingContainer"
+import ProfessionalInformation from "@/components/onboarding/ProfessionalInformation"
 import React from 'react'
 
 
 function ProfessionPage() {
   return (
-	<div>ProfessiaonPAge</div>
+    <BoardingContainer step={2} stepTitle="Professional Information">
+      <ProfessionalInformation />
+    </BoardingContainer>
   )
 }
 

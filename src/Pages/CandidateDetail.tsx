@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import Header from "../Components/Header";
-import NameSection from "../Components/CandidateDetail/NameSection";
-import CandidateInfo from "../Components/CandidateDetail/CandidateInfo";
-import Footer from "../Components/Footer";
+import Header from "../components/Header";
+import NameSection from "../components/CandidateDetail/NameSection";
+import CandidateInfo from "../components/CandidateDetail/CandidateInfo";
+import Footer from "../components/Footer";
 
 
-const CandidateDetail=()=> {
+const CandidateDetail = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
