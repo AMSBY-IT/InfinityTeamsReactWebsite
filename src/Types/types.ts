@@ -103,16 +103,16 @@ export interface User {
 }
 
 export interface userdata{
-    FirstName:string;
-    LastName:string;
-    Email:string;
-    Password:string,
-    ConfirmPassword:string,
+    firstName:string;
+    lastName:string;
+    email:string;
+    password:string,
+    confirmPassword:string,
 }
 
 export interface usercredentials {
-    Email:string;
-    Password:string
+    email:string;
+    password:string
 }
 
 export interface personalData {

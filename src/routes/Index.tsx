@@ -8,6 +8,7 @@ import Home from "../Pages/Home/Home";
 import Register from "../Pages/auth/Register";
 import LoginPage from '@/components/LoginPage';
 import { Profile } from "@/Pages/profile/Profile";
+import PrivateRoute from "./PrivateRoutes";
 
 
 function Index() {
@@ -19,9 +20,11 @@ function Index() {
 				<Route path="/404" element={<>4040 page</>} />
 				<Route path="/auth/login" element={<LoginPage />} />
 				<Route path="/auth/register" element={<Register />} />
+				<Route element={<PrivateRoute/>}>
 				<Route path="/onboarding/personal" element={<PersonalPage />} />
 				<Route path="/onboarding/professional" element={<ProfessionPage />} />
 				<Route path="/onboarding/cv-skills" element={<CVSkills />} />
+				</Route>
 				<Route path="/profile" element={<Profile />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
