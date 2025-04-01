@@ -9,11 +9,11 @@ export const CandidateRegisterForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    FirstName: "",
-    LastName: "",
-    Email: "",
-    Password: "",
-    ConfirmPassword:"",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword:"",
 });
 
 const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ const regitserMutation = useMutation({
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (formData.Password !== formData.ConfirmPassword) {
+  if (formData.password !== formData.confirmPassword) {
     toast.error("Passwords do not match!");
     return;
   }
@@ -84,7 +84,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
               type="text"
               required
               id="name"
-              name="FirstName"
+              name="firstName"
               onChange={handleChange}
               placeholder="Enter your firstname"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
@@ -121,7 +121,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
               type="text"
               required
               id="lastname"
-              name="LastName"
+              name="lastName"
               onChange={handleChange}
               placeholder="Enter your lastname"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
@@ -158,7 +158,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
               type="email"
               required
               id="email"
-              name="Email"
+              name="email"
               onChange={handleChange}
               placeholder="Enter your email"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
@@ -195,7 +195,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
               type="password"
               required
               id="password"
-              name="Password"
+              name="password"
               onChange={handleChange}
               placeholder="Create password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
@@ -231,7 +231,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
               type="password"
               required
               id="confirmpassword"
-              name="ConfirmPassword"
+              name="confirmPassword"
               onChange={handleChange}
               placeholder="Re-type Password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"

@@ -11,8 +11,8 @@ const UserAuthForm = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    Email: "",
-    Password: ""
+    email: "",
+    password: ""
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +78,7 @@ const UserAuthForm = () => {
               type="email"
               required
               id="email"
-              name="Email"
+              name="email"
               onChange={handleChange}
               placeholder="Enter your email"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
@@ -115,7 +115,7 @@ const UserAuthForm = () => {
               type="password"
               required
               id="password"
-              name="Password"
+              name="password"
               onChange={handleChange}
               placeholder="Enter password"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
