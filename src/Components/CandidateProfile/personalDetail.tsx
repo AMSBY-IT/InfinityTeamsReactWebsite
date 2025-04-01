@@ -22,19 +22,17 @@ export default function PersonalDetails() {
       </div>
 
       <div className="space-y-2 text-gray-700">
-        <p className="flex items-center">
-          <span className="w-32">Based in:</span>
-          <span className="flex items-center">
-            <span className="mr-1">🇮🇳</span> India
-          </span>
+      <p  className="flex flex-col sm:flex-row sm:items-center">
+          <span className="font-medium w-38 flex-shrink-0">Based in:</span>
+          <span className="mt-1 sm:mt-0">India</span>
         </p>
-        <p className="flex items-start">
-          <span className="w-32">Timezone:</span>
-          <span>Pacific Time (US & Canada) (UTC-7)</span>
+        <p  className="flex flex-col sm:flex-row sm:items-center">
+          <span className="font-medium w-38 flex-shrink-0">Timezone:</span>
+          <span className="mt-1 sm:mt-0">Pacific Time (US & Canada) (UTC-7)</span>
         </p>
-        <p className="flex items-start">
-          <span className="w-32">Available to work:</span>
-          <span>5 PM - 12 AM (Next day)</span>
+        <p  className="flex flex-col sm:flex-row sm:items-center">
+          <span className="font-medium w-38 flex-shrink-0">Available to work:</span>
+          <span className="mt-1 sm:mt-0">5 PM - 12 AM (Next day)</span>
         </p>
       </div>
 
@@ -69,21 +67,21 @@ export default function PersonalDetails() {
 
       <div className="mt-6 pt-6 border-t">
         <h3 className="font-medium mb-3">Job types you're open to</h3>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <button
-            className={`px-4 py-2 rounded-full border ${jobType === "Full-time" ? "bg-blue-50 border-blue-300" : "bg-white"}`}
+            className={`px-4 py-2 rounded-full border ${jobType === "Full-time" ? "bg-purple-50 border-purple-600" : "bg-white"}`}
             onClick={() => setJobType("Full-time")}
           >
             Full-time
           </button>
           <button
-            className={`px-4 py-2 rounded-full border ${jobType === "Freelance" ? "bg-blue-50 border-blue-300" : "bg-white"}`}
+            className={`px-4 py-2 rounded-full border ${jobType === "Freelance" ? "bg-purple-50 border-purple-600" : "bg-white"}`}
             onClick={() => setJobType("Freelance")}
           >
             Freelance
           </button>
           <button
-            className={`px-4 py-2 rounded-full border ${jobType === "Both" ? "bg-blue-50 border-blue-300" : "bg-white"}`}
+            className={`px-4 py-2 rounded-full border ${jobType === "Both" ? "bg-purple-50 border-purple-600" : "bg-white"}`}
             onClick={() => setJobType("Both")}
           >
             Both

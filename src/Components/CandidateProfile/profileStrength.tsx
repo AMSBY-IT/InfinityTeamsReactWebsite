@@ -1,13 +1,10 @@
-import { Check, ChevronDown } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 
 export default function ProfileStrength() {
   return (
     <div className="bg-white rounded-lg border p-4">
       <h2 className="text-xl font-semibold mb-4">Profile strength: Advanced</h2>
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white">
-          <Check size={16} />
-        </div>
         <div className="flex-1 bg-gray-200 h-2 rounded-full">
           <div className="bg-green-500 h-2 rounded-full w-[90%]"></div>
         </div>
