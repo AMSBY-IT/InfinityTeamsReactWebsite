@@ -34,7 +34,7 @@ function ProfessionalInformation() {
   const [selectedDegree, setSelectedDegree] = useState<Options>();
 
   const [isCurrent, setIsCurrent] = useState(false);
-  
+
   const { data: designationData } = useQuery({
     queryKey: ["designation"],
     queryFn: () => getDesignation(),
@@ -95,36 +95,36 @@ function ProfessionalInformation() {
   };
 
   const handleSubmit = () => {
-      if (!company || !selectedDesignation || !selectedDegree || !selectedLevel || !school) {
-        toast.error("Please fill all required fields");
-        return;
-      }
-  
-      const formData: professionalData = {
-        education: [
-          {
-              instituteName: school,
-              courseName: selectedDegree.name,
-              startYear: startYear.getFullYear(),
-              endYear: endYear.getFullYear()
-          }
+    if (!company || !selectedDesignation || !selectedDegree || !selectedLevel || !school) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    const formData: professionalData = {
+      education: [
+        {
+          instituteName: school,
+          courseName: selectedDegree.name,
+          startYear: startYear.getFullYear(),
+          endYear: endYear.getFullYear()
+        }
       ],
       professional: [
-          {
-              isCurrent: isCurrent,
-              companyName: company,
-              designation: { id: selectedDesignation.id, name: selectedDesignation.name },
-              startDate: startdate ? startdate.toISOString() : null,
-              endDate: enddate ? enddate.toISOString() : null,
-              jobDetail: jobdescription
-          }
+        {
+          isCurrent: isCurrent,
+          companyName: company,
+          designation: { id: selectedDesignation.id, name: selectedDesignation.name },
+          startDate: startdate ? startdate.toISOString() : null,
+          endDate: enddate ? enddate.toISOString() : null,
+          jobDetail: jobdescription
+        }
       ],
       experienceLevel: selectedLevel.name
-        
-      }
-  
-      professionalMutation.mutate(formData);
-    };
+
+    }
+
+    professionalMutation.mutate(formData);
+  };
 
   const navigate = useNavigate();
 
@@ -140,14 +140,14 @@ function ProfessionalInformation() {
           label="Company"
           placeHolder="Enter Company Name"
           helperText="helper text"
-          onChange={(value)=>setCompany(value)}
+          onChange={(value) => setCompany(value)}
         />
 
-        <DropDown options={designation} label="Designation" onChange={handleDesignationChange}/>
+        <DropDown options={designation} label="Designation" onChange={handleDesignationChange} />
 
-        <Checkbox label="I currently work here" onChange={setIsCurrent}/>
+        <Checkbox label="I currently work here" onChange={setIsCurrent} />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 ">
           <DatePicker
             label="Start Date "
             startdate={startdate}
@@ -164,21 +164,22 @@ function ProfessionalInformation() {
           label="Job Description"
           placeHolder="Enter Description"
           helperText="helper text"
-          onChange={(value)=>setJobDescription(value)}
+          onChange={(value) => setJobDescription(value)}
         />
 
-        <DropDown options={levels} label="Experience Level" onChange={handleLevelChange}/>
+        <DropDown options={levels} label="Experience Level" onChange={handleLevelChange} />
       </div>
-      <div>
-        <h1>Education Details</h1>
+      <div className="border-1 "></div>
+      <div className="py-4">
+        <h3 className="text-xl font-semibold mt-1">Educations Details </h3>
         <TextInput
-          label="school"
+          label="Institutions Name "
           placeHolder="Enter School Name"
-          helperText="helper text"
-          onChange={(value)=>setSchool(value)}
+          helperText="please enter name of last education institution you attended "
+          onChange={(value) => setSchool(value)}
         />
 
-        <DropDown options={degree} label="Degree" onChange={handleDegreeChange}/>
+        <DropDown options={degree} label="Degree" onChange={handleDegreeChange} />
 
         <div className="grid grid-cols-2 gap-3">
           <StartYearPicker
