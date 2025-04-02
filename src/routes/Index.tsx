@@ -24,8 +24,9 @@ function Index() {
 				<Route path="/onboarding/personal" element={<PersonalPage />} />
 				<Route path="/onboarding/professional" element={<ProfessionPage />} />
 				<Route path="/onboarding/cv-skills" element={<CVSkills />} />
-				</Route>
 				<Route path="/profile" element={<ProfilePage />} />
+				</Route>
+				
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 		</BrowserRouter>

@@ -14,12 +14,11 @@ import { toast } from "react-toastify";
 import MultiSelectDropdown from "../shared/MultiSelectDropDown";
 
 function PersonaInformation() {
-  const { dispatch, countries, languages } = useContext(CandidateContext);
+  const { dispatch, countries, languages,selectedType } = useContext(CandidateContext);
 
   const [selectedCountry, setSelectedCountry] = useState<Options>();
   const [city, setCity] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<Options[]>([]);
-  const [selectedType, setSelectedType] = useState("Fresher");
 
   const { data: countryData } = useQuery({
     queryKey: ["country"],
@@ -66,6 +65,8 @@ function PersonaInformation() {
     setSelectedLanguage(selectedOptions as Options[]);
   };
 
+  
+
   const handleSubmit = () => {
     if (!selectedCountry || !city || !selectedLanguage) {
       toast.error("Please fill all required fields");
@@ -107,10 +108,7 @@ function PersonaInformation() {
         selectedOptions={selectedLanguage}
         onChange={handleLanguageChange}
       />
-      <RadioSelect
-        selectedType={selectedType}
-        setSelectedType={setSelectedType}
-      />
+      <RadioSelect/>
 
       <div className="flex items-center space-x-2 py-2">
         <PrimaryButton btnText="Save " onClick={handleSubmit} />

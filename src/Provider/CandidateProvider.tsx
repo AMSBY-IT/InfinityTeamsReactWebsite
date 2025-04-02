@@ -15,7 +15,8 @@ export type Action =
   | { type: "SET_DEGREE"; payload: commonType[] }
   | { type: "SET_LANGUAGES"; payload: commonType[] }
   | { type: "SET_CANDIDATES"; payload: Candidates[] }
-  | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } };
+  | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } }
+  | { type: "SET_SELECTEDTYPE"; payload: string };
 
 const Reducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
@@ -51,6 +52,8 @@ const Reducer = (state: typeof initialState, action: Action) => {
           [action.payload.id]: action.payload.checked,
         },
       };
+    case "SET_SELECTEDTYPE":
+      return { ...state, selectedType: action.payload };
     default:
       return state;
   }

@@ -18,6 +18,7 @@ export interface CandidateContextProps {
     isLogin: boolean;
     errorMessage:string;
     token:string;
+    selectedType:string;
     dispatch: Dispatch<Action>;
 }
 
@@ -136,17 +137,18 @@ export interface professionalData {
             endYear: number
         }
     ];
-    professional: [
-        {
+    professional: {
             isCurrent: boolean;
             companyName: string;
             designation: { id: string, name: string };
             startDate: string | null;
             endDate: string | null;
             jobDetail: string;
-        }
-    ];
+        }[];
     experienceLevel: string;
+    noticePeriod:number;
+    ctc:number;
+    ectc:number
 }
 
 export interface skillsData {
