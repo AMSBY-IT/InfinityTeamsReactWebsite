@@ -7,7 +7,7 @@ import Home from "../Pages/Home/Home";
 
 import Register from "../Pages/auth/Register";
 import LoginPage from '@/components/LoginPage';
-import { Profile } from "@/Pages/profile/Profile";
+import { ProfilePage } from "@/Pages/profile/ProfilePage";
 import PrivateRoute from "./PrivateRoutes";
 
 
@@ -24,8 +24,9 @@ function Index() {
 				<Route path="/onboarding/personal" element={<PersonalPage />} />
 				<Route path="/onboarding/professional" element={<ProfessionPage />} />
 				<Route path="/onboarding/cv-skills" element={<CVSkills />} />
+				<Route path="/profile" element={<ProfilePage />} />
 				</Route>
-				<Route path="/profile" element={<Profile />} />
+				
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 		</BrowserRouter>

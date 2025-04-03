@@ -12,25 +12,39 @@ import EndYearPicker from "../shared/EndYearPicker";
 import Checkbox from "../shared/Checkbox";
 import { CandidateContext } from "@/Provider/CandidateContext";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getDegree, getDesignation, getlevels, postProfessionalData } from "@/api/services";
+import {
+  getDegree,
+  getDesignation,
+  getlevels,
+  postProfessionalData,
+} from "@/api/services";
 import { OptionTypeParameter, professionalData } from "@/Types/types";
 import { toast } from "react-toastify";
 
 function ProfessionalInformation() {
-  const { dispatch, designation, degree, levels } =
+  const { dispatch, designation, degree, levels, selectedType } =
     useContext(CandidateContext);
 
-  const [startdate, setStartDate] = React.useState<Date>(new Date());
-  const [enddate, setEndDate] = React.useState<Date>(new Date());
+  const [startdate, setStartDate] = React.useState<Date | null>(null);
+  const [enddate, setEndDate] = React.useState<Date | null>(null);
   const [startYear, setStartYear] = React.useState<Date>(new Date());
   const [endYear, setEndYear] = React.useState<Date>(new Date());
 
   const [company, setCompany] = useState("");
   const [jobdescription, setJobDescription] = useState("");
   const [school, setSchool] = useState("");
+  const [noticeperiod, setNoticeperiod] = useState(0);
+  const [ctc, setCtc] = useState(0);
+  const [ectc, setEctc] = useState(0);
 
-  const [selectedDesignation, setSelectedDesignation] = useState<Options>();
-  const [selectedLevel, setSelectedLevel] = useState<Options>();
+  const [selectedDesignation, setSelectedDesignation] = useState<Options>({
+    id: "",
+    name: "",
+  });
+  const [selectedLevel, setSelectedLevel] = useState<Options>({
+    id: "",
+    name: "",
+  });
   const [selectedDegree, setSelectedDegree] = useState<Options>();
 
   const [isCurrent, setIsCurrent] = useState(false);
@@ -73,7 +87,7 @@ function ProfessionalInformation() {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
-        handleNextPage()
+        handleNextPage();
       }
     },
     onError: (error) => {
@@ -81,8 +95,9 @@ function ProfessionalInformation() {
     },
   });
 
-
-  const handleDesignationChange = (selectedOption: OptionTypeParameter<Options>) => {
+  const handleDesignationChange = (
+    selectedOption: OptionTypeParameter<Options>
+  ) => {
     setSelectedDesignation(selectedOption as Options);
   };
 
@@ -95,7 +110,7 @@ function ProfessionalInformation() {
   };
 
   const handleSubmit = () => {
-    if (!company || !selectedDesignation || !selectedDegree || !selectedLevel || !school) {
+    if (!selectedDegree || !school) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -106,22 +121,27 @@ function ProfessionalInformation() {
           instituteName: school,
           courseName: selectedDegree.name,
           startYear: startYear.getFullYear(),
-          endYear: endYear.getFullYear()
-        }
+          endYear: endYear.getFullYear(),
+        },
       ],
-      professional: [
+      professional: selectedType === "Fresher" ? [] : [
         {
           isCurrent: isCurrent,
           companyName: company,
-          designation: { id: selectedDesignation.id, name: selectedDesignation.name },
+          designation: {
+            id: selectedDesignation.id,
+            name: selectedDesignation.name,
+          },
           startDate: startdate ? startdate.toISOString() : null,
           endDate: enddate ? enddate.toISOString() : null,
-          jobDetail: jobdescription
-        }
+          jobDetail: jobdescription,
+        },
       ],
-      experienceLevel: selectedLevel.name
-
-    }
+      noticePeriod: noticeperiod,
+      ctc: ctc,
+      ectc: ectc,
+      experienceLevel: selectedLevel.name,
+    };
 
     professionalMutation.mutate(formData);
   };
@@ -134,52 +154,87 @@ function ProfessionalInformation() {
 
   return (
     <div>
+      {selectedType !== "Fresher" && (
+        <div>
+          <h1>Company Details</h1>
+          <TextInput
+            label="Company"
+            placeHolder="Enter Company Name"
+            helperText="helper text"
+            onChange={(value) => setCompany(value)}
+          />
+
+          <DropDown
+            options={designation}
+            label="Designation"
+            onChange={handleDesignationChange}
+          />
+
+          <Checkbox label="I currently work here" onChange={setIsCurrent} />
+
+          <div className="grid grid-cols-2 gap-3">
+            <DatePicker
+              label="Start Date "
+              startdate={startdate}
+              setStartDate={setStartDate}
+            />
+            <EndDatePicker
+              label="End Date "
+              enddate={enddate}
+              setEndDate={setEndDate}
+            />
+          </div>
+
+          <TextInput
+            label="Job Description"
+            placeHolder="Enter Description"
+            helperText="helper text"
+            onChange={(value) => setJobDescription(value)}
+          />
+
+          <DropDown
+            options={levels}
+            label="Experience Level"
+            onChange={handleLevelChange}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <TextInput
+              label="Notice Period"
+              placeHolder="Enter Notice Period"
+              helperText="helper text"
+              onChange={(value) => setNoticeperiod(Number(value))}
+            />
+
+            <TextInput
+              label="Current ctc"
+              placeHolder="Enter Current ctc"
+              helperText="helper text"
+              onChange={(value) => setCtc(Number(value))}
+            />
+
+            <TextInput
+              label="Expected ctc"
+              placeHolder="Enter Expected ctc"
+              helperText="helper text"
+              onChange={(value) => setEctc(Number(value))}
+            />
+          </div>
+        </div>)}
       <div>
-        <h1>Company Details</h1>
+        <h3 className="text-xl font-semibold mt-1">Education Details</h3>
         <TextInput
-          label="Company"
-          placeHolder="Enter Company Name"
-          helperText="helper text"
-          onChange={(value) => setCompany(value)}
-        />
-
-        <DropDown options={designation} label="Designation" onChange={handleDesignationChange} />
-
-        <Checkbox label="I currently work here" onChange={setIsCurrent} />
-
-        <div className="grid grid-cols-2 gap-3 ">
-          <DatePicker
-            label="Start Date "
-            startdate={startdate}
-            setStartDate={setStartDate}
-          />
-          <EndDatePicker
-            label="End Date "
-            enddate={enddate}
-            setEndDate={setEndDate}
-          />
-        </div>
-
-        <TextInput
-          label="Job Description"
-          placeHolder="Enter Description"
-          helperText="helper text"
-          onChange={(value) => setJobDescription(value)}
-        />
-
-        <DropDown options={levels} label="Experience Level" onChange={handleLevelChange} />
-      </div>
-      <div className="border-1 "></div>
-      <div className="py-4">
-        <h3 className="text-xl font-semibold mt-1">Educations Details </h3>
-        <TextInput
-          label="Institutions Name "
+          label="Institution Name "
           placeHolder="Enter School Name"
-          helperText="please enter name of last education institution you attended "
+          helperText="helper text"
           onChange={(value) => setSchool(value)}
         />
 
-        <DropDown options={degree} label="Degree" onChange={handleDegreeChange} />
+        <DropDown
+          options={degree}
+          label="Degree"
+          onChange={handleDegreeChange}
+        />
 
         <div className="grid grid-cols-2 gap-3">
           <StartYearPicker

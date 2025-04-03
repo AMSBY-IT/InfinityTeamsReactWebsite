@@ -20,6 +20,7 @@ export const initialState = {
   degree:[] as commonType[],
   candidates: [] as Candidates[],
   isChecked: {} as Record<string, boolean>,
+  selectedType:'Fresher',
   dispatch: ()=>{}
 };
 

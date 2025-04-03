@@ -8,7 +8,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { Value } from "react-calendar/dist/esm/shared/types.js"
 
-function DatePicker({ label = "label date", startdate,setStartDate}: { label: string, startdate: Date, setStartDate: React.Dispatch<React.SetStateAction<Date>>}) {
+function DatePicker({ label = "label date", startdate,setStartDate}: { label: string, startdate: Date|null, setStartDate: React.Dispatch<React.SetStateAction<Date|null>>}) {
 
 	const handleDateSelect = (val: Value) => {
 		setStartDate(val as Date)

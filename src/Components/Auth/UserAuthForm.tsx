@@ -1,4 +1,4 @@
-import { loginUser } from "@/api/services";
+import { getOnboardingStatus, loginUser } from "@/api/services";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
@@ -21,10 +21,19 @@ const UserAuthForm = () => {
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.success) {
         localStorage.setItem("token", data.data.token);
-        navigate("/onboarding/personal");
+        try{
+          const status=await getOnboardingStatus()
+          if(status.isCompleted){
+            navigate("/profile")
+          }else{
+            navigate("/onboarding/personal")
+          }
+        }catch (error){
+          console.log(error)
+        }
       } else {
         toast.error("Login failed: " + data.message);
       }

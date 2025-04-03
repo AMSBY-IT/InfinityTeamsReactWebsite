@@ -1,16 +1,17 @@
 import type React from "react"
 import { Clock, ClipboardCheck } from "lucide-react"
+import { CandidateContext } from "@/Provider/CandidateContext";
+import { useContext } from "react";
 
 
-interface RadioSelectProps {
-	selectedType: string;
-	setSelectedType: (type: string) => void;
-}
 
-export default function RadioSelect({ selectedType, setSelectedType }: RadioSelectProps) {
+
+export default function RadioSelect() {
+
+	const { dispatch,selectedType } = useContext(CandidateContext);
 	
 	const handleClick = (label:string) => {
-        setSelectedType(label);
+        dispatch({ type: "SET_SELECTEDTYPE", payload: label });
     };
 	return (
 		<div className="py-2">
