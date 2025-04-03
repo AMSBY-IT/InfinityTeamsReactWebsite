@@ -22,10 +22,10 @@ import { OptionTypeParameter, professionalData } from "@/Types/types";
 import { toast } from "react-toastify";
 
 function ProfessionalInformation() {
-  const { dispatch, designation, degree, levels,selectedType } =
+  const { dispatch, designation, degree, levels, selectedType } =
     useContext(CandidateContext);
 
-  const [startdate, setStartDate] = React.useState<Date |null>(null);
+  const [startdate, setStartDate] = React.useState<Date | null>(null);
   const [enddate, setEndDate] = React.useState<Date | null>(null);
   const [startYear, setStartYear] = React.useState<Date>(new Date());
   const [endYear, setEndYear] = React.useState<Date>(new Date());
@@ -124,7 +124,7 @@ function ProfessionalInformation() {
           endYear: endYear.getFullYear(),
         },
       ],
-      professional: selectedType === "Fresher" ? [] :[
+      professional: selectedType === "Fresher" ? [] : [
         {
           isCurrent: isCurrent,
           companyName: company,
@@ -155,76 +155,76 @@ function ProfessionalInformation() {
   return (
     <div>
       {selectedType !== "Fresher" && (
+        <div>
+          <h1>Company Details</h1>
+          <TextInput
+            label="Company"
+            placeHolder="Enter Company Name"
+            helperText="helper text"
+            onChange={(value) => setCompany(value)}
+          />
+
+          <DropDown
+            options={designation}
+            label="Designation"
+            onChange={handleDesignationChange}
+          />
+
+          <Checkbox label="I currently work here" onChange={setIsCurrent} />
+
+          <div className="grid grid-cols-2 gap-3">
+            <DatePicker
+              label="Start Date "
+              startdate={startdate}
+              setStartDate={setStartDate}
+            />
+            <EndDatePicker
+              label="End Date "
+              enddate={enddate}
+              setEndDate={setEndDate}
+            />
+          </div>
+
+          <TextInput
+            label="Job Description"
+            placeHolder="Enter Description"
+            helperText="helper text"
+            onChange={(value) => setJobDescription(value)}
+          />
+
+          <DropDown
+            options={levels}
+            label="Experience Level"
+            onChange={handleLevelChange}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <TextInput
+              label="Notice Period"
+              placeHolder="Enter Notice Period"
+              helperText="helper text"
+              onChange={(value) => setNoticeperiod(Number(value))}
+            />
+
+            <TextInput
+              label="Current ctc"
+              placeHolder="Enter Current ctc"
+              helperText="helper text"
+              onChange={(value) => setCtc(Number(value))}
+            />
+
+            <TextInput
+              label="Expected ctc"
+              placeHolder="Enter Expected ctc"
+              helperText="helper text"
+              onChange={(value) => setEctc(Number(value))}
+            />
+          </div>
+        </div>)}
       <div>
-        <h1>Company Details</h1>
+        <h3 className="text-xl font-semibold mt-1">Education Details</h3>
         <TextInput
-          label="Company"
-          placeHolder="Enter Company Name"
-          helperText="helper text"
-          onChange={(value) => setCompany(value)}
-        />
-
-        <DropDown
-          options={designation}
-          label="Designation"
-          onChange={handleDesignationChange}
-        />
-
-        <Checkbox label="I currently work here" onChange={setIsCurrent} />
-
-        <div className="grid grid-cols-2 gap-3">
-          <DatePicker
-            label="Start Date "
-            startdate={startdate}
-            setStartDate={setStartDate}
-          />
-          <EndDatePicker
-            label="End Date "
-            enddate={enddate}
-            setEndDate={setEndDate}
-          />
-        </div>
-
-        <TextInput
-          label="Job Description"
-          placeHolder="Enter Description"
-          helperText="helper text"
-          onChange={(value) => setJobDescription(value)}
-        />
-
-        <DropDown
-          options={levels}
-          label="Experience Level"
-          onChange={handleLevelChange}
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <TextInput
-            label="Notice Period"
-            placeHolder="Enter Notice Period"
-            helperText="helper text"
-            onChange={(value) => setNoticeperiod(Number(value))}
-          />
-
-          <TextInput
-            label="Current ctc"
-            placeHolder="Enter Current ctc"
-            helperText="helper text"
-            onChange={(value) => setCtc(Number(value))}
-          />
-
-          <TextInput
-            label="Expected ctc"
-            placeHolder="Enter Expected ctc"
-            helperText="helper text"
-            onChange={(value) => setEctc(Number(value))}
-          />
-        </div>
-      </div>)}
-      <div>
-        <h1>Education Details</h1>
-        <TextInput
-          label="school"
+          label="Institution Name "
           placeHolder="Enter School Name"
           helperText="helper text"
           onChange={(value) => setSchool(value)}
