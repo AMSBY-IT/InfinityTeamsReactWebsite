@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Edit2, ChevronDown } from "lucide-react"
+import { CandidateContext } from "@/Provider/CandidateContext";
 
 export default function PersonalDetails() {
+  const { profile } =useContext(CandidateContext);
+
   const jobStatus="Actively looking"
   const [jobType, setJobType] = useState("Full-time")
 
@@ -16,9 +19,9 @@ export default function PersonalDetails() {
 
       <div className="flex items-center gap-4 mb-4">
         <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
-          A
+          {profile.candidate.name[0]}
         </div>
-        <h3 className="text-xl">Jhon doe</h3>
+        <h3 className="text-xl">{profile.candidate.name}</h3>
       </div>
 
       <div className="space-y-2 text-gray-700">
@@ -27,12 +30,12 @@ export default function PersonalDetails() {
           <span className="mt-1 sm:mt-0">India</span>
         </p>
         <p  className="flex flex-col sm:flex-row sm:items-center">
-          <span className="font-medium w-38 flex-shrink-0">Timezone:</span>
-          <span className="mt-1 sm:mt-0">Pacific Time (US & Canada) (UTC-7)</span>
+          <span className="font-medium w-38 flex-shrink-0">Email:</span>
+          <span className="mt-1 sm:mt-0">{profile.candidate.email}</span>
         </p>
         <p  className="flex flex-col sm:flex-row sm:items-center">
-          <span className="font-medium w-38 flex-shrink-0">Available to work:</span>
-          <span className="mt-1 sm:mt-0">5 PM - 12 AM (Next day)</span>
+          <span className="font-medium w-38 flex-shrink-0">Phone:</span>
+          <span className="mt-1 sm:mt-0">{profile.candidate.phone}</span>
         </p>
       </div>
 

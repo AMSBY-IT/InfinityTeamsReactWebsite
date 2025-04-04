@@ -36,6 +36,7 @@ function ProfessionalInformation() {
   const [noticeperiod, setNoticeperiod] = useState(0);
   const [ctc, setCtc] = useState(0);
   const [ectc, setEctc] = useState(0);
+  const [finalScore, setFinalScore] = useState('0');
 
   const [selectedDesignation, setSelectedDesignation] = useState<Options>({
     id: "",
@@ -122,21 +123,25 @@ function ProfessionalInformation() {
           courseName: selectedDegree.name,
           startYear: startYear.getFullYear(),
           endYear: endYear.getFullYear(),
+          finalScore:finalScore
         },
       ],
-      professional: selectedType === "Fresher" ? [] : [
-        {
-          isCurrent: isCurrent,
-          companyName: company,
-          designation: {
-            id: selectedDesignation.id,
-            name: selectedDesignation.name,
-          },
-          startDate: startdate ? startdate.toISOString() : null,
-          endDate: enddate ? enddate.toISOString() : null,
-          jobDetail: jobdescription,
-        },
-      ],
+      professional:
+        selectedType === "Fresher"
+          ? []
+          : [
+              {
+                isCurrent: isCurrent,
+                companyName: company,
+                designation: {
+                  id: selectedDesignation.id,
+                  name: selectedDesignation.name,
+                },
+                startDate: startdate ? startdate.toISOString() : null,
+                endDate: enddate ? enddate.toISOString() : null,
+                jobDetail: jobdescription,
+              },
+            ],
       noticePeriod: noticeperiod,
       ctc: ctc,
       ectc: ectc,
@@ -182,6 +187,7 @@ function ProfessionalInformation() {
               label="End Date "
               enddate={enddate}
               setEndDate={setEndDate}
+              disabled={isCurrent}
             />
           </div>
 
@@ -220,11 +226,12 @@ function ProfessionalInformation() {
               onChange={(value) => setEctc(Number(value))}
             />
           </div>
-        </div>)}
+        </div>
+      )}
       <div>
-        <h3 className="text-xl font-semibold mt-1">Education Details</h3>
+        <h1>Education Details</h1>
         <TextInput
-          label="Institution Name "
+          label="Institutions Name "
           placeHolder="Enter School Name"
           helperText="helper text"
           onChange={(value) => setSchool(value)}
@@ -234,6 +241,13 @@ function ProfessionalInformation() {
           options={degree}
           label="Degree"
           onChange={handleDegreeChange}
+        />
+
+        <TextInput
+          label="Total Percentage"
+          placeHolder="Enter Percentage"
+          helperText="helper text"
+          onChange={(value) => setFinalScore(value)}
         />
 
         <div className="grid grid-cols-2 gap-3">

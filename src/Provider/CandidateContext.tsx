@@ -3,6 +3,7 @@ import {
   commonType,
   Candidates,
   CandidateContextProps,
+  candidateProfile
 } from '../Types/types';
 
 
@@ -21,6 +22,18 @@ export const initialState = {
   candidates: [] as Candidates[],
   isChecked: {} as Record<string, boolean>,
   selectedType:'Fresher',
+  profile: {
+    candidate: {
+      name: '',
+      email: '',
+      phone: null,
+      noticePeriod: '',
+      lastContacted: null
+    },
+    educations: [],
+    experiences: [],
+    skills: [],
+  } as candidateProfile,
   dispatch: ()=>{}
 };
 

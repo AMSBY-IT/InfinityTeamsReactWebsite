@@ -1,4 +1,8 @@
+import { CandidateContext } from "@/Provider/CandidateContext";
+import { useContext } from "react";
+
 export default function TechnicalSkills() {
+  const { profile } =useContext(CandidateContext);
     return (
       <div className="bg-white rounded-lg border p-4">
         <h2 className="text-xl font-semibold mb-6">Technical skills</h2>
@@ -33,18 +37,21 @@ export default function TechnicalSkills() {
         <div>
           <h3 className="font-medium mb-3">Other skills</h3>
           <div className="flex flex-wrap gap-3">
-            <div className="px-3 py-1.5 rounded-md bg-gray-100">
-              <span>TypeScript</span>
-              <span className="text-gray-500">· 5 yrs</span>
+            {profile.skills.map((s)=>(
+              <div className="px-3 py-1.5 rounded-md bg-gray-100">
+              <span>{s.name}</span>
+              {/* <span className="text-gray-500">· 5 yrs</span> */}
             </div>
-            <div className="px-3 py-1.5 rounded-md bg-gray-100">
+            ))}
+            
+            {/* <div className="px-3 py-1.5 rounded-md bg-gray-100">
               <span>JavaScript</span>
               <span className="text-gray-500">· 5 yrs</span>
             </div>
             <div className="px-3 py-1.5 rounded-md bg-gray-100">
               <span>HTML/CSS</span>
               <span className="text-gray-500">· 6 yrs</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import type React from "react"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarFallback } from "@/components/ui/avatar"
-import { Home, Users, Briefcase, BarChart2, Shield, CreditCard, Globe, SettingsIcon, ChevronDown } from "lucide-react"
+import { Home, Users, Briefcase, Globe, SettingsIcon, ChevronDown } from "lucide-react"
 import { Link } from "react-router-dom"
 
 export default function Sidebar() {
@@ -25,9 +25,6 @@ export default function Sidebar() {
 					<NavItem icon={<Home size={18} />} label="Home" />
 					<NavItem icon={<Users size={18} />} label="People" active />
 					<NavItem icon={<Briefcase size={18} />} label="Jobs" />
-					<NavItem icon={<BarChart2 size={18} />} label="Analytics" />
-					<NavItem icon={<Shield size={18} />} label="Compliance" />
-					<NavItem icon={<CreditCard size={18} />} label="Payment" />
 					<NavItem icon={<Globe size={18} />} label="Imigrations" />
 					<NavItem icon={<SettingsIcon size={18} />} label="Team Settings" />
 				</ul>

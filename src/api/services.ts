@@ -202,6 +202,22 @@ export const getOnboardingStatus = async () => {
     return response.data.data;
 };
 
+export const getCandidateProfile = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile`
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    return response.data.data;
+};
+
 export const fetchTitle = async () => {
     const token = localStorage.getItem("token");
     if (!token) {

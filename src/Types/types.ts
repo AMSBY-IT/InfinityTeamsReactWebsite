@@ -16,9 +16,10 @@ export interface CandidateContextProps {
     loading: boolean;
     isChecked: Record<string, boolean>;
     isLogin: boolean;
-    errorMessage:string;
-    token:string;
-    selectedType:string;
+    errorMessage: string;
+    token: string;
+    selectedType: string;
+    profile:candidateProfile;
     dispatch: Dispatch<Action>;
 }
 
@@ -94,7 +95,7 @@ export interface Selected {
 }
 
 export interface Ischecked {
-    id: string; 
+    id: string;
     checked: boolean
 }
 
@@ -103,17 +104,17 @@ export interface User {
     password: string
 }
 
-export interface userdata{
-    firstName:string;
-    lastName:string;
-    email:string;
-    password:string,
-    confirmPassword:string,
+export interface userdata {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string,
+    confirmPassword: string,
 }
 
 export interface usercredentials {
-    email:string;
-    password:string
+    email: string;
+    password: string
 }
 
 export interface personalData {
@@ -134,25 +135,56 @@ export interface professionalData {
             instituteName: string;
             courseName: string;
             startYear: number;
-            endYear: number
+            endYear: number;
+            finalScore: string
         }
     ];
     professional: {
-            isCurrent: boolean;
-            companyName: string;
-            designation: { id: string, name: string };
-            startDate: string | null;
-            endDate: string | null;
-            jobDetail: string;
-        }[];
+        isCurrent: boolean;
+        companyName: string;
+        designation: { id: string, name: string };
+        startDate: string | null;
+        endDate: string | null;
+        jobDetail: string;
+    }[];
     experienceLevel: string;
-    noticePeriod:number;
-    ctc:number;
-    ectc:number
+    noticePeriod: number;
+    ctc: number;
+    ectc: number
 }
 
 export interface skillsData {
-    skills:{id:string}[]
+    skills: { id: string }[]
 }
 
-export type OptionTypeParameter<T>=SingleValue<T> | MultiValue<T>
+export type OptionTypeParameter<T> = SingleValue<T> | MultiValue<T>
+
+
+export interface candidateProfile {
+    educations: {
+        instituteName:string;
+        courseName:string;
+        startYear:number;
+        endYear: number;
+        finalScore:string
+    }[];
+    experiences:{
+        isCurrent:boolean;
+        companyName:string;
+        designation: { id: string, name: string };
+        startDate: string | null;
+        endDate: string | null;
+        jobDetail: string;
+    }[];
+    skills:{
+        id:string;
+        name:string
+    }[];
+    candidate:{
+        name:string;
+        email:string;
+        phone:string | null;
+        noticePeriod:string;
+        lastContacted:string | null
+    }
+}
