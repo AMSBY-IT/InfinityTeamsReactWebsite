@@ -231,7 +231,7 @@ function ProfessionalInformation() {
       <div>
         <h1>Education Details</h1>
         <TextInput
-          label="school"
+          label="Institutions Name "
           placeHolder="Enter School Name"
           helperText="helper text"
           onChange={(value) => setSchool(value)}
