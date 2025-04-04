@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { commonType, Candidates, CandidateProviderProps } from "../Types/types";
+import { commonType, Candidates, CandidateProviderProps, candidateProfile } from "../Types/types";
 import { CandidateContext, initialState } from "./CandidateContext";
 
 export type Action =
@@ -16,7 +16,8 @@ export type Action =
   | { type: "SET_LANGUAGES"; payload: commonType[] }
   | { type: "SET_CANDIDATES"; payload: Candidates[] }
   | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } }
-  | { type: "SET_SELECTEDTYPE"; payload: string };
+  | { type: "SET_SELECTEDTYPE"; payload: string }
+  | { type: "SET_CANDIDATEPROFILE"; payload: candidateProfile};
 
 const Reducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
@@ -54,6 +55,8 @@ const Reducer = (state: typeof initialState, action: Action) => {
       };
     case "SET_SELECTEDTYPE":
       return { ...state, selectedType: action.payload };
+      case "SET_CANDIDATEPROFILE":
+      return { ...state, profile: action.payload };
     default:
       return state;
   }
