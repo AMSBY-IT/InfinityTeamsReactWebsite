@@ -25,7 +25,7 @@ export default function Profile() {
     }, [profileData,dispatch]);
   return (
     <>
-      <div className="mx-auto">
+      <div className="mx-auto max-w-[1280px]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Left Column - Smaller  */}
           <div className="lg:col-span-1 space-y-6">
