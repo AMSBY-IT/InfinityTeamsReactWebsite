@@ -8,10 +8,12 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { Value } from "react-calendar/dist/esm/shared/types.js"
 
-function EndDatePicker({ label = "label date", enddate,setEndDate}: { label: string, enddate: Date |null, setEndDate: React.Dispatch<React.SetStateAction<Date | null>>}) {
+function EndDatePicker({ label = "label date", enddate,setEndDate,disabled=false}: { label: string, enddate: Date |null, setEndDate: React.Dispatch<React.SetStateAction<Date | null>>,disabled?: boolean;}) {
 
     const handleDateSelect = (val: Value) => {
-        setEndDate(val as Date)
+        if(!disabled){
+            setEndDate(val as Date)
+        }
         
     }
     return (
@@ -27,6 +29,7 @@ function EndDatePicker({ label = "label date", enddate,setEndDate}: { label: str
                                 "w-full  py-6  justify-start text-left font-normal border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500",
                                 !enddate && "text-muted-foreground"
                             )}
+                            disabled={disabled}
                         >
                             <div className="flex space-x-2 items-center py-2">
 
@@ -39,9 +42,11 @@ function EndDatePicker({ label = "label date", enddate,setEndDate}: { label: str
                         </Button>
                     </div>
                 </PopoverTrigger>
-                <PopoverContent>
-                    <Calendar onChange={handleDateSelect} value={enddate} />
-                </PopoverContent>
+                {!disabled && (
+          <PopoverContent>
+            <Calendar onChange={handleDateSelect} value={enddate} />
+          </PopoverContent>
+        )}
             </Popover>
         </div>
     )

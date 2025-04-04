@@ -187,6 +187,7 @@ function ProfessionalInformation() {
               label="End Date "
               enddate={enddate}
               setEndDate={setEndDate}
+              disabled={isCurrent}
             />
           </div>
 
