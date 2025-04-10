@@ -70,18 +70,18 @@ const CheckBoxes = () => {
   };
 
   return (
-    <div className='tw-flex tw-flex-col lg:tw-w-1/5 xl:tw-w-1/5'>
+    <div className='flex flex-col lg:w-1/5 xl:w-1/5'>
       <div className=''>
-        <div className='tw-flex tw-flex-col tw-gap-8'>
+        <div className='flex flex-col gap-8'>
           <div className='search__item'>
             <div
-              className='tw-flex tw-justify-between tw-items-center tw-pb-1 tw-capitalize tw-text-lg tw-font-medium tw-cursor-pointer tw-text-[#242121] experience-label'
+              className='flex justify-between items-center pb-1 capitalize text-lg font-medium cursor-pointer text-[#242121] experience-label'
               onClick={toggleDropdown}
             >
               experience Level
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className={`tw-w-6 ${isDropdownOpen ? 'tw-rotate-180' : ''}`}
+                className={`w-6 ${isDropdownOpen ? 'rotate-180' : ''}`}
                 viewBox='0 0 24 24'
               >
                 <path
@@ -94,28 +94,28 @@ const CheckBoxes = () => {
               <div className='search__item__list' id='chkbxLevels'>
                 {levels.map((item: commonType) => {
                   return (
-                    <div className='tw-flex tw-items-center tw-py-1'>
+                    <div className='flex items-center py-1'>
                       <div
                         key={item.id}
-                        className='tw-text-base tw-font-normal tw-flex tw-items-center tw-cursor-pointer'
+                        className='text-base font-normal flex items-center cursor-pointer'
                         onClick={() => toggleChecked(item.id)}
                       >
-                        <input type='checkbox' className='tw-hidden group' />
+                        <input type='checkbox' className='hidden group' />
                         <span
                           id={item.id.toString()}
-                          className={`tw-w-[16px] tw-h-[16px] tw-border tw-border-[#c8c9d0] tw-rounded-[2px] tw-mr-[10px] tw-inline-block tw-relative ${
+                          className={`w-[16px] h-[16px] border border-[#c8c9d0] rounded-[2px] mr-[10px] inline-block relative ${
                             isChecked[item.id]
-                              ? 'tw-bg-untitled-ui--primary800 tw-border-untitled-ui--primary800'
-                              : 'tw-bg-transparent'
+                              ? 'bg-untitled-ui--primary800 border-untitled-ui--primary800'
+                              : 'bg-transparent'
                           }`}
                         >
                           <span
-                            className={`tw-absolute  tw-left-[4px] tw-w-[6px] tw-h-[10px] tw-border-white tw-border-r-[2px] tw-border-b-[2px] tw-rotate-45 ${
-                              isChecked[item.id] ? 'tw-block' : 'tw-hidden'
+                            className={`absolute  left-[4px] w-[6px] h-[10px] border-white border-r-[2px] border-b-[2px] rotate-45 ${
+                              isChecked[item.id] ? 'block' : 'hidden'
                             }`}
                           ></span>
                         </span>
-                        <label className='tw-cursor-pointer tw-font-normal tw-text-untitled-ui--gray800'>
+                        <label className='cursor-pointer font-normal text-untitled-ui--gray800'>
                           {item.name}
                         </label>
                       </div>
@@ -127,10 +127,10 @@ const CheckBoxes = () => {
           </div>
         </div>
       </div>
-      {/* <div className="tw-mt-10">
-                <div className="tw-flex tw-gap-4">
-                    <button className="tw-py-2 tw-px-5 tw-text-white tw-bg-untitled-ui--primary600 tw-text-sm tw-uppercase tw-rounded-lg">Apply</button>
-                    <button className="tw-py-2 tw-px-5 tw-text-black tw-bg-[#e3e3e7] tw-text-sm tw-uppercase tw-rounded-lg">Reset</button>
+      {/* <div className="mt-10">
+                <div className="flex gap-4">
+                    <button className="py-2 px-5 text-white bg-untitled-ui--primary600 text-sm uppercase rounded-lg">Apply</button>
+                    <button className="py-2 px-5 text-black bg-[#e3e3e7] text-sm uppercase rounded-lg">Reset</button>
                 </div>
             </div> */}
     </div>

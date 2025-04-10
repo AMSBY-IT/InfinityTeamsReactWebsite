@@ -127,14 +127,14 @@ export  const CandidateFilter=()=> {
   }
 
   return (
-    <div className='tw-pt-6'>
-      <div className='tw-max-w-7xl tw-mx-auto max-xl:tw-max-w-5xl'>
-        <div className='tw-mx-auto max-sm:tw-w-11/12 max-lg:tw-w-11/12'>
-          <div className='tw-flex tw-justify-between tw-bg-white tw-rounded-md tw-border-[1px] max-lg:tw-flex-col'>
-            <div className="tw-flex tw-items-center tw-p-3 tw-justify-between tw-gap-4 tw-px-4 tw-grow max-lg:tw-flex-col max-lg:tw-py-4">
-              <div className="tw-flex tw-items-center tw-gap-2 tw-grow max-lg:tw-w-full">
+    <div className='pt-6'>
+      <div className='max-w-7xl mx-auto max-xl:max-w-5xl'>
+        <div className='mx-auto max-sm:w-11/12 max-lg:w-11/12'>
+          <div className='flex justify-between bg-white rounded-md border-[1px] max-lg:flex-col'>
+            <div className="flex items-center p-3 justify-between gap-4 px-4 grow max-lg:flex-col max-lg:py-4">
+              <div className="flex items-center gap-2 grow max-lg:w-full">
                 <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" className='tw-w-5 tw-text-untitled-ui--primary600' viewBox="0 0 22 22"><path fill="#7f56d9" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" className='w-5 text-untitled-ui--primary600' viewBox="0 0 22 22"><path fill="#7f56d9" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" /></svg>
                 </div>
                 <Select
                   options={developerOptions}
@@ -146,12 +146,12 @@ export  const CandidateFilter=()=> {
                 />
               </div>
 
-              <div className="tw-h-full tw-w-px tw-bg-gray-200 max-lg:tw-hidden" />
+              <div className="h-full w-px bg-gray-200 max-lg:hidden" />
 
 
-              <div className="tw-flex tw-items-center tw-gap-2 tw-grow max-lg:tw-w-full">
+              <div className="flex items-center gap-2 grow max-lg:w-full">
                 <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" className='tw-w-5' viewBox="0 0 22 22"><path fill="#7f56d9" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7M7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9" /><circle cx="12" cy="9" r="2.5" fill="#7f56d9" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" className='w-5' viewBox="0 0 22 22"><path fill="#7f56d9" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7M7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9" /><circle cx="12" cy="9" r="2.5" fill="#7f56d9" /></svg>
                 </div>
                 <Select
                   options={country}
@@ -163,12 +163,12 @@ export  const CandidateFilter=()=> {
                 />
               </div>
 
-              <div className="tw-h-full tw-w-px tw-bg-gray-200 max-lg:tw-hidden" />
+              <div className="h-full w-px bg-gray-200 max-lg:hidden" />
 
 
-              <div className="tw-flex tw-items-center tw-gap-2 tw-grow max-lg:tw-w-full">
+              <div className="flex items-center gap-2 grow max-lg:w-full">
                 <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" className='tw-w-5' viewBox="0 0 22 22"><g fill="none" stroke="#7f56d9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm5-2V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-4 5v.01" /><path d="M3 13a20 20 0 0 0 18 0" /></g></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" className='w-5' viewBox="0 0 22 22"><g fill="none" stroke="#7f56d9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm5-2V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-4 5v.01" /><path d="M3 13a20 20 0 0 0 18 0" /></g></svg>
                 </div>
                 <Select
                   options={skill}
@@ -184,7 +184,7 @@ export  const CandidateFilter=()=> {
 
 
             </div>
-            {/* <button className="tw-bg-untitled-ui--primary600 tw-text-white tw-text-[12px] tw-px-4 tw-py-4 tw-rounded-r-md tw-font-medium max-lg:tw-rounded-bl-md max-lg:tw-rounded-tr-none">
+            {/* <button className="bg-untitled-ui--primary600 text-white text-[12px] px-4 py-4 rounded-r-md font-medium max-lg:rounded-bl-md max-lg:rounded-tr-none">
               START SEARCHING
             </button> */}
           </div>

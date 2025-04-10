@@ -28,11 +28,10 @@ export const Banner = ()=>{
 
               {/* <!-- Heading and Subtext --> */}
               <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-4">
-                Start closing more deals with Pigedrive
+              Global Solution-Provider to Your Outsourcing Needs
               </h1>
               <p className="text-sm sm:text-base mb-4 sm:mb-8">
-                Create a free account and get full access to all features for
-                30-days. No credit card needed.
+              Access global talent, streamline projects, and scale your team effortlessly.
               </p>
 
               {/* <!-- Browser Mockup - Hidden on very small screens --> */}
