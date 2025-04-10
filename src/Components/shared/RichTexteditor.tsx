@@ -17,19 +17,14 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ExampleTheme from "./plugins/ExampleTheme";
 import RichTextToolbar from "./RichTextToolbar";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import "../../App.css"
 
-
-function Placeholder() {
-  return <div className="editor-placeholder">Enter some rich text...</div>;
-}
 
 const editorConfig = {
     namespace: "MyEditor",
   // The editor theme
   theme: ExampleTheme,
   // Handling of errors during update
-  onError(error) {
+  onError(error:Error) {
     throw error;
   },
   // Any custom nodes go here
@@ -51,17 +46,17 @@ const editorConfig = {
 export default function RichTexteditor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container">
+      <div className="relative text-left font-normal text-black rounded-t-[10px] leading-5">
         <RichTextToolbar />
-        <div className="editor-inner">
+        <div className="relative bg-white">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" />}
-            placeholder={<Placeholder />}
+            contentEditable={
+              <ContentEditable className="min-h-[150px] resize-none text-[15px] caret-[#444] tab-[1] relative outline-none px-[10px] py-[15px]" />
+            }
             ErrorBoundary={LexicalErrorBoundary}
           />
           <HistoryPlugin />
           <AutoFocusPlugin />
-          
           <LinkPlugin />
           <AutoLinkPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
