@@ -10,8 +10,7 @@ import LoginPage from '@/components/LoginPage';
 import { ProfilePage } from "@/Pages/profile/ProfilePage";
 import PrivateRoute from "./PrivateRoutes";
 import Catalogue from "@/Pages/catalogue/Catalogue";
-import { CandidateList } from "@/Pages/candidate/CandidateList";
-import Candidate from "@/components/Candidates/Candidate";
+
 import AppHeader from "@/components/shared/AppHeader";
 
 
