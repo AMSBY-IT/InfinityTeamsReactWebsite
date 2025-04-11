@@ -5,17 +5,17 @@ import DropDown from "@/components/shared/DropDown";
 import EndDatePicker from "@/components/shared/EndDatePicker";
 import TextInput from "@/components/shared/TextInput";
 import { CandidateContext } from "@/Provider/CandidateContext";
-import { Experience } from "@/Types/types";
+import { ExperienceType } from "@/Types/types";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 
 export interface ExperienceFormProps {
-  experienceData?: Experience;
-  setExperienceData: React.Dispatch<React.SetStateAction<Experience>>;
+  experienceData: ExperienceType;
+  setExperienceData: React.Dispatch<React.SetStateAction<ExperienceType>>;
   }
 
-export default function Experienceform({ setExperienceData}:ExperienceFormProps){
+export default function Experienceform({experienceData, setExperienceData}:ExperienceFormProps){
 
     const { dispatch, designation } =
         useContext(CandidateContext);
@@ -72,7 +72,7 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
           setExperienceData(prev => ({
             ...prev,
             isCurrent: checked,
-            endDate: checked ? "" : prev.endDate, // clear end date if currently working
+            endDate: checked ? null: prev.endDate, // clear end date if currently working
           }));
         };
         
@@ -84,7 +84,7 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
         
           setExperienceData((prev) => ({
             ...prev,
-            startDate: newDate ? newDate.toISOString() : "", // or your expected format
+            startDate: newDate ? newDate.toISOString() : null, // or your expected format
           }));
         };
         
@@ -95,7 +95,7 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
         
           setExperienceData((prev) => ({
             ...prev,
-            endDate: newDate ? newDate.toISOString() : "",
+            endDate: newDate ? newDate.toISOString() : null,
           }));
         };
         
@@ -107,6 +107,7 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
             label="Company"
             placeHolder="Enter Company Name"
             helperText="helper text"
+            value={experienceData?.companyName}
             onChange={(value) => {
               setExperienceData(prev => ({ ...prev, companyName: value }));
             }}
@@ -115,6 +116,7 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
           <DropDown
             options={designation}
             label="Designation"
+            value={experienceData.designation.id}
             onChange={(option) =>
               setExperienceData(prev => ({
                 ...prev,
@@ -122,17 +124,17 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
               }))}
           />
 
-          <Checkbox label="I currently work here" onChange={handleCheckboxChange} />
+          <Checkbox label="I currently work here" onChange={handleCheckboxChange} checked={experienceData?.isCurrent}/>
 
           <div className="grid md:grid-cols-2 gap-3">
             <DatePicker
               label="Start Date "
-              startdate={startdate}
+              startdate={experienceData?.startDate ? new Date(experienceData.startDate) :null}
               setStartDate={handleStartDateChange}
             />
             <EndDatePicker
               label="End Date "
-              enddate={enddate}
+              enddate={experienceData?.endDate ? new Date(experienceData.endDate) :null}
               setEndDate={handleEndDateChange}
               disabled={isCurrent}
             />
@@ -141,6 +143,7 @@ export default function Experienceform({ setExperienceData}:ExperienceFormProps)
           <TextInput
             label="Job Description"
             placeHolder="Enter Description"
+            value={experienceData?.jobDetail}
             helperText="helper text"
             onChange={(value) => {
               setExperienceData(prev => ({ ...prev, jobDetail: value }));

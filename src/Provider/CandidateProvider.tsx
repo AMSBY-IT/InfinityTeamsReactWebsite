@@ -1,5 +1,10 @@
 import React, { useReducer } from "react";
-import { commonType, Candidates, CandidateProviderProps, candidateProfile } from "../Types/types";
+import {
+  commonType,
+  Candidates,
+  CandidateProviderProps,
+  candidateProfile,
+} from "../Types/types";
 import { CandidateContext, initialState } from "./CandidateContext";
 
 export type Action =
@@ -17,7 +22,10 @@ export type Action =
   | { type: "SET_CANDIDATES"; payload: Candidates[] }
   | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } }
   | { type: "SET_SELECTEDTYPE"; payload: string }
-  | { type: "SET_CANDIDATEPROFILE"; payload: candidateProfile};
+  | { type: "SET_CANDIDATEPROFILE"; payload: candidateProfile }
+  | { type: "UPDATE_EDUCATION"; payload: candidateProfile["educations"] }
+  | { type: "UPDATE_EXPERIENCE"; payload: candidateProfile["experiences"] };
+  // | { type: "UPDATE_CANDIDATEINFO"; payload: candidateProfile["candidate"] };
 
 const Reducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
@@ -55,8 +63,33 @@ const Reducer = (state: typeof initialState, action: Action) => {
       };
     case "SET_SELECTEDTYPE":
       return { ...state, selectedType: action.payload };
-      case "SET_CANDIDATEPROFILE":
+    case "SET_CANDIDATEPROFILE":
       return { ...state, profile: action.payload };
+    case "UPDATE_EDUCATION":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          educations: action.payload,
+        },
+      };
+      case "UPDATE_EXPERIENCE":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          experiences: action.payload,
+        },
+      };
+      // case "UPDATE_CANDIDATEINFO":
+      // return {
+      //   ...state,
+      //   profile: {
+      //     ...state.profile,
+      //     candidate: action.payload,
+      //   },
+      // };
+      
     default:
       return state;
   }

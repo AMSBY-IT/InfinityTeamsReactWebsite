@@ -1,0 +1,100 @@
+import DropDown from "@/components/shared/DropDown";
+import TextInput from "@/components/shared/TextInput";
+import RadioSelect from "@/components/sidebar/RadioSelect";
+import { UpdateProfileType } from "@/Types/types";
+import { ClipboardCheck, Clock } from "lucide-react";
+
+export interface UpdateProfileFormProps {
+    updateprofileData?: UpdateProfileType;
+    setUpdateprofileData: React.Dispatch<React.SetStateAction<UpdateProfileType>>;
+  }
+
+export default function ProfileUpdateform({updateprofileData,setUpdateprofileData}:UpdateProfileFormProps) {
+  const jobTypePreferenceOptions = [
+    {
+      id: "Full-Time",
+      name: "Full-Time",
+    },
+    {
+      id: "Freelance",
+      name: "Freelance",
+    },
+    {
+      id: "Both",
+      name: "Both",
+    },
+  ];
+
+//   const [jobsearchstatus,Setjobsearchstatus] =useState("Open")
+//   const [jobtypepreference,Setjobtypepreference]=useState<Options>()
+
+//   const [name,setName] =useState("")
+//   const [phone,setPhone] =useState("")
+//   const [noticeperiod, setNoticeperiod] = useState(0);
+//   const [city, setCity] = useState("");
+
+//   const handleJobtypepreferenceChange = (selectedOption: Options) => {
+//     Setjobtypepreference(selectedOption as Options);
+//   };
+
+  return (
+    <>
+      <TextInput
+        label="Name"
+        placeHolder="Enter Name"
+        helperText="helper text"
+        value={updateprofileData?.name}
+        onChange={(value) => {
+            setUpdateprofileData(prev => ({ ...prev, name: value }));
+          }}
+      />
+      <TextInput
+        label="Phone Number"
+        placeHolder="Enter Phone"
+        helperText="helper text"
+        value={updateprofileData?.phone}
+        onChange={(value) => {
+            setUpdateprofileData(prev => ({ ...prev, phone: value }));
+          }}
+      />
+      <DropDown options={jobTypePreferenceOptions} label="Job Preference" onChange={(option) =>
+            setUpdateprofileData(prev => ({
+              ...prev,
+              jobTypePreference: option.name,
+            }))}/>
+
+      <RadioSelect
+        title="Job Search Status"
+        selected={updateprofileData?.jobSearchStatus}
+        onChange={(value)=>{
+            setUpdateprofileData(prev =>({...prev,jobSearchStatus:value}))
+        }}
+        options={[
+          { label: "Open", icon: <Clock className="h-5 w-5" /> },
+          {
+            label: "Close",
+            icon: <ClipboardCheck className="h-5 w-5" />,
+          },
+        ]}
+      />
+
+      <TextInput
+        label="Notice Period"
+        placeHolder="Enter Notice Period"
+        helperText="helper text"
+        onChange={(value) => {
+            setUpdateprofileData(prev => ({ ...prev, noticePeriod: Number(value) }));
+          }}
+      />
+      <TextInput
+        label="City"
+        placeHolder="Enter City"
+        helperText="helper text"
+        value={updateprofileData?.location}
+        onChange={(value) => {
+            setUpdateprofileData(prev => ({ ...prev, location: value }));
+          }}
+      />
+    </>
+  );
+}

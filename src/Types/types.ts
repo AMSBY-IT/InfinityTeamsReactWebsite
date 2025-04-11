@@ -129,15 +129,15 @@ export interface OptionType {
     label: string;
 };
 
-export interface Education {
+export interface EducationType {
     instituteName: string;
     courseName: string;
     startYear: number;
     endYear: number;
-    finalScore: string
+    finalScore: string;
 }
 
-export interface Experience {
+export interface ExperienceType {
     isCurrent: boolean;
     companyName: string;
     designation: { id: string, name: string };
@@ -147,8 +147,8 @@ export interface Experience {
 }
 
 export interface professionalData {
-    education: Education[];
-    professional: Experience[];
+    education: EducationType[];
+    professional: ExperienceType[];
     experienceLevel: string;
     noticePeriod: number;
     ctc: number;
@@ -168,7 +168,8 @@ export interface candidateProfile {
         courseName: string;
         startYear: number;
         endYear: number;
-        finalScore: string
+        finalScore: string;
+        id: string
     }[];
     experiences: {
         isCurrent: boolean;
@@ -177,6 +178,7 @@ export interface candidateProfile {
         startDate: string | null;
         endDate: string | null;
         jobDetail: string;
+        id: string
     }[];
     skills: {
         id: string;
@@ -189,4 +191,13 @@ export interface candidateProfile {
         noticePeriod: string;
         lastContacted: string | null
     }
+}
+
+export interface UpdateProfileType {
+    name: string;
+    phone: string;
+    jobTypePreference: string;
+    jobSearchStatus: string;
+    noticePeriod: number | null;
+    location: string
 }

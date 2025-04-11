@@ -6,26 +6,33 @@ import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect } from "react";
 
 export interface ProfessionalFormProps {
-    professionalDetails?: {noticePeriod: number,
-        ctc: number,
-        ectc: number,
-        experienceLevel: string;}
-        setProfessionalDetails: React.Dispatch<React.SetStateAction<{noticePeriod: number,
-    ctc: number,
-    ectc: number,
-    experienceLevel: string;}>>;
-  }
-export default function Professionalform({ setProfessionalDetails}:ProfessionalFormProps) {
-    const { dispatch, levels } =
-        useContext(CandidateContext);
-        
-//   const [noticeperiod, setNoticeperiod] = useState(0);
-//   const [ctc, setCtc] = useState(0);
-//   const [ectc, setEctc] = useState(0);
-//   const [selectedLevel, setSelectedLevel] = useState<Options>({
-//     id: "",
-//     name: "",
-//   });
+  professionalDetails?: {
+    noticePeriod: number;
+    ctc: number;
+    ectc: number;
+    experienceLevel: string;
+  };
+  setProfessionalDetails: React.Dispatch<
+    React.SetStateAction<{
+      noticePeriod: number;
+      ctc: number;
+      ectc: number;
+      experienceLevel: string;
+    }>
+  >;
+}
+export default function Professionalform({
+  setProfessionalDetails,
+}: ProfessionalFormProps) {
+  const { dispatch, levels } = useContext(CandidateContext);
+
+  //   const [noticeperiod, setNoticeperiod] = useState(0);
+  //   const [ctc, setCtc] = useState(0);
+  //   const [ectc, setEctc] = useState(0);
+  //   const [selectedLevel, setSelectedLevel] = useState<Options>({
+  //     id: "",
+  //     name: "",
+  //   });
 
   const { data: levelData } = useQuery({
     queryKey: ["level"],
@@ -33,14 +40,14 @@ export default function Professionalform({ setProfessionalDetails}:ProfessionalF
   });
 
   useEffect(() => {
-      if (levelData) {
-        dispatch({ type: "SET_LEVEL", payload: levelData });
-      }
-    }, [levelData, dispatch]);
-    
-    // const handleLevelChange = (selectedOption: OptionTypeParameter<Options>) => {
-    //     setSelectedLevel(selectedOption as Options);
-    //   };
+    if (levelData) {
+      dispatch({ type: "SET_LEVEL", payload: levelData });
+    }
+  }, [levelData, dispatch]);
+
+  // const handleLevelChange = (selectedOption: OptionTypeParameter<Options>) => {
+  //     setSelectedLevel(selectedOption as Options);
+  //   };
   return (
     <>
       <div>
@@ -48,10 +55,11 @@ export default function Professionalform({ setProfessionalDetails}:ProfessionalF
           options={levels}
           label="Experience Level"
           onChange={(option) =>
-            setProfessionalDetails(prev => ({
+            setProfessionalDetails((prev) => ({
               ...prev,
               experienceLevel: option.name,
-            }))}
+            }))
+          }
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <TextInput
@@ -59,8 +67,11 @@ export default function Professionalform({ setProfessionalDetails}:ProfessionalF
             placeHolder="Enter Notice Period"
             helperText="helper text"
             onChange={(value) => {
-                setProfessionalDetails(prev => ({ ...prev, noticePeriod: Number(value) }));
-              }}
+              setProfessionalDetails((prev) => ({
+                ...prev,
+                noticePeriod: Number(value),
+              }));
+            }}
           />
 
           <TextInput
@@ -68,8 +79,11 @@ export default function Professionalform({ setProfessionalDetails}:ProfessionalF
             placeHolder="Enter Current ctc"
             helperText="helper text"
             onChange={(value) => {
-                setProfessionalDetails(prev => ({ ...prev, ctc: Number(value) }));
-              }}
+              setProfessionalDetails((prev) => ({
+                ...prev,
+                ctc: Number(value),
+              }));
+            }}
           />
 
           <TextInput
@@ -77,8 +91,11 @@ export default function Professionalform({ setProfessionalDetails}:ProfessionalF
             placeHolder="Enter Expected ctc"
             helperText="helper text"
             onChange={(value) => {
-                setProfessionalDetails(prev => ({ ...prev, ectc: Number(value) }));
-              }}
+              setProfessionalDetails((prev) => ({
+                ...prev,
+                ectc: Number(value),
+              }));
+            }}
           />
         </div>
       </div>

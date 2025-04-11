@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import {
   postProfessionalData,
 } from "@/api/services";
-import { Education, Experience, professionalData } from "@/Types/types";
+import { EducationType, ExperienceType, professionalData } from "@/Types/types";
 import { toast } from "react-toastify";
 import Educationform from "./forms/educationform";
 import Experienceform from "./forms/Experienceform";
@@ -19,7 +19,7 @@ function ProfessionalInformation() {
   const { selectedType } =useContext(CandidateContext);
 
 
-  const [educationData, setEducationData] = useState<Education>({
+  const [educationData, setEducationData] = useState<EducationType>({
     instituteName: "",
     courseName: "",
     startYear: new Date().getFullYear(),
@@ -29,7 +29,7 @@ function ProfessionalInformation() {
 
   
   
-  const [experienceData, setExperienceData] = useState<Experience>({
+  const [experienceData, setExperienceData] = useState<ExperienceType>({
     isCurrent: false,
     companyName: "",
     designation: { id: "", name: "" },

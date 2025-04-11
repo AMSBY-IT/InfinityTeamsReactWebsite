@@ -2,10 +2,11 @@ type Props = {
 	label: string
 	placeHolder: string
 	helperText: string
+	value?:string | undefined
 	onChange:(value:string)=>void
 }
 
-export default function TextInput({ label, placeHolder, helperText,onChange}: Props) {
+export default function TextInput({ label, placeHolder, helperText,value,onChange}: Props) {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(event.target.value); 
 	  };
@@ -19,6 +20,7 @@ export default function TextInput({ label, placeHolder, helperText,onChange}: Pr
 						type="text"
 						className="block w-full bg-white pl-2 py-2.5 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
 						placeholder={placeHolder}
+						value={value}
 						onChange={handleChange}
 					/>
 

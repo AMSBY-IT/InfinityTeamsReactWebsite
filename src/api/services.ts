@@ -1,4 +1,4 @@
-import { usercredentials, userdata, personalData, professionalData, skillsData } from "@/Types/types";
+import { usercredentials, userdata, personalData, professionalData, skillsData, EducationType, ExperienceType, UpdateProfileType } from "@/Types/types";
 import axios from "axios";
 import { toast } from 'react-toastify';
 
@@ -174,7 +174,7 @@ export const postCVData = async (Cv: File) => {
     const formData = new FormData();
     formData.append("resumeFile", Cv);
 
-    console.log("formData",formData)
+    
     const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/cv`, formData
         , {
             headers: {
@@ -216,6 +216,55 @@ export const getCandidateProfile = async () => {
         }
     );
     return response.data.data;
+};
+
+export const updateEducation = async (id:string,data:EducationType) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/${id}/education`,data
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    return response.data;
+};
+
+export const updateExperience = async (id:string,data:ExperienceType) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/${id}/experience`,data
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    return response.data;
+};
+
+export const updateProfile = async (data:UpdateProfileType) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile`,data
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
 };
 
 export const fetchTitle = async () => {

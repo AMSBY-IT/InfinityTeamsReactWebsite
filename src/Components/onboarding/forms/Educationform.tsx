@@ -4,16 +4,16 @@ import EndYearPicker from "@/components/shared/EndYearPicker";
 import StartYearPicker from "@/components/shared/StartYearPicker";
 import TextInput from "@/components/shared/TextInput";
 import { CandidateContext } from "@/Provider/CandidateContext";
-import { Education } from "@/Types/types";
+import { EducationType } from "@/Types/types";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect } from "react";
 
 export interface EducationFormProps {
-    educationData?: Education;
-    setEducationData: React.Dispatch<React.SetStateAction<Education>>;
+    educationData: EducationType;
+    setEducationData: React.Dispatch<React.SetStateAction<EducationType>>;
   }
 
-export default function Educationform({ setEducationData }:EducationFormProps){
+export default function Educationform({educationData, setEducationData }:EducationFormProps){
 
     const { dispatch, degree } =
         useContext(CandidateContext);
@@ -70,6 +70,7 @@ export default function Educationform({ setEducationData }:EducationFormProps){
           label="Institutions Name "
           placeHolder="Enter School Name"
           helperText="helper text"
+          value={educationData?.instituteName}
           onChange={(value) => {
             setEducationData(prev => ({ ...prev, instituteName: value }));
           }}
@@ -90,6 +91,7 @@ export default function Educationform({ setEducationData }:EducationFormProps){
           label="Total Percentage"
           placeHolder="Enter Percentage"
           helperText="helper text"
+          value={educationData?.finalScore}
           onChange={(value) => {
             setEducationData(prev => ({ ...prev, finalScore: value }));
           }}
@@ -98,12 +100,12 @@ export default function Educationform({ setEducationData }:EducationFormProps){
         <div className="grid md:grid-cols-2 gap-3">
           <StartYearPicker
             label="Start Year "
-            startYear={startYear}
+            startYear={educationData?.startYear ? new Date(educationData.startYear, 0, 1) : undefined}
             setStartYear={handleStartYearChange}
           />
           <EndYearPicker
             label="End Year "
-            endYear={endYear}
+            endYear={educationData?.endYear ? new Date(educationData.endYear, 0, 1) : undefined}
             setEndYear={handleEndYearChange}
           />
         </div>
