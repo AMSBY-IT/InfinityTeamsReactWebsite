@@ -9,6 +9,10 @@ import Register from "../Pages/auth/Register";
 import LoginPage from '@/components/LoginPage';
 import { ProfilePage } from "@/Pages/profile/ProfilePage";
 import PrivateRoute from "./PrivateRoutes";
+import Catalogue from "@/Pages/catalogue/Catalogue";
+import { CandidateList } from "@/Pages/candidate/CandidateList";
+import Candidate from "@/components/Candidates/Candidate";
+import AppHeader from "@/components/shared/AppHeader";
 
 
 function Index() {
@@ -25,6 +29,11 @@ function Index() {
 				<Route path="/onboarding/professional" element={<ProfessionPage />} />
 				<Route path="/onboarding/cv-skills" element={<CVSkills />} />
 				<Route path="/profile" element={<ProfilePage />} />
+				<Route path="/search" element={ <div className="bg-gray-200 h-screen"> 
+					<AppHeader/>
+
+					<Catalogue/></div>}/>
+				
 				</Route>
 				
 				<Route path="*" element={<Navigate replace to="/404" />} />

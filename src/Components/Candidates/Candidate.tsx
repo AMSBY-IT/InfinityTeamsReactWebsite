@@ -3,12 +3,12 @@ import CandidateCard from "./CandidateCard";
 import Pagination from "./Pagination";
 
 
-const Candidate = () => {
+ const Candidate = () => {
 
     return (
         <>
             <TotalCandidates />
-            <div className="tw-flex tw-flex-col" id="myTabContent">
+            <div className="flex flex-col" id="myTabContent">
                 <CandidateCard />
                 <Pagination />
             </div>
