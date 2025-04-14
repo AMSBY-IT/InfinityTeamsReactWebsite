@@ -1,11 +1,11 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import { CandidateFilter } from "../../components/Candidates/CandidateFilter";
+import Header from "../../component/Header";
+import Footer from "../../component/Footer";
+import { CandidateFilter } from "../../component/Candidates/CandidateFilter";
 import { useContext } from "react";
 import { CandidateContext } from "../../Provider/CandidateContext";
-import Loader from "../../components/Loader";
-import CheckBoxes from "../../components/Candidates/CheckBoxes";
-import Candidate from "@/components/Candidates/Candidate";
+import Loader from "../../component/Loader";
+import CheckBoxes from "../../component/Candidates/CheckBoxes";
+import Candidate from "@/component/Candidates/Candidate";
 
 
 

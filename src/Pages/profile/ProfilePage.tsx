@@ -1,6 +1,6 @@
 
-import Profile from "@/components/CandidateProfile/profile"
-import ProfileContainer from "@/components/CandidateProfile/profileContainer"
+import Profile from "@/component/CandidateProfile/profile"
+import ProfileContainer from "@/component/CandidateProfile/profileContainer"
 
 
 
