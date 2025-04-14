@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 export default function PersonalDetails() {
-  const { profile } = useContext(CandidateContext);
+  const { profile,dispatch } = useContext(CandidateContext);
 
   const [updateprofileData, setUpdateprofileData] = useState<UpdateProfileType>({
     name: "",
@@ -30,6 +30,13 @@ export default function PersonalDetails() {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
+        dispatch({ type: "UPDATE_CANDIDATEINFO", payload: {
+          name: updateprofileData.name,
+          phone: updateprofileData.phone,
+          noticePeriod: updateprofileData.noticePeriod||'',
+          email:profile.candidate.email,
+          lastContacted:profile.candidate.lastContacted
+  } });
       }
     },
     onError: (error) => {
@@ -45,9 +52,16 @@ export default function PersonalDetails() {
   });
 
   const handleClick = () => {
-    
-      setIsModalOpen(true);
-    }
+    setUpdateprofileData({
+      name: profile.candidate.name || "",
+      phone: profile.candidate.phone || "",
+      jobTypePreference: "",
+      jobSearchStatus: "Open",
+      noticePeriod: profile.candidate.noticePeriod || null,
+      location: '',
+    });
+    setIsModalOpen(true);
+  };
   
 
   const handleUpdate = ()=>{

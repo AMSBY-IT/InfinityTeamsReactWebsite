@@ -24,8 +24,8 @@ export type Action =
   | { type: "SET_SELECTEDTYPE"; payload: string }
   | { type: "SET_CANDIDATEPROFILE"; payload: candidateProfile }
   | { type: "UPDATE_EDUCATION"; payload: candidateProfile["educations"] }
-  | { type: "UPDATE_EXPERIENCE"; payload: candidateProfile["experiences"] };
-  // | { type: "UPDATE_CANDIDATEINFO"; payload: candidateProfile["candidate"] };
+  | { type: "UPDATE_EXPERIENCE"; payload: candidateProfile["experiences"] }
+  | { type: "UPDATE_CANDIDATEINFO"; payload: candidateProfile["candidate"] };
 
 const Reducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
@@ -81,14 +81,14 @@ const Reducer = (state: typeof initialState, action: Action) => {
           experiences: action.payload,
         },
       };
-      // case "UPDATE_CANDIDATEINFO":
-      // return {
-      //   ...state,
-      //   profile: {
-      //     ...state.profile,
-      //     candidate: action.payload,
-      //   },
-      // };
+      case "UPDATE_CANDIDATEINFO":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          candidate: action.payload,
+        },
+      };
       
     default:
       return state;
