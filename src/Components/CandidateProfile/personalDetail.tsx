@@ -151,7 +151,7 @@ export default function PersonalDetails() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Edit Work Experience Section"
+        title="Update Work Experience"
       >
         <ProfileUpdateform updateprofileData={updateprofileData} setUpdateprofileData={setUpdateprofileData} />
         <div className="flex justify-end mt-4 gap-2">

@@ -109,7 +109,7 @@ export default function WorkExperience() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Edit Work Experience Section"
+        title="Update Work Experience"
       >
         <Experienceform experienceData={experienceData} setExperienceData={setExperienceData} />
         <div className="flex justify-end mt-4 gap-2">
