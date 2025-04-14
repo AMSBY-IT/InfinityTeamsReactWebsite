@@ -28,6 +28,7 @@ export default function AboutCandidateSection() {
       </div>
 
       <Modal 
+      
       isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Edit About Section">

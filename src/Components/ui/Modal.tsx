@@ -20,7 +20,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
       />
 
       {/* Modal content */}
-      <div className="relative bg-white rounded-xl shadow-xl p-6 w-4/5 z-10 animate-fade-in">
+      <div className=" max-w-2xl relative bg-white rounded-xl shadow-xl p-6 w-4/5 z-10 animate-fade-in">
         {title && <h3 className="text-lg font-semibold mb-4">{title}</h3>}
         {children}
       </div>
