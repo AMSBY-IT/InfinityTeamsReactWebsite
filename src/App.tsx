@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import CandidateList from './Pages/CandidateList';
+import CandidateList from './Pages/candidate/CandidateList';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import Protected from './Protected';

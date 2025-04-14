@@ -32,32 +32,32 @@ const Header=()=> {
 
     return (
         <>
-            <div className="tw-bg-untitled-ui--primary600">
-                <div className="tw-max-w-7xl tw-mx-auto max-xl:tw-max-w-5xl">
-                    <header className=" tw-bg-transparent  tw-py-4" id="navbar">
-                        <div className="tw-mx-auto max-sm:tw-w-11/12 max-lg:tw-w-11/12">
-                            <nav className="tw-flex tw-justify-between tw-items-center">
-                                <div className="logo tw-font-bold tw-flex tw-items-center tw-text-sm">
-                                    <div className="tw-mr-2">
+            <div className="bg-untitled-ui--primary600">
+                <div className="max-w-7xl mx-auto max-xl:max-w-5xl">
+                    <header className=" bg-transparent  py-4" id="navbar">
+                        <div className="mx-auto max-sm:w-11/12 max-lg:w-11/12">
+                            <nav className="flex justify-between items-center">
+                                <div className="logo font-bold flex items-center text-sm">
+                                    <div className="mr-2">
                                         <a href="/">
                                             <img src="https://infinity.devcodefire.com/wp-content/uploads/2024/10/infinityteam.png"
-                                                className="tw-h-14 " alt="" />
+                                                className="h-14 " alt="" />
                                         </a>
                                     </div>
                                 </div>
-                                <div className="nav-links tw-flex tw-gap-7 tw-text-lg max-md:tw-hidden max-lg:tw-text-base tw-text-gray-800">
-                                <a className={`tw-text-white tw-text-base tw-cursor-pointer`} onClick={Logout}>Logout</a>
+                                <div className="nav-links flex gap-7 text-lg max-md:hidden max-lg:text-base text-gray-800">
+                                <a className={`text-white text-base cursor-pointer`} onClick={Logout}>Logout</a>
 
-                                    {/* <a href="/candidatelist" className={`tw-text-white tw-text-base ${isActive("/candidatelist") ? "tw-opacity-100" : "tw-opacity-50"}`}>Candidate List</a>
-                                    <a href="/services" className={`tw-text-white tw-text-base ${isActive("/services") ? "tw-opacity-100" : "tw-opacity-50"}`}>Services</a>
-                                    <a href="/about" className={`tw-text-white tw-text-base ${isActive("/about") ? "tw-opacity-100" : "tw-opacity-50"}`}>About</a>
+                                    {/* <a href="/candidatelist" className={`text-white text-base ${isActive("/candidatelist") ? "opacity-100" : "opacity-50"}`}>Candidate List</a>
+                                    <a href="/services" className={`text-white text-base ${isActive("/services") ? "opacity-100" : "opacity-50"}`}>Services</a>
+                                    <a href="/about" className={`text-white text-base ${isActive("/about") ? "opacity-100" : "opacity-50"}`}>About</a>
 
-                                    <a href="/contact" className={`tw-text-white tw-text-base ${isActive("/contact") ? "tw-opacity-100" : "tw-opacity-50"}`}>Contact</a> */}
+                                    <a href="/contact" className={`text-white text-base ${isActive("/contact") ? "opacity-100" : "opacity-50"}`}>Contact</a> */}
                                 </div>
 
-                                <div className="md:tw-hidden">
+                                <div className="md:hidden">
                                     <button type="button" onClick={toggleSidebar} id="sidebar-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="tw-w-6" viewBox="0 0 24 24"><path fill="#fff" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" /></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6" viewBox="0 0 24 24"><path fill="#fff" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" /></svg>
                                     </button>
                                 </div>
                             </nav>
@@ -68,26 +68,26 @@ const Header=()=> {
 
             {/* Sidebar */}
             <div
-                className={`tw-fixed tw-top-0 tw-right-0 tw-h-full tw-w-64 tw-bg-gray-900 tw-z-50 tw-text-white tw-transition-transform ${isSidebarOpen ? "tw-translate-x-0" : "tw-translate-x-full"
+                className={`fixed top-0 right-0 h-full w-64 bg-gray-900 z-50 text-white transition-transform ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
                     }`}
             >
-                <div className="tw-p-4 tw-flex tw-justify-between tw-items-center">
-                    <span className="tw-text-xl tw-font-bold">Menu</span>
+                <div className="p-4 flex justify-between items-center">
+                    <span className="text-xl font-bold">Menu</span>
                     <button onClick={closeSidebar}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="tw-w-6" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M18 6L6 18M6 6l12 12" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M18 6L6 18M6 6l12 12" /></svg>
                     </button>
                 </div>
-                <nav className="tw-flex tw-flex-col tw-gap-4 tw-p-4">
-                    <a className={`tw-text-white tw-text-base tw-cursor-pointer`} onClick={Logout}>
+                <nav className="flex flex-col gap-4 p-4">
+                    <a className={`text-white text-base cursor-pointer`} onClick={Logout}>
                         Logout
                     </a>
-                    {/* <a href="/services" className={`tw-text-white tw-text-base ${isActive("/services") ? "tw-opacity-100" : "tw-opacity-50"}`}>
+                    {/* <a href="/services" className={`text-white text-base ${isActive("/services") ? "opacity-100" : "opacity-50"}`}>
                         Services
                     </a>
-                    <a href="/about" className={`tw-text-white tw-text-base ${isActive("/about") ? "tw-opacity-100" : "tw-opacity-50"}`}>
+                    <a href="/about" className={`text-white text-base ${isActive("/about") ? "opacity-100" : "opacity-50"}`}>
                         About
                     </a>
-                    <a href="/contact" className={`tw-text-white tw-text-base ${isActive("/contact") ? "tw-opacity-100" : "tw-opacity-50"}`}>
+                    <a href="/contact" className={`text-white text-base ${isActive("/contact") ? "opacity-100" : "opacity-50"}`}>
                         Contact
                     </a> */}
                 </nav>
@@ -95,7 +95,7 @@ const Header=()=> {
 
             {isSidebarOpen && (
                 <div
-                    className="tw-fixed tw-z-20 tw-inset-0 tw-bg-black tw-opacity-50"
+                    className="fixed z-20 inset-0 bg-black opacity-50"
                     onClick={closeSidebar}
                 ></div>
             )}
