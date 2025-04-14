@@ -3,8 +3,11 @@ import { Avatar } from "@/components/ui/avatar"
 import { AvatarFallback } from "@/components/ui/avatar"
 import { Home, Users, Briefcase, Globe, SettingsIcon, ChevronDown } from "lucide-react"
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { CandidateContext } from "@/Provider/CandidateContext"
 
 export default function Sidebar() {
+	const {profile}=useContext(CandidateContext)
 	return (
 		<div className=" border-r bg-white flex flex-col h-full">
 			<div className="p-4 border-b flex items-center gap-2">
@@ -14,10 +17,10 @@ export default function Sidebar() {
 
 			<div className="p-4 border-b">
 				<div className="flex items-center gap-3">
-					<Avatar className="h-8 w-8 bg-purple-600 text-white">
-						<AvatarFallback>MF</AvatarFallback>
+					<Avatar className="h-8 w-8 bg-purple-200 ">
+						<AvatarFallback>{profile.candidate.name.at(0)}</AvatarFallback>
 					</Avatar>
-					<div className="flex-1 max-lg:hidden">March Fonda</div>
+					<div className="flex-1 max-lg:hidden">{profile.candidate.name}</div>
 				</div>
 			</div>
 			<nav className="flex-1 p-2">

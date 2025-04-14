@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/components/Catalouge/SearchBar"
 import React, { useState } from 'react'
 
@@ -175,7 +176,7 @@ export const jobData: Job[] = [
 
 
 const Catalogue = () => {
-	const [jobs, setJobs] = useState(jobData)
+	const [jobs] = useState(jobData)
 	const [selectedFilters, setSelectedFilters] = useState({
 	  keywords: ["Product Designer", "Artist", "Game Designer", "Designer"],
 	  country: "All Countries",
