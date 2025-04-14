@@ -8,7 +8,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { Value } from "react-calendar/dist/esm/shared/types.js"
 
-function StartYearPicker({ label = "label date", startYear,setStartYear}: { label: string, startYear: Date, setStartYear: React.Dispatch<React.SetStateAction<Date>>}) {
+function StartYearPicker({ label = "label date", startYear,setStartYear}: { label: string, startYear: Date|undefined, setStartYear: React.Dispatch<React.SetStateAction<Date>>}) {
 
     const handleDateSelect = (val: Value) => {
         setStartYear(val as Date)

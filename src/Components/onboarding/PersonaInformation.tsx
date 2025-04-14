@@ -1,11 +1,11 @@
-import  { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TextInput from "../shared/TextInput";
 import RadioSelect from "../sidebar/RadioSelect";
 import DropDown, { Options } from "../shared/DropDown";
 import PrimaryButton from "../shared/PrimaryButton";
 import IconBtn from "../shared/IconBtn";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Clock } from "lucide-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getcountries, getLanguages, postPersonalData } from "@/api/services";
 import { CandidateContext } from "@/Provider/CandidateContext";
@@ -14,7 +14,8 @@ import { toast } from "react-toastify";
 import MultiSelectDropdown from "../shared/MultiSelectDropDown";
 
 function PersonaInformation() {
-  const { dispatch, countries, languages,selectedType } = useContext(CandidateContext);
+  const { dispatch, countries, languages, selectedType } =
+    useContext(CandidateContext);
 
   const [selectedCountry, setSelectedCountry] = useState<Options>();
   const [city, setCity] = useState("");
@@ -47,7 +48,7 @@ function PersonaInformation() {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
-        handleNextPage()
+        handleNextPage();
       }
     },
     onError: (error) => {
@@ -65,8 +66,6 @@ function PersonaInformation() {
     setSelectedLanguage(selectedOptions as Options[]);
   };
 
-  
-
   const handleSubmit = () => {
     if (!selectedCountry || !city || !selectedLanguage) {
       toast.error("Please fill all required fields");
@@ -76,7 +75,7 @@ function PersonaInformation() {
     const formData: personalData = {
       country: selectedCountry.id,
       city: city,
-      language:selectedLanguage.map((lang)=>({id:lang.id})),
+      language: selectedLanguage.map((lang) => ({ id: lang.id })),
       isFresher: selectedType === "Fresher",
     };
 
@@ -95,7 +94,6 @@ function PersonaInformation() {
         label="Country"
         onChange={handleCountryChange}
       />
-
       <TextInput
         label="City"
         placeHolder="Enter City"
@@ -108,8 +106,21 @@ function PersonaInformation() {
         selectedOptions={selectedLanguage}
         onChange={handleLanguageChange}
       />
-      <RadioSelect/>
-
+      <RadioSelect
+        title="Employment Type"
+        selected={selectedType}
+        onChange={(value) =>
+          dispatch({ type: "SET_SELECTEDTYPE", payload: value })
+        }
+        options={[
+          { label: "Fresher", icon: <Clock className="h-5 w-5" /> },
+          {
+            label: "Experienced",
+            icon: <ClipboardCheck className="h-5 w-5" />,
+          },
+        ]}
+      />
+    
       <div className="flex items-center space-x-2 py-2">
         <PrimaryButton btnText="Save " onClick={handleSubmit} />
         <IconBtn Icons={<ArrowRight />} onClick={handleNextPage} />

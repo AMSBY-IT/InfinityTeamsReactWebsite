@@ -8,6 +8,7 @@ export type Options = {
 type Props = {
   label: string;
   options: Options[];
+  value?: string;
   onChange: (option: Options) => void;
 };
 
@@ -27,8 +28,8 @@ const DropDown = (props: Props) => {
         <div className="relative">
           <select
             className="w-full bg-white appearance-none border rounded-md px-2 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-purple-500"
-            defaultValue="hourly"
             onChange={handleChange}
+            value={props.value}
           >
             <option value="" disabled selected>
               Select

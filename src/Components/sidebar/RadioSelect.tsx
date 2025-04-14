@@ -1,28 +1,39 @@
 import type React from "react"
-import { Clock, ClipboardCheck } from "lucide-react"
-import { CandidateContext } from "@/Provider/CandidateContext";
-import { useContext } from "react";
 
+export interface RadioOption {
+	label: string;
+	icon: React.ReactNode;
+}
 
+interface RadioSelectProps {
+	title?: string;
+	options: RadioOption[];
+	selected: string | undefined;
+	onChange: (value: string) => void;
+}
 
-
-export default function RadioSelect() {
-
-	const { dispatch,selectedType } = useContext(CandidateContext);
-	
-	const handleClick = (label:string) => {
-        dispatch({ type: "SET_SELECTEDTYPE", payload: label });
-    };
+export default function RadioSelect({
+	title,
+	options,
+	selected,
+	onChange
+}: RadioSelectProps) {
 	return (
 		<div className="py-2">
-			<h4 className="text-sm font-medium mb-3">Employment Type</h4>
+			<h4 className="text-sm font-medium mb-3">{title}</h4>
 			<div className="grid grid-cols-2 gap-3">
-				<EmploymentTypeButton icon={<Clock className="h-5 w-5" />} label="Fresher" selected={selectedType === 'Fresher'} onClick={()=>handleClick('Fresher')}/>
-				<EmploymentTypeButton icon={<ClipboardCheck className="h-5 w-5" />} label="Experienced" selected={selectedType === 'Experienced'} onClick={()=>handleClick('Experienced')}/>
-	
+				{options.map(({ icon, label }) => (
+					<EmploymentTypeButton
+						key={label}
+						icon={icon}
+						label={label}
+						selected={selected === label}
+						onClick={() => onChange(label)}
+					/>
+				))}
 			</div>
 		</div>
-	)
+	);
 }
 
 interface EmploymentTypeButtonProps {

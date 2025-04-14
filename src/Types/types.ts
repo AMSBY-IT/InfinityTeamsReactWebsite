@@ -19,7 +19,7 @@ export interface CandidateContextProps {
     errorMessage: string;
     token: string;
     selectedType: string;
-    profile:candidateProfile;
+    profile: candidateProfile;
     dispatch: Dispatch<Action>;
 }
 
@@ -129,24 +129,26 @@ export interface OptionType {
     label: string;
 };
 
+export interface EducationType {
+    instituteName: string;
+    courseName: string;
+    startYear: number;
+    endYear: number;
+    finalScore: string;
+}
+
+export interface ExperienceType {
+    isCurrent: boolean;
+    companyName: string;
+    designation: { id: string, name: string };
+    startDate: string | null;
+    endDate: string | null;
+    jobDetail: string;
+}
+
 export interface professionalData {
-    education: [
-        {
-            instituteName: string;
-            courseName: string;
-            startYear: number;
-            endYear: number;
-            finalScore: string
-        }
-    ];
-    professional: {
-        isCurrent: boolean;
-        companyName: string;
-        designation: { id: string, name: string };
-        startDate: string | null;
-        endDate: string | null;
-        jobDetail: string;
-    }[];
+    education: EducationType[];
+    professional: ExperienceType[];
     experienceLevel: string;
     noticePeriod: number;
     ctc: number;
@@ -162,29 +164,40 @@ export type OptionTypeParameter<T> = SingleValue<T> | MultiValue<T>
 
 export interface candidateProfile {
     educations: {
-        instituteName:string;
-        courseName:string;
-        startYear:number;
+        instituteName: string;
+        courseName: string;
+        startYear: number;
         endYear: number;
-        finalScore:string
+        finalScore: string;
+        id: string
     }[];
-    experiences:{
-        isCurrent:boolean;
-        companyName:string;
+    experiences: {
+        isCurrent: boolean;
+        companyName: string;
         designation: { id: string, name: string };
         startDate: string | null;
         endDate: string | null;
         jobDetail: string;
+        id: string
     }[];
-    skills:{
-        id:string;
-        name:string
+    skills: {
+        id: string;
+        name: string
     }[];
-    candidate:{
-        name:string;
-        email:string;
-        phone:string | null;
-        noticePeriod:string;
-        lastContacted:string | null
+    candidate: {
+        name: string;
+        email: string;
+        phone: string | null;
+        noticePeriod: string;
+        lastContacted: string | null
     }
+}
+
+export interface UpdateProfileType {
+    name: string;
+    phone: string;
+    jobTypePreference: string;
+    jobSearchStatus: string;
+    noticePeriod: number | null;
+    location: string
 }

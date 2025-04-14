@@ -1,87 +1,51 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import PrimaryButton from "../shared/PrimaryButton";
 import IconBtn from "../shared/IconBtn";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "../shared/DatePicker";
-import TextInput from "../shared/TextInput";
-import DropDown, { Options } from "../shared/DropDown";
-import EndDatePicker from "../shared/EndDatePicker";
-import StartYearPicker from "../shared/StartYearPicker";
-import EndYearPicker from "../shared/EndYearPicker";
-import Checkbox from "../shared/Checkbox";
+
 import { CandidateContext } from "@/Provider/CandidateContext";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import {
-  getDegree,
-  getDesignation,
-  getlevels,
   postProfessionalData,
 } from "@/api/services";
-import { OptionTypeParameter, professionalData } from "@/Types/types";
+import { EducationType, ExperienceType, professionalData } from "@/Types/types";
 import { toast } from "react-toastify";
+import Educationform from "./forms/educationform";
+import Experienceform from "./forms/Experienceform";
+import Professionalform from "./forms/Professionalform";
 
 function ProfessionalInformation() {
-  const { dispatch, designation, degree, levels, selectedType } =
-    useContext(CandidateContext);
+  const { selectedType } =useContext(CandidateContext);
 
-  const [startdate, setStartDate] = React.useState<Date | null>(null);
-  const [enddate, setEndDate] = React.useState<Date | null>(null);
-  const [startYear, setStartYear] = React.useState<Date>(new Date());
-  const [endYear, setEndYear] = React.useState<Date>(new Date());
 
-  const [company, setCompany] = useState("");
-  const [jobdescription, setJobDescription] = useState("");
-  const [school, setSchool] = useState("");
-  const [noticeperiod, setNoticeperiod] = useState(0);
-  const [ctc, setCtc] = useState(0);
-  const [ectc, setEctc] = useState(0);
-  const [finalScore, setFinalScore] = useState('0');
-
-  const [selectedDesignation, setSelectedDesignation] = useState<Options>({
-    id: "",
-    name: "",
-  });
-  const [selectedLevel, setSelectedLevel] = useState<Options>({
-    id: "",
-    name: "",
-  });
-  const [selectedDegree, setSelectedDegree] = useState<Options>();
-
-  const [isCurrent, setIsCurrent] = useState(false);
-
-  const { data: designationData } = useQuery({
-    queryKey: ["designation"],
-    queryFn: () => getDesignation(),
+  const [educationData, setEducationData] = useState<EducationType>({
+    instituteName: "",
+    courseName: "",
+    startYear: new Date().getFullYear(),
+    endYear: new Date().getFullYear(),
+    finalScore: "0",
   });
 
-  const { data: degreeData } = useQuery({
-    queryKey: ["degree"],
-    queryFn: () => getDegree(),
+  
+  
+  const [experienceData, setExperienceData] = useState<ExperienceType>({
+    isCurrent: false,
+    companyName: "",
+    designation: { id: "", name: "" },
+    startDate: null,
+    endDate: null,
+    jobDetail: "",
   });
-
-  const { data: levelData } = useQuery({
-    queryKey: ["level"],
-    queryFn: () => getlevels(),
+ 
+  const [professionalDetails, setProfessionalDetails] = useState({
+    noticePeriod: 0,
+    ctc: 0,
+    ectc: 0,
+    experienceLevel: "",
   });
+  
 
-  useEffect(() => {
-    if (designationData) {
-      dispatch({ type: "SET_DESIGNATION", payload: designationData });
-    }
-  }, [designationData, dispatch]);
-
-  useEffect(() => {
-    if (degreeData) {
-      dispatch({ type: "SET_DEGREE", payload: degreeData });
-    }
-  }, [degreeData, dispatch]);
-
-  useEffect(() => {
-    if (levelData) {
-      dispatch({ type: "SET_LEVEL", payload: levelData });
-    }
-  }, [levelData, dispatch]);
 
   const professionalMutation = useMutation({
     mutationFn: postProfessionalData,
@@ -96,22 +60,8 @@ function ProfessionalInformation() {
     },
   });
 
-  const handleDesignationChange = (
-    selectedOption: OptionTypeParameter<Options>
-  ) => {
-    setSelectedDesignation(selectedOption as Options);
-  };
-
-  const handleLevelChange = (selectedOption: OptionTypeParameter<Options>) => {
-    setSelectedLevel(selectedOption as Options);
-  };
-
-  const handleDegreeChange = (selectedOption: OptionTypeParameter<Options>) => {
-    setSelectedDegree(selectedOption as Options);
-  };
-
   const handleSubmit = () => {
-    if (!selectedDegree || !school) {
+    if (!educationData.courseName || !educationData.instituteName) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -119,11 +69,11 @@ function ProfessionalInformation() {
     const formData: professionalData = {
       education: [
         {
-          instituteName: school,
-          courseName: selectedDegree.name,
-          startYear: startYear.getFullYear(),
-          endYear: endYear.getFullYear(),
-          finalScore:finalScore
+          instituteName: educationData.instituteName,
+          courseName: educationData.courseName,
+          startYear: educationData.startYear,
+          endYear: educationData.endYear,
+          finalScore:educationData.finalScore
         },
       ],
       professional:
@@ -131,21 +81,21 @@ function ProfessionalInformation() {
           ? []
           : [
               {
-                isCurrent: isCurrent,
-                companyName: company,
+                isCurrent: experienceData.isCurrent,
+                companyName: experienceData.companyName,
                 designation: {
-                  id: selectedDesignation.id,
-                  name: selectedDesignation.name,
+                  id: experienceData.designation.id,
+                  name: experienceData.designation.name,
                 },
-                startDate: startdate ? startdate.toISOString() : null,
-                endDate: enddate ? enddate.toISOString() : null,
-                jobDetail: jobdescription,
+                startDate: experienceData.startDate ? experienceData.startDate :null,
+                endDate: experienceData.endDate ? experienceData.endDate :null,
+                jobDetail: experienceData.jobDetail,
               },
             ],
-      noticePeriod: noticeperiod,
-      ctc: ctc,
-      ectc: ectc,
-      experienceLevel: selectedLevel.name,
+      noticePeriod: professionalDetails.noticePeriod,
+      ctc: professionalDetails.ctc,
+      ectc: professionalDetails.ectc,
+      experienceLevel: professionalDetails.experienceLevel,
     };
 
     professionalMutation.mutate(formData);
@@ -161,109 +111,11 @@ function ProfessionalInformation() {
     <div>
       {selectedType !== "Fresher" && (
         <div>
-          <h1>Company Details</h1>
-          <TextInput
-            label="Company"
-            placeHolder="Enter Company Name"
-            helperText="helper text"
-            onChange={(value) => setCompany(value)}
-          />
-
-          <DropDown
-            options={designation}
-            label="Designation"
-            onChange={handleDesignationChange}
-          />
-
-          <Checkbox label="I currently work here" onChange={setIsCurrent} />
-
-          <div className="grid grid-cols-2 gap-3">
-            <DatePicker
-              label="Start Date "
-              startdate={startdate}
-              setStartDate={setStartDate}
-            />
-            <EndDatePicker
-              label="End Date "
-              enddate={enddate}
-              setEndDate={setEndDate}
-              disabled={isCurrent}
-            />
-          </div>
-
-          <TextInput
-            label="Job Description"
-            placeHolder="Enter Description"
-            helperText="helper text"
-            onChange={(value) => setJobDescription(value)}
-          />
-
-          <DropDown
-            options={levels}
-            label="Experience Level"
-            onChange={handleLevelChange}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <TextInput
-              label="Notice Period"
-              placeHolder="Enter Notice Period"
-              helperText="helper text"
-              onChange={(value) => setNoticeperiod(Number(value))}
-            />
-
-            <TextInput
-              label="Current ctc"
-              placeHolder="Enter Current ctc"
-              helperText="helper text"
-              onChange={(value) => setCtc(Number(value))}
-            />
-
-            <TextInput
-              label="Expected ctc"
-              placeHolder="Enter Expected ctc"
-              helperText="helper text"
-              onChange={(value) => setEctc(Number(value))}
-            />
-          </div>
+          <Experienceform experienceData={experienceData} setExperienceData={setExperienceData}/>
+          <Professionalform professionalDetails={professionalDetails} setProfessionalDetails={setProfessionalDetails}/>
         </div>
       )}
-      <div>
-        <h1>Education Details</h1>
-        <TextInput
-          label="Institutions Name "
-          placeHolder="Enter School Name"
-          helperText="helper text"
-          onChange={(value) => setSchool(value)}
-        />
-
-        <DropDown
-          options={degree}
-          label="Degree"
-          onChange={handleDegreeChange}
-        />
-
-        <TextInput
-          label="Total Percentage"
-          placeHolder="Enter Percentage"
-          helperText="helper text"
-          onChange={(value) => setFinalScore(value)}
-        />
-
-        <div className="grid grid-cols-2 gap-3">
-          <StartYearPicker
-            label="Start Year "
-            startYear={startYear}
-            setStartYear={setStartYear}
-          />
-          <EndYearPicker
-            label="End Year "
-            endYear={endYear}
-            setEndYear={setEndYear}
-          />
-        </div>
-      </div>
-
+      <Educationform educationData={educationData} setEducationData={setEducationData}/>
       <div className="flex items-center space-x-2 py-2">
         <PrimaryButton btnText="Save " onClick={handleSubmit} />
         <IconBtn Icons={<ArrowRight />} onClick={handleNextPage} />
