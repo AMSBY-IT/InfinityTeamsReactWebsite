@@ -5,7 +5,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
@@ -17,6 +17,8 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ExampleTheme from "./plugins/ExampleTheme";
 import RichTextToolbar from "./RichTextToolbar";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
+import { EditorState } from "lexical";
+
 
 
 const editorConfig = {
@@ -43,7 +45,14 @@ const editorConfig = {
   ]
 };
 
-export default function RichTexteditor() {
+
+type RichTexteditorProps = {
+  onChange: (editorState: EditorState) => void;
+};
+
+
+export default function RichTexteditor({ onChange }: RichTexteditorProps) {
+  
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="relative text-left font-normal text-black rounded-t-[10px] leading-5">
@@ -60,6 +69,7 @@ export default function RichTexteditor() {
           <LinkPlugin />
           <AutoLinkPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          <OnChangePlugin onChange={onChange} />
         </div>
       </div>
     </LexicalComposer>

@@ -2,9 +2,49 @@ import { useState } from "react";
 import { Edit2 } from "lucide-react";
 import RichTexteditor from "../shared/RichTexteditor";
 import Modal from "../ui/Modal";
+import { $getRoot, EditorState } from "lexical";
+import { useMutation } from "@tanstack/react-query";
+import { updateAbout } from "@/api/services";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 
 export default function AboutCandidateSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [about, setAbout] = useState('')
+
+  console.log("about", about)
+  const updateAboutMutation = useMutation({
+    mutationFn: updateAbout,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(data.message);
+      }
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+
+        const errorMessage = error.response?.data?.message || "An unknown error occurred.";
+        toast.error("Error: " + errorMessage);
+      } else {
+
+        toast.error("Error: " + error.message);
+      }
+    },
+  });
+
+  const handleEditorChange = (editorState: EditorState) => {
+    editorState.read(() => {
+      const plainText = $getRoot().getTextContent();
+      setAbout(plainText);
+    });
+  };
+
+  const handleUpdate = () => {
+    updateAboutMutation.mutate({ about })
+    setIsModalOpen(false)
+  }
 
   return (
     <>
@@ -20,20 +60,18 @@ export default function AboutCandidateSection() {
         </div>
 
         <p className="text-gray-700">
-          Dynamic and detail-oriented Full Stack Developer with 5+ years of experience building scalable, user-centric web
-          applications. Skilled in ReactJS, VueJS, TypeScript, and Golang, with expertise in creating responsive UIs, API
-          integration, and micro-services architecture. Strong collaborator with a track record of delivering high-quality
-          solutions efficiently.
+          {about}
         </p>
+
       </div>
 
-      <Modal 
-      
-      isOpen={isModalOpen}
+      <Modal
+
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Edit About Section">
-          <RichTexteditor/>
-          <div className="flex justify-end mt-4 gap-2">
+        <RichTexteditor onChange={handleEditorChange} />
+        <div className="flex justify-end mt-4 gap-2">
           <button
             onClick={() => setIsModalOpen(false)}
             className="px-4 py-2 rounded border text-gray-700 hover:bg-gray-100"
@@ -41,7 +79,7 @@ export default function AboutCandidateSection() {
             Cancel
           </button>
           <button
-            onClick={() => setIsModalOpen(false)}
+            onClick={handleUpdate}
             className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
           >
             Save

@@ -31,11 +31,10 @@ export default function PersonalDetails() {
       if (data.success) {
         toast.success(data.message);
         dispatch({ type: "UPDATE_CANDIDATEINFO", payload: {
+          ...profile.candidate,
           name: updateprofileData.name,
           phone: updateprofileData.phone,
           noticePeriod: updateprofileData.noticePeriod||'',
-          email:profile.candidate.email,
-          lastContacted:profile.candidate.lastContacted
   } });
       }
     },

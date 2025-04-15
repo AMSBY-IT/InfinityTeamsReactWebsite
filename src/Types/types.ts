@@ -201,3 +201,7 @@ export interface UpdateProfileType {
     noticePeriod: string | null;
     location: string
 }
+
+export interface aboutCandidateType {
+    about:string
+}
