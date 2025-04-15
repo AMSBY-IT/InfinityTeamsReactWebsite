@@ -10,6 +10,7 @@ type Props = {
   options: Options[];
   value?: string;
   onChange: (option: Options) => void;
+  required?: boolean
 };
 
 const DropDown = (props: Props) => {
@@ -24,7 +25,7 @@ const DropDown = (props: Props) => {
   return (
     <div className="py-2">
       <div>
-        <h4 className="text-sm font-medium mb-2">{props.label}</h4>
+        <h4 className="text-sm font-medium mb-2">{props.label}{props.required && <span className="text-red-500 ml-1">*</span>}</h4>
         <div className="relative">
           <select
             className="w-full bg-white appearance-none border rounded-md px-2 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-purple-500"

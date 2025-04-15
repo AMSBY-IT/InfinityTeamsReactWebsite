@@ -108,6 +108,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
             placeHolder="Enter Company Name"
             helperText="helper text"
             value={experienceData?.companyName}
+            required
             onChange={(value) => {
               setExperienceData(prev => ({ ...prev, companyName: value }));
             }}
@@ -117,6 +118,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
             options={designation}
             label="Designation"
             value={experienceData.designation.id}
+            required
             onChange={(option) =>
               setExperienceData(prev => ({
                 ...prev,
@@ -124,7 +126,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
               }))}
           />
 
-          <Checkbox label="I currently work here" onChange={handleCheckboxChange} checked={experienceData?.isCurrent}/>
+          <Checkbox label="I currently work here" onChange={handleCheckboxChange} checked={experienceData?.isCurrent} required/>
 
           <div className="grid md:grid-cols-2 gap-3">
             <DatePicker

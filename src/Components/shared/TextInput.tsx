@@ -4,16 +4,17 @@ type Props = {
 	helperText: string
 	value?:string | undefined
 	onChange:(value:string)=>void
+	required?: boolean
 }
 
-export default function TextInput({ label, placeHolder, helperText,value,onChange}: Props) {
+export default function  TextInput({ label, placeHolder, helperText,value,onChange,required}: Props) {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(event.target.value); 
 	  };
 	return (
 		<div className="py-2">
 			<div>
-				<h4 className="text-sm font-medium mb-2">{label}</h4>
+				<h4 className="text-sm font-medium mb-2">{label}{required && <span className="text-red-500 ml-1">*</span>}</h4>
 				<div className="relative">
 
 					<input

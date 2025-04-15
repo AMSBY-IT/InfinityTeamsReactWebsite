@@ -71,6 +71,7 @@ export default function Educationform({educationData, setEducationData }:Educati
           placeHolder="Enter School Name"
           helperText="helper text"
           value={educationData?.instituteName}
+          required
           onChange={(value) => {
             setEducationData(prev => ({ ...prev, instituteName: value }));
           }}
@@ -79,6 +80,7 @@ export default function Educationform({educationData, setEducationData }:Educati
         <DropDown
           options={degree}
           label="Degree"
+          required
           onChange={(option) =>
             setEducationData(prev => ({
               ...prev,
@@ -102,11 +104,13 @@ export default function Educationform({educationData, setEducationData }:Educati
             label="Start Year "
             startYear={educationData?.startYear ? new Date(educationData.startYear, 0, 1) : undefined}
             setStartYear={handleStartYearChange}
+            required
           />
           <EndYearPicker
             label="End Year "
             endYear={educationData?.endYear ? new Date(educationData.endYear, 0, 1) : undefined}
             setEndYear={handleEndYearChange}
+            required
           />
         </div>
       </div>
