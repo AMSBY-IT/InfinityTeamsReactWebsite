@@ -1,6 +1,6 @@
 
-import { Banner } from "@/components/ui/Banner";
-import { CandidateRegisterForm } from "@/components/Auth/CandidateRegisterForm";
+import { Banner } from "@/component/ui/Banner";
+import { CandidateRegisterForm } from "@/component/Auth/CandidateRegisterForm";
 
 function Register() {
   return (

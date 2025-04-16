@@ -190,6 +190,7 @@ export interface candidateProfile {
         phone: string | null;
         noticePeriod: string;
         lastContacted: string | null
+        isEmailVerified:boolean
     }
 }
 

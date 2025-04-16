@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import Header from "../../components/Header";
-import NameSection from "../../components/CandidateDetail/NameSection";
-import CandidateInfo from "../../components/CandidateDetail/CandidateInfo";
-import Footer from "../../components/Footer";
+import Header from "../../component/Header";
+import NameSection from "../../component/CandidateDetail/NameSection";
+import CandidateInfo from "../../component/CandidateDetail/CandidateInfo";
+import Footer from "../../component/Footer";
 
 
 const CandidateDetail = () => {

@@ -1,6 +1,6 @@
 
-import BoardingContainer from "@/components/onboarding/BoardingContainer"
-import PersonaInformation from "@/components/onboarding/PersonaInformation"
+import BoardingContainer from "@/component/onboarding/BoardingContainer"
+import PersonaInformation from "@/component/onboarding/PersonaInformation"
 
 function PersonalPage() {
   return (

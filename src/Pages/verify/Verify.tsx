@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+ 
+import { Button } from "@/component/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/component/ui/card"
 import { CheckCircle, Loader2, XCircle } from "lucide-react"
-import React, { useState } from 'react'
+import  { useState } from 'react'
 
 const  Verify=()=> {
   const searchParams = "token"
@@ -46,6 +46,7 @@ const  Verify=()=> {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+      {searchParams}
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Email Verification</CardTitle>
