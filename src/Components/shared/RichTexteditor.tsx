@@ -21,11 +21,23 @@ import { EditorState } from "lexical";
 
 
 
-const editorConfig = {
+
+
+
+type RichTexteditorProps = {
+  onChange: (editorState: EditorState) => void;
+  initialValue?: string
+};
+
+
+export default function RichTexteditor({ onChange,initialValue }: RichTexteditorProps) {
+  
+  const editorConfig = {
     namespace: "MyEditor",
   // The editor theme
   theme: ExampleTheme,
   // Handling of errors during update
+  editorState: initialValue || undefined,
   onError(error:Error) {
     throw error;
   },
@@ -44,14 +56,6 @@ const editorConfig = {
     LinkNode
   ]
 };
-
-
-type RichTexteditorProps = {
-  onChange: (editorState: EditorState) => void;
-};
-
-
-export default function RichTexteditor({ onChange }: RichTexteditorProps) {
   
   return (
     <LexicalComposer initialConfig={editorConfig}>

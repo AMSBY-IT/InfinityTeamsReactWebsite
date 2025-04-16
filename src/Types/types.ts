@@ -189,7 +189,9 @@ export interface candidateProfile {
         email: string;
         phone: string | null;
         noticePeriod: string;
-        lastContacted: string | null
+        lastContacted: string | null;
+        isEmailVerified:boolean;
+        about:string
     }
 }
 
@@ -200,8 +202,4 @@ export interface UpdateProfileType {
     jobSearchStatus: string;
     noticePeriod: string | null;
     location: string
-}
-
-export interface aboutCandidateType {
-    about:string
 }
