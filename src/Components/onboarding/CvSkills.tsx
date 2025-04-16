@@ -7,8 +7,16 @@ import { getskills, postCVData, postSkillsData } from '@/api/services'
 import { CandidateContext } from '@/Provider/CandidateContext'
 import MultiSelectDropdown from '../shared/MultiSelectDropDown'
 import { toast } from 'react-toastify'
-import { skillsData } from '@/Types/types'
 import { useNavigate } from 'react-router-dom'
+import { z } from "zod";
+
+const cvSkillsSchema = z.object({
+  skills: z
+    .array(z.object({ id: z.string() }))
+    .min(1, "At least one skill is required"),
+  file: z.instanceof(File, { message: "CV file is required" }),
+});
+
 
 
 function CvSkills() {
@@ -61,18 +69,23 @@ function CvSkills() {
 	});
 
 	const handleSubmit = () => {
-		if (!selectedFile) {
-			toast.error("Please fill all required fields");
-			return;
-		}
-
-		const formData: skillsData = {
-			skills: selectedOptions.map((select) => ({ id: select.id }))
+		const formData = {
+		  skills: selectedOptions.map((select) => ({ id: select.id })),
+		  file: selectedFile,
 		};
-
-		uploadCVMutation.mutate(selectedFile)
-		skillsMutation.mutate(formData);
-	};
+	  
+		const result = cvSkillsSchema.safeParse(formData);
+	  
+		if (!result.success) {
+		  const firstError = result.error.errors[0]?.message || "Invalid input";
+		  toast.error(firstError);
+		  return;
+		}
+	  
+		uploadCVMutation.mutate(result.data.file);
+		skillsMutation.mutate({ skills: result.data.skills });
+	  };
+	  
 
 	const navigate = useNavigate();
 

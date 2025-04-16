@@ -93,6 +93,7 @@ export default function Educationform({educationData, setEducationData }:Educati
           label="Total Percentage"
           placeHolder="Enter Percentage"
           helperText="helper text"
+          required
           value={educationData?.finalScore}
           onChange={(value) => {
             setEducationData(prev => ({ ...prev, finalScore: value }));

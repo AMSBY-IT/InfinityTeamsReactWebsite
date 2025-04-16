@@ -145,6 +145,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
           <TextInput
             label="Job Description"
             placeHolder="Enter Description"
+            required
             value={experienceData?.jobDetail}
             helperText="helper text"
             onChange={(value) => {

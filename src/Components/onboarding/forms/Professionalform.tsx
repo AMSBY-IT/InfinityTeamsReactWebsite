@@ -54,7 +54,6 @@ export default function Professionalform({
         <DropDown
           options={levels}
           label="Experience Level"
-          required
           onChange={(option) =>
             setProfessionalDetails((prev) => ({
               ...prev,
@@ -66,7 +65,6 @@ export default function Professionalform({
           <TextInput
             label="Notice Period"
             placeHolder="Enter Notice Period"
-            required
             helperText="helper text"
             onChange={(value) => {
               setProfessionalDetails((prev) => ({
@@ -80,7 +78,6 @@ export default function Professionalform({
             label="Current ctc"
             placeHolder="Enter Current ctc"
             helperText="helper text"
-            required
             onChange={(value) => {
               setProfessionalDetails((prev) => ({
                 ...prev,
@@ -93,7 +90,6 @@ export default function Professionalform({
             label="Expected ctc"
             placeHolder="Enter Expected ctc"
             helperText="helper text"
-            required
             onChange={(value) => {
               setProfessionalDetails((prev) => ({
                 ...prev,
