@@ -1,13 +1,18 @@
 import type React from "react"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarFallback } from "@/components/ui/avatar"
-import { Home, Users, Briefcase, Globe, SettingsIcon, ChevronDown } from "lucide-react"
+import { Home, Users, Briefcase, Globe, SettingsIcon, ChevronDown, LogOutIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useContext } from "react"
 import { CandidateContext } from "@/Provider/CandidateContext"
 
 export default function Sidebar() {
-	const {profile}=useContext(CandidateContext)
+	const { profile } = useContext(CandidateContext)
+
+	const handleLogout = () => {
+		localStorage.removeItem("token")
+		window.location.reload()
+	}
 	return (
 		<div className=" border-r bg-white flex flex-col h-full">
 			<div className="p-4 border-b flex items-center gap-2">
@@ -32,6 +37,13 @@ export default function Sidebar() {
 					<NavItem icon={<SettingsIcon size={18} />} label="Team Settings" />
 				</ul>
 			</nav>
+			<div>
+				<ul className="space-y-1">
+					<div onClick={handleLogout}>
+						<NavItem icon={<LogOutIcon size={18} />} label="Log out" />
+					</div>
+				</ul>
+			</div>
 		</div>
 	)
 }
