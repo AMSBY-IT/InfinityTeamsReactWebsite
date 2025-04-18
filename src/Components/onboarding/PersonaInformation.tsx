@@ -32,6 +32,19 @@ function PersonaInformation() {
   });
 
   useEffect(() => {
+    const parsedCoutry = JSON.parse(localStorage.getItem("country") ?? "{}")
+    setSelectedCountry(parsedCoutry)
+    const city = localStorage.getItem("city")
+    if (city) setCity(city)
+    const language = JSON.parse(localStorage.getItem("language") ?? "[]")
+    if (languages) {
+      setSelectedLanguage(language)
+    }
+    dispatch({ type: "SET_SELECTEDTYPE", payload: localStorage.getItem("etype") || "" })
+
+
+  }, [])
+  useEffect(() => {
     if (countryData) {
       dispatch({ type: "SET_COUNTRY", payload: countryData });
     }
@@ -57,6 +70,9 @@ function PersonaInformation() {
   });
 
   const handleCountryChange = (selectedOption: Options) => {
+    console.log(selectedOption, "optiosn")
+    localStorage.setItem("country", JSON.stringify(selectedOption))
+
     setSelectedCountry(selectedOption as Options);
   };
 
@@ -64,6 +80,7 @@ function PersonaInformation() {
     selectedOptions: OptionTypeParameter<Options>
   ) => {
     setSelectedLanguage(selectedOptions as Options[]);
+    localStorage.setItem("language", JSON.stringify(selectedLanguage))
   };
 
   const handleSubmit = () => {
@@ -89,16 +106,22 @@ function PersonaInformation() {
 
   return (
     <div>
+
       <DropDown
         options={countries}
         label="Country"
         onChange={handleCountryChange}
+        value={selectedCountry?.id}
       />
       <TextInput
         label="City"
         placeHolder="Enter City"
         helperText="helper text"
-        onChange={(value) => setCity(value)}
+        value={city}
+        onChange={(value) => {
+          setCity(value)
+          localStorage.setItem("city", value)
+        }}
       />
       <MultiSelectDropdown
         options={languages}
@@ -109,8 +132,13 @@ function PersonaInformation() {
       <RadioSelect
         title="Employment Type"
         selected={selectedType}
-        onChange={(value) =>
+        onChange={(value) => {
+
           dispatch({ type: "SET_SELECTEDTYPE", payload: value })
+          localStorage.setItem("etype", value)
+
+        }
+
         }
         options={[
           { label: "Fresher", icon: <Clock className="h-5 w-5" /> },
@@ -120,7 +148,7 @@ function PersonaInformation() {
           },
         ]}
       />
-    
+
       <div className="flex items-center space-x-2 py-2">
         <PrimaryButton btnText="Save " onClick={handleSubmit} />
         <IconBtn Icons={<ArrowRight />} onClick={handleNextPage} />

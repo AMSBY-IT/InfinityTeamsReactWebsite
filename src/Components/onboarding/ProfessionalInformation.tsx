@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PrimaryButton from "../shared/PrimaryButton";
 import IconBtn from "../shared/IconBtn";
 import { ArrowRight } from "lucide-react";
@@ -14,11 +14,13 @@ import { toast } from "react-toastify";
 import Educationform from "./forms/educationform";
 import Experienceform from "./forms/Experienceform";
 import Professionalform from "./forms/Professionalform";
+import { useIsFirstRender } from "@uidotdev/usehooks";
 
 function ProfessionalInformation() {
-  const { selectedType } =useContext(CandidateContext);
+  const { selectedType } = useContext(CandidateContext);
+  const isFirstRender = useIsFirstRender();
 
-
+  console.log(isFirstRender, "isFirsReinder")
   const [educationData, setEducationData] = useState<EducationType>({
     instituteName: "",
     courseName: "",
@@ -27,8 +29,8 @@ function ProfessionalInformation() {
     finalScore: "0",
   });
 
-  
-  
+
+
   const [experienceData, setExperienceData] = useState<ExperienceType>({
     isCurrent: false,
     companyName: "",
@@ -37,14 +39,23 @@ function ProfessionalInformation() {
     endDate: null,
     jobDetail: "",
   });
- 
+
   const [professionalDetails, setProfessionalDetails] = useState({
     noticePeriod: 0,
     ctc: 0,
     ectc: 0,
     experienceLevel: "",
   });
-  
+
+  useEffect(() => {
+    console.log(isFirstRender, "first")
+
+    // localStorage.setItem("professionalDetails", JSON.stringify(professionalDetails))
+    // localStorage.setItem("educationData", JSON.stringify(educationData))
+
+
+  }, [professionalDetails, experienceData, educationData])
+
 
 
   const professionalMutation = useMutation({
@@ -73,25 +84,25 @@ function ProfessionalInformation() {
           courseName: educationData.courseName,
           startYear: educationData.startYear,
           endYear: educationData.endYear,
-          finalScore:educationData.finalScore
+          finalScore: educationData.finalScore
         },
       ],
       professional:
         selectedType === "Fresher"
           ? []
           : [
-              {
-                isCurrent: experienceData.isCurrent,
-                companyName: experienceData.companyName,
-                designation: {
-                  id: experienceData.designation.id,
-                  name: experienceData.designation.name,
-                },
-                startDate: experienceData.startDate ? experienceData.startDate :null,
-                endDate: experienceData.endDate ? experienceData.endDate :null,
-                jobDetail: experienceData.jobDetail,
+            {
+              isCurrent: experienceData.isCurrent,
+              companyName: experienceData.companyName,
+              designation: {
+                id: experienceData.designation.id,
+                name: experienceData.designation.name,
               },
-            ],
+              startDate: experienceData.startDate ? experienceData.startDate : null,
+              endDate: experienceData.endDate ? experienceData.endDate : null,
+              jobDetail: experienceData.jobDetail,
+            },
+          ],
       noticePeriod: professionalDetails.noticePeriod,
       ctc: professionalDetails.ctc,
       ectc: professionalDetails.ectc,
@@ -109,13 +120,14 @@ function ProfessionalInformation() {
 
   return (
     <div>
+      {JSON.stringify(isFirstRender)}
       {selectedType !== "Fresher" && (
         <div>
-          <Experienceform experienceData={experienceData} setExperienceData={setExperienceData}/>
-          <Professionalform professionalDetails={professionalDetails} setProfessionalDetails={setProfessionalDetails}/>
+          <Experienceform experienceData={experienceData} setExperienceData={setExperienceData} />
+          <Professionalform professionalDetails={professionalDetails} setProfessionalDetails={setProfessionalDetails} />
         </div>
       )}
-      <Educationform educationData={educationData} setEducationData={setEducationData}/>
+      <Educationform educationData={educationData} setEducationData={setEducationData} />
       <div className="flex items-center space-x-2 py-2">
         <PrimaryButton btnText="Save " onClick={handleSubmit} />
         <IconBtn Icons={<ArrowRight />} onClick={handleNextPage} />

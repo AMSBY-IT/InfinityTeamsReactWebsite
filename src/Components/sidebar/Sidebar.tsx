@@ -7,7 +7,7 @@ import { useContext } from "react"
 import { CandidateContext } from "@/Provider/CandidateContext"
 
 export default function Sidebar() {
-	const {profile}=useContext(CandidateContext)
+	const { profile } = useContext(CandidateContext)
 	return (
 		<div className=" border-r bg-white flex flex-col h-full">
 			<div className="p-4 border-b flex items-center gap-2">

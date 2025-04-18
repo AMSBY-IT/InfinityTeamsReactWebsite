@@ -1,4 +1,4 @@
-import  { createContext } from 'react';
+import { createContext } from 'react';
 import {
   commonType,
   Candidates,
@@ -16,12 +16,12 @@ export const initialState = {
   skills: [] as commonType[],
   countries: [] as commonType[],
   levels: [] as commonType[],
-  languages:[] as commonType[],
-  designation:[] as commonType[],
-  degree:[] as commonType[],
+  languages: [] as commonType[],
+  designation: [] as commonType[],
+  degree: [] as commonType[],
   candidates: [] as Candidates[],
   isChecked: {} as Record<string, boolean>,
-  selectedType:'Fresher',
+  selectedType: localStorage.getItem("etype") ?? "Fresher",
   profile: {
     candidate: {
       name: '',
@@ -34,7 +34,7 @@ export const initialState = {
     experiences: [],
     skills: [],
   } as candidateProfile,
-  dispatch: ()=>{}
+  dispatch: () => { }
 };
 
 export const CandidateContext = createContext<
