@@ -31,7 +31,7 @@ export const CandidateList = () => {
                     <div className="py-9 mx-auto max-sm:w-11/12 max-lg:w-11/12">
                         <div className="flex gap-6 max-lg:flex-col">
                             <CheckBoxes />
-                            <div className="lg:w-4/5 xl:w-4/5">
+                            <div className="lg:w-full xl:w-full">
                                 {loading && (
                                     <Loader />
                                 )}

@@ -4,6 +4,7 @@ import {
   Candidates,
   CandidateProviderProps,
   candidateProfile,
+  Selected,
 } from "../Types/types";
 import { CandidateContext, initialState } from "./CandidateContext";
 
@@ -22,10 +23,14 @@ export type Action =
   | { type: "SET_CANDIDATES"; payload: Candidates[] }
   | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } }
   | { type: "SET_SELECTEDTYPE"; payload: string }
+  | { type: "SET_SELECTEDSKILLS"; payload: Selected[] }
+  | { type: "SET_SELECTEDLOCATION"; payload: Selected[] }
+  | { type: "SET_SELECTEDEXPERIENCE"; payload: string[] }
+  | { type: "SET_SELECTEDNOTICEPERIOD"; payload: number | null }
   | { type: "SET_CANDIDATEPROFILE"; payload: candidateProfile }
   | { type: "UPDATE_EDUCATION"; payload: candidateProfile["educations"] }
   | { type: "UPDATE_EXPERIENCE"; payload: candidateProfile["experiences"] };
-  // | { type: "UPDATE_CANDIDATEINFO"; payload: candidateProfile["candidate"] };
+// | { type: "UPDATE_CANDIDATEINFO"; payload: candidateProfile["candidate"] };
 
 const Reducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
@@ -51,6 +56,14 @@ const Reducer = (state: typeof initialState, action: Action) => {
       return { ...state, designation: action.payload };
     case "SET_DEGREE":
       return { ...state, degree: action.payload };
+    case "SET_SELECTEDSKILLS":
+      return { ...state, selectedSkills: action.payload };
+    case "SET_SELECTEDLOCATION":
+      return { ...state, selectedLocation: action.payload };
+    case "SET_SELECTEDEXPERIENCE":
+      return { ...state, selectedExperience: action.payload };
+    case "SET_SELECTEDNOTICEPERIOD":
+      return { ...state, selectedNoticeperiod: action.payload };
     case "SET_CANDIDATES":
       return { ...state, candidates: action.payload };
     case "SET_CHECKED":
@@ -73,7 +86,7 @@ const Reducer = (state: typeof initialState, action: Action) => {
           educations: action.payload,
         },
       };
-      case "UPDATE_EXPERIENCE":
+    case "UPDATE_EXPERIENCE":
       return {
         ...state,
         profile: {
@@ -81,15 +94,15 @@ const Reducer = (state: typeof initialState, action: Action) => {
           experiences: action.payload,
         },
       };
-      // case "UPDATE_CANDIDATEINFO":
-      // return {
-      //   ...state,
-      //   profile: {
-      //     ...state.profile,
-      //     candidate: action.payload,
-      //   },
-      // };
-      
+    // case "UPDATE_CANDIDATEINFO":
+    // return {
+    //   ...state,
+    //   profile: {
+    //     ...state.profile,
+    //     candidate: action.payload,
+    //   },
+    // };
+
     default:
       return state;
   }

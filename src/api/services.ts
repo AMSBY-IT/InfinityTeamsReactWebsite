@@ -267,6 +267,29 @@ export const updateProfile = async (data:UpdateProfileType) => {
     return response.data;
 };
 
+export const getCandidates = async ({ skills,location,experience }: { skills: string[],location:string[],experience:string[] }) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        toast.error("No token found.");
+        return;
+    }
+    const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/filter`,{
+        skills,
+        location,
+        experience
+    }
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    return response.data;
+
+};
+
+
+
 export const fetchTitle = async () => {
     const token = localStorage.getItem("token");
     if (!token) {

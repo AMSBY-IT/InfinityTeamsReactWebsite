@@ -1,4 +1,4 @@
-import { getDesignation, getlevels } from "@/api/services";
+import { getDesignation } from "@/api/services";
 import Checkbox from "@/component/shared/Checkbox";
 import DatePicker from "@/component/shared/DatePicker";
 import DropDown from "@/component/shared/DropDown";
@@ -38,11 +38,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
         queryFn: () => getDesignation(),
       });
     
-      const { data: levelData } = useQuery({
-        queryKey: ["level"],
-        queryFn: () => getlevels(),
-      });
-
+      
 
       useEffect(() => {
           if (designationData) {
@@ -50,12 +46,6 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
           }
         }, [designationData, dispatch]);
       
-      
-        useEffect(() => {
-          if (levelData) {
-            dispatch({ type: "SET_LEVEL", payload: levelData });
-          }
-        }, [levelData, dispatch]);
 
         // const handleDesignationChange = (
         //     selectedOption: OptionTypeParameter<Options>
