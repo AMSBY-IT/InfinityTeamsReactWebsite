@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 export default function PersonalDetails() {
-  const { profile } = useContext(CandidateContext);
+  const { profile,dispatch } = useContext(CandidateContext);
 
   const [updateprofileData, setUpdateprofileData] = useState<UpdateProfileType>({
     name: "",
@@ -30,6 +30,12 @@ export default function PersonalDetails() {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
+        dispatch({ type: "UPDATE_CANDIDATEINFO", payload: {
+          ...profile.candidate,
+          name: updateprofileData.name,
+          phone: updateprofileData.phone,
+          noticePeriod: updateprofileData.noticePeriod||'',
+  } });
       }
     },
     onError: (error) => {
@@ -151,7 +157,7 @@ export default function PersonalDetails() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Edit Work Experience Section"
+        title="Update Work Experience"
       >
         <ProfileUpdateform updateprofileData={updateprofileData} setUpdateprofileData={setUpdateprofileData} />
         <div className="flex justify-end mt-4 gap-2">

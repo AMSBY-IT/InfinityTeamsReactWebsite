@@ -267,6 +267,24 @@ export const updateProfile = async (data:UpdateProfileType) => {
     return response.data;
 };
 
+
+export const updateAbout = async (data:{about:string}) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/about`,data
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+};
+
 export const fetchTitle = async () => {
     const token = localStorage.getItem("token");
     if (!token) {

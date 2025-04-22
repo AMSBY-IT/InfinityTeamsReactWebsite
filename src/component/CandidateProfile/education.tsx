@@ -91,7 +91,7 @@ export default function Education() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Edit Education Section"
+        title="Update Education"
       >
         <Educationform educationData={educationData} setEducationData={setEducationData} />
         <div className="flex justify-end mt-4 gap-2">

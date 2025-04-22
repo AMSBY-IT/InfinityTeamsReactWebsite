@@ -7,14 +7,14 @@ import { useContext, useEffect } from "react";
 
 export interface ProfessionalFormProps {
   professionalDetails?: {
-    noticePeriod: number;
+    noticePeriod: string;
     ctc: number;
     ectc: number;
     experienceLevel: string;
   };
   setProfessionalDetails: React.Dispatch<
     React.SetStateAction<{
-      noticePeriod: number;
+      noticePeriod: string;
       ctc: number;
       ectc: number;
       experienceLevel: string;
@@ -69,7 +69,7 @@ export default function Professionalform({
             onChange={(value) => {
               setProfessionalDetails((prev) => ({
                 ...prev,
-                noticePeriod: Number(value),
+                noticePeriod: value,
               }));
             }}
           />
