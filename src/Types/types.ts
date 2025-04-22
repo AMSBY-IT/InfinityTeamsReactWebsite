@@ -150,7 +150,7 @@ export interface professionalData {
     education: EducationType[];
     professional: ExperienceType[];
     experienceLevel: string;
-    noticePeriod: number;
+    noticePeriod: string;
     ctc: number;
     ectc: number
 }
@@ -189,7 +189,9 @@ export interface candidateProfile {
         email: string;
         phone: string | null;
         noticePeriod: string;
-        lastContacted: string | null
+        lastContacted: string | null;
+        isEmailVerified:boolean;
+        about:string
     }
 }
 
@@ -198,6 +200,6 @@ export interface UpdateProfileType {
     phone: string;
     jobTypePreference: string;
     jobSearchStatus: string;
-    noticePeriod: number | null;
+    noticePeriod: string | null;
     location: string
 }
