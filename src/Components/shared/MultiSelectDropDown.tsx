@@ -13,9 +13,10 @@ type Props = {
   options: Options[];
   selectedOptions: Options[];
   onChange: (selectedOptions: Options[]) => void;
+  required?: boolean
 };
 
-const MultiSelectDropdown = ({ label, options,selectedOptions, onChange }: Props) => {
+const MultiSelectDropdown = ({ label, options,selectedOptions, onChange,required }: Props) => {
   
 
   const handleChange = (selected: MultiValue<{ value: string; label: string }>) => {
@@ -28,7 +29,7 @@ const MultiSelectDropdown = ({ label, options,selectedOptions, onChange }: Props
 
   return (
     <div className="w-full py-2">
-      <h4 className="text-sm font-medium mb-2">{label}</h4>
+      <h4 className="text-sm font-medium mb-2">{label}{required && <span className="text-red-500 ml-1">*</span>}</h4>
       <Select
         isMulti
         options={options.map((opt) => ({ value: opt.id, label: opt.name }))}

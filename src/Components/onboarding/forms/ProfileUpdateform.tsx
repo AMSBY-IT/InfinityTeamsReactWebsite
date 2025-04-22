@@ -43,6 +43,7 @@ export default function ProfileUpdateform({updateprofileData,setUpdateprofileDat
         label="Name"
         placeHolder="Enter Name"
         helperText="helper text"
+        required
         value={updateprofileData?.name}
         onChange={(value) => {
             setUpdateprofileData(prev => ({ ...prev, name: value }));
@@ -52,12 +53,13 @@ export default function ProfileUpdateform({updateprofileData,setUpdateprofileDat
         label="Phone Number"
         placeHolder="Enter Phone"
         helperText="helper text"
+        required
         value={updateprofileData?.phone}
         onChange={(value) => {
             setUpdateprofileData(prev => ({ ...prev, phone: value }));
           }}
       />
-      <DropDown options={jobTypePreferenceOptions} label="Job Preference" onChange={(option) =>
+      <DropDown options={jobTypePreferenceOptions} label="Job Preference" required onChange={(option) =>
             setUpdateprofileData(prev => ({
               ...prev,
               jobTypePreference: option.name,
@@ -66,6 +68,7 @@ export default function ProfileUpdateform({updateprofileData,setUpdateprofileDat
       <RadioSelect
         title="Job Search Status"
         selected={updateprofileData?.jobSearchStatus}
+        required
         onChange={(value)=>{
             setUpdateprofileData(prev =>({...prev,jobSearchStatus:value}))
         }}
@@ -82,6 +85,7 @@ export default function ProfileUpdateform({updateprofileData,setUpdateprofileDat
         label="Notice Period"
         placeHolder="Enter Notice Period"
         helperText="helper text"
+        required
         onChange={(value) => {
             setUpdateprofileData(prev => ({ ...prev, noticePeriod: Number(value) }));
           }}
@@ -90,6 +94,7 @@ export default function ProfileUpdateform({updateprofileData,setUpdateprofileDat
         label="City"
         placeHolder="Enter City"
         helperText="helper text"
+        required
         value={updateprofileData?.location}
         onChange={(value) => {
             setUpdateprofileData(prev => ({ ...prev, location: value }));

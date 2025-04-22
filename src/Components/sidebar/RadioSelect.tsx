@@ -10,17 +10,19 @@ interface RadioSelectProps {
 	options: RadioOption[];
 	selected: string | undefined;
 	onChange: (value: string) => void;
+	required?: boolean
 }
 
 export default function RadioSelect({
 	title,
 	options,
 	selected,
-	onChange
+	onChange,
+	required
 }: RadioSelectProps) {
 	return (
 		<div className="py-2">
-			<h4 className="text-sm font-medium mb-3">{title}</h4>
+			<h4 className="text-sm font-medium mb-3">{title}{required && <span className="text-red-500 ml-1">*</span>}</h4>
 			<div className="grid grid-cols-2 gap-3">
 				{options.map(({ icon, label }) => (
 					<EmploymentTypeButton
