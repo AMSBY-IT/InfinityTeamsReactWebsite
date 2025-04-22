@@ -8,6 +8,7 @@ type Props = {
   onChange: (file: File | null) => void
   maxSizeBytes?: number
   maxSize?: string
+  required?:boolean
 }
 
 export default function FileUpload({
@@ -16,6 +17,7 @@ export default function FileUpload({
   onChange,
   maxSize = "(5 MB max)",
   maxSizeBytes = 5 * 1024 * 1024,
+  required
 }: Props) {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null)
 
@@ -45,6 +47,7 @@ export default function FileUpload({
   const isFileTooLarge = fileRejections.length > 0 && fileRejections[0].file.size > maxSizeBytes
   return (
     <div className="w-full py-2">
+      <h4 className="text-sm font-medium mb-2">{label}{required && <span className="text-red-500 ml-1">*</span>}</h4>
       <div
         {...getRootProps()}
         className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-200 ${

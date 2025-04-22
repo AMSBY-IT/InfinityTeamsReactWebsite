@@ -20,7 +20,6 @@ export default function Profile() {
     queryKey: ["profile"],
     queryFn: getCandidateProfile,
   });
-
   useEffect(() => {
     if (profileData) {
       localStorage.setItem("emailVerify", profileData?.candidate?.isEmailVerified)

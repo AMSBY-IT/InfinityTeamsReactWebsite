@@ -8,7 +8,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { Value } from "react-calendar/dist/esm/shared/types.js"
 
-function EndYearPicker({ label = "label date", endYear,setEndYear}: { label: string, endYear: Date|undefined, setEndYear: React.Dispatch<React.SetStateAction<Date>>}) {
+function EndYearPicker({ label = "label date", endYear,setEndYear,required}: { label: string,required?: boolean, endYear: Date|undefined, setEndYear: React.Dispatch<React.SetStateAction<Date>>}) {
 
     const handleDateSelect = (val: Value) => {
         setEndYear(val as Date)
@@ -16,7 +16,7 @@ function EndYearPicker({ label = "label date", endYear,setEndYear}: { label: str
     }
     return (
         <div className="pt-3">
-            <h4 className="text-sm font-medium mb-2">{label}</h4>
+            <h4 className="text-sm font-medium mb-2">{label}{required && <span className="text-red-500 ml-1">*</span>}</h4>
 
             <Popover>
                 <PopoverTrigger className="w-full">

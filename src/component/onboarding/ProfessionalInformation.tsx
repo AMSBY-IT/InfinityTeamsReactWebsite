@@ -13,7 +13,41 @@ import { EducationType, ExperienceType, professionalData } from "@/Types/types";
 import { toast } from "react-toastify";
 import Experienceform from "./forms/Experienceform";
 import Professionalform from "./forms/Professionalform";
+import { z } from "zod";
 import Educationform from "./forms/Educationform";
+
+// For Education
+const educationSchema = z.object({
+  instituteName: z.string().min(1, "Institute name is required"),
+  courseName: z.string().min(1, "Course name is required"),
+  startYear: z.number().int().gte(1900),
+  endYear: z.number().int().gte(1900),
+  finalScore: z.string().min(1, "Final Score is required"),
+});
+
+// For Experience (optional if Fresher)
+const experienceSchema = z.object({
+  isCurrent: z.boolean(),
+  companyName: z.string().min(1, "Company name is required"),
+  designation: z.object({
+    id: z.string().min(1, "Designation ID is required"),
+    name: z.string().min(1, "Designation name is required"),
+  }),
+  startDate: z.string().nullable(),
+  endDate: z.string().nullable(),
+  jobDetail: z.string()
+});
+
+
+// Combined Schema
+const professionalFormSchema = z.object({
+  education: z.array(educationSchema).min(1),
+  professional: z.array(experienceSchema),
+  noticePeriod: z.number(),
+  ctc: z.number(),
+  ectc: z.number(),
+  experienceLevel: z.string(),
+});
 
 function ProfessionalInformation() {
   const { selectedType } = useContext(CandidateContext);
@@ -24,7 +58,7 @@ function ProfessionalInformation() {
     courseName: "",
     startYear: new Date().getFullYear(),
     endYear: new Date().getFullYear(),
-    finalScore: "0",
+    finalScore: "",
   });
 
 
@@ -39,7 +73,7 @@ function ProfessionalInformation() {
   });
 
   const [professionalDetails, setProfessionalDetails] = useState({
-    noticePeriod: 0,
+    noticePeriod: '',
     ctc: 0,
     ectc: 0,
     experienceLevel: "",
@@ -61,11 +95,6 @@ function ProfessionalInformation() {
   });
 
   const handleSubmit = () => {
-    if (!educationData.courseName || !educationData.instituteName) {
-      toast.error("Please fill all required fields");
-      return;
-    }
-
     const formData: professionalData = {
       education: [
         {
@@ -97,9 +126,18 @@ function ProfessionalInformation() {
       ectc: professionalDetails.ectc,
       experienceLevel: professionalDetails.experienceLevel,
     };
-
-    professionalMutation.mutate(formData);
+  
+    const result = professionalFormSchema.safeParse(formData);
+  
+    if (!result.success) {
+      const firstError = result.error.errors[0]?.message || "Invalid input";
+      toast.error(firstError);
+      return;
+    }
+  
+    professionalMutation.mutate(result.data);
   };
+  
 
   const navigate = useNavigate();
 
