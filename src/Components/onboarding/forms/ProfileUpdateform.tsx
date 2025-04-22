@@ -5,7 +5,7 @@ import { UpdateProfileType } from "@/Types/types";
 import { ClipboardCheck, Clock } from "lucide-react";
 
 export interface UpdateProfileFormProps {
-    updateprofileData?: UpdateProfileType;
+    updateprofileData: UpdateProfileType;
     setUpdateprofileData: React.Dispatch<React.SetStateAction<UpdateProfileType>>;
   }
 

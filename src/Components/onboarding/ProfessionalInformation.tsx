@@ -73,7 +73,7 @@ function ProfessionalInformation() {
   });
  
   const [professionalDetails, setProfessionalDetails] = useState({
-    noticePeriod: 0,
+    noticePeriod: '',
     ctc: 0,
     ectc: 0,
     experienceLevel: "",

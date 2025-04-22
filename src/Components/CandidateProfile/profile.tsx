@@ -18,6 +18,7 @@ export default function Profile() {
     queryKey: ["profile"],
     queryFn: getCandidateProfile,
   });
+  console.log("profileData",profileData)
   useEffect(() => {
       if (profileData) {
         dispatch({ type: "SET_CANDIDATEPROFILE", payload: profileData });
