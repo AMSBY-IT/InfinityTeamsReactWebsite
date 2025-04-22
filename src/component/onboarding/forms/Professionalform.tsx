@@ -4,6 +4,7 @@ import TextInput from "@/component/shared/TextInput";
 import { CandidateContext } from "@/Provider/CandidateContext";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect } from "react";
+import { isNumberObject } from "util/types";
 
 export interface ProfessionalFormProps {
   professionalDetails?: {
@@ -14,7 +15,7 @@ export interface ProfessionalFormProps {
   };
   setProfessionalDetails: React.Dispatch<
     React.SetStateAction<{
-      noticePeriod: string;
+      noticePeriod: number;
       ctc: number;
       ectc: number;
       experienceLevel: string;
@@ -63,14 +64,19 @@ export default function Professionalform({
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <TextInput
+          
             label="Notice Period"
             placeHolder="Enter Notice Period"
             helperText="helper text"
             onChange={(value) => {
-              setProfessionalDetails((prev) => ({
-                ...prev,
-                noticePeriod: value,
-              }));
+              if(!isNaN(parseInt(value))){
+                
+                setProfessionalDetails((prev) => ({
+                  ...prev,
+                  noticePeriod:  parseInt(value),
+                }));
+              }
+                
             }}
           />
 

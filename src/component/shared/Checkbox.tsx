@@ -2,9 +2,10 @@ type Props = {
     label: string;
     checked:boolean;
     onChange: (checked: boolean) => void;
+    required?:boolean
   };
   
-  export default function Checkbox({ label, onChange,checked }: Props) {
+  export default function Checkbox({ label, onChange,checked,required }: Props) {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.checked);
     };
@@ -19,7 +20,7 @@ type Props = {
               checked={checked}
               onChange={handleChange}
             />
-            <h4 className="text-sm font-medium">{label}</h4>
+            <h4 className="text-sm font-medium">{label}{required && <span className="text-red-500 ml-1">*</span>}</h4>
           </div>
         </div>
       </div>

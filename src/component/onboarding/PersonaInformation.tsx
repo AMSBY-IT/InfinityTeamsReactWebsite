@@ -5,6 +5,7 @@ import DropDown, { Options } from "../shared/DropDown";
 import PrimaryButton from "../shared/PrimaryButton";
 import IconBtn from "../shared/IconBtn";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 import { ArrowRight, ClipboardCheck, Clock } from "lucide-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getcountries, getLanguages, postPersonalData } from "@/api/services";
@@ -13,11 +14,20 @@ import { OptionTypeParameter, personalData } from "@/Types/types";
 import { toast } from "react-toastify";
 import MultiSelectDropdown from "../shared/MultiSelectDropDown";
 
+const personalInfoSchema = z.object({
+  country: z.string().min(1, "Country is required"),
+  city: z.string().min(1, "City is required"),
+  language: z
+    .array(z.object({ id: z.string() }))
+    .min(1, "At least one language is required"),
+  isFresher: z.boolean(),
+});
+
 function PersonaInformation() {
   const { dispatch, countries, languages, selectedType } =
     useContext(CandidateContext);
 
-  const [selectedCountry, setSelectedCountry] = useState<Options>();
+  const [selectedCountry, setSelectedCountry] = useState<Options>({id:'',name:''});
   const [city, setCity] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<Options[]>([]);
 
@@ -67,10 +77,10 @@ function PersonaInformation() {
   };
 
   const handleSubmit = () => {
-    if (!selectedCountry || !city || !selectedLanguage) {
-      toast.error("Please fill all required fields");
-      return;
-    }
+    // if (!selectedCountry || !city || !selectedLanguage) {
+    //   toast.error("Please fill all required fields");
+    //   return;
+    // }
 
     const formData: personalData = {
       country: selectedCountry.id,
@@ -79,7 +89,15 @@ function PersonaInformation() {
       isFresher: selectedType === "Fresher",
     };
 
-    personalMutation.mutate(formData);
+    const result = personalInfoSchema.safeParse(formData);
+    console.log(result,"res")
+    if (!result.success) {
+      const firstError = result.error.errors[0]?.message || "Invalid input";
+      toast.error(firstError);
+      return;
+    }
+
+    personalMutation.mutate(result.data);
   };
 
   const navigate = useNavigate();
@@ -93,18 +111,21 @@ function PersonaInformation() {
         options={countries}
         label="Country"
         onChange={handleCountryChange}
+        required
       />
       <TextInput
         label="City"
         placeHolder="Enter City"
         helperText="helper text"
         onChange={(value) => setCity(value)}
+        required
       />
       <MultiSelectDropdown
         options={languages}
         label="Language"
         selectedOptions={selectedLanguage}
         onChange={handleLanguageChange}
+        required
       />
       <RadioSelect
         title="Employment Type"
@@ -112,6 +133,7 @@ function PersonaInformation() {
         onChange={(value) =>
           dispatch({ type: "SET_SELECTEDTYPE", payload: value })
         }
+        required
         options={[
           { label: "Fresher", icon: <Clock className="h-5 w-5" /> },
           {
