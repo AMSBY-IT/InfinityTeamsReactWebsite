@@ -33,7 +33,7 @@ function Index() {
 					<Route path="/verify" element={<Verify />} />
 					<Route path="/email-not-verified" element={<VerifyEmailPrompt />} />
 
-					<Route path="/search" element={<div className="bg-gray-200 h-screen">
+					<Route path="/search" element={<div className="bg-gray-200 h-full">
 						<AppHeader />
 
 						<CandidateList /></div>} />

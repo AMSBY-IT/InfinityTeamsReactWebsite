@@ -103,7 +103,7 @@ const CandidateCard = () => {
                       </a>
                     ))
                 ) : (
-                  <span>No skills listed</span>
+                  <span></span>
                 )}
               </div>
               <div className="flex items-center justify-end date-div mt-auto">

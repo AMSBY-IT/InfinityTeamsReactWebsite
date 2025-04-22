@@ -24,7 +24,7 @@ export const CandidateList = () => {
 
     return (
         <>
-            <div className="h-screen">
+            <div className="h-full">
                 <Header />
                 <CandidateFilter />
                 <div className="max-w-7xl mx-auto max-xl:max-w-5xl">

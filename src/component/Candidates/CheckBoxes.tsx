@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CandidateContext } from "../../Provider/CandidateContext";
 import { commonType } from "../../Types/types";
 
@@ -15,7 +15,6 @@ const CheckBoxes = () => {
  
 
 
-  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(true);
 
   const toggleChecked = (id: string) => {
     const updatedChecked = { ...isChecked, [id]: !isChecked[id] };
@@ -30,10 +29,6 @@ const CheckBoxes = () => {
   };
   
 
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
-  };
-
   return (
     <div className="flex flex-col lg:w-1/5 xl:w-1/5">
       <div className="">
@@ -41,21 +36,9 @@ const CheckBoxes = () => {
           <div className="search__item">
             <div
               className="flex justify-between items-center pb-1 capitalize text-lg font-medium cursor-pointer text-[#242121] experience-label"
-              onClick={toggleDropdown}
             >
               experience Level
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`w-6 ${isDropdownOpen ? "rotate-180" : ""}`}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="#000"
-                  d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"
-                />
-              </svg>
             </div>
-            {isDropdownOpen && (
               <div className="search__item__list" id="chkbxLevels">
                 {experienceOptions.map((item: commonType) => {
                   return (
@@ -88,7 +71,6 @@ const CheckBoxes = () => {
                   );
                 })}
               </div>
-            )}
           </div>
         </div>
       </div>
