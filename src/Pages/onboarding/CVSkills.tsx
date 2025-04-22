@@ -1,5 +1,5 @@
-import BoardingContainer from "@/components/onboarding/BoardingContainer"
-import CvSkills from "@/components/onboarding/CvSkills"
+import BoardingContainer from "@/component/onboarding/BoardingContainer"
+import CvSkills from "@/component/onboarding/CvSkills"
 
 
 function CVSkills() {

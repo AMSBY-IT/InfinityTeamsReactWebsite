@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "css:watch": "npx tailwindcss -i ./src/index.css -o ./src/output.css --watch",
     "prepare": "husky"
@@ -21,7 +22,8 @@
     "@lexical/list": "^0.29.0",
     "@lexical/react": "^0.29.0",
     "@lexical/rich-text": "^0.29.0",
-    "@radix-ui/react-avatar": "^1.1.3",
+    "@radix-ui/react-alert-dialog": "^1.1.7",
+    "@radix-ui/react-avatar": "^1.1.6",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-scroll-area": "^1.2.3",
@@ -53,19 +55,20 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
+    "@eslint/js": "^9.24.0",
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.17.0",
+    "eslint": "^9.24.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
-    "globals": "^15.14.0",
+    "globals": "^16.0.0",
     "husky": "^9.1.7",
     "tailwindcss": "^4.0.10",
     "typescript": "~5.6.2",
-    "typescript-eslint": "^8.18.2",
+    "typescript-eslint": "^8.29.1",
     "vite": "^6.0.5"
   }
 }

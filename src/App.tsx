@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import CandidateList from './Pages/candidate/CandidateList';
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
+import LoginPage from './component/LoginPage';
+import SignupPage from './component/SignupPage';
 import Protected from './Protected';
 
 const App = () => {
@@ -12,8 +11,7 @@ const App = () => {
         <Route
           path='/'
           element={
-            <Protected>
-              <CandidateList />
+            <Protected>asas
             </Protected>
           }
         />

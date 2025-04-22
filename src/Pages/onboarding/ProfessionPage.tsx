@@ -1,5 +1,5 @@
-import BoardingContainer from "@/components/onboarding/BoardingContainer"
-import ProfessionalInformation from "@/components/onboarding/ProfessionalInformation"
+import BoardingContainer from "@/component/onboarding/BoardingContainer"
+import ProfessionalInformation from "@/component/onboarding/ProfessionalInformation"
 
 
 
