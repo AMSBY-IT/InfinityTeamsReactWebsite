@@ -29,7 +29,8 @@ export const initialState = {
       phone: null,
       noticePeriod: '',
       lastContacted: null,
-      isEmailVerified: false
+      isEmailVerified: false,
+      about:''
     },
     educations: [],
     experiences: [],
