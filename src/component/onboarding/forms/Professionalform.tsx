@@ -4,7 +4,6 @@ import TextInput from "@/component/shared/TextInput";
 import { CandidateContext } from "@/Provider/CandidateContext";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect } from "react";
-import { isNumberObject } from "util/types";
 
 export interface ProfessionalFormProps {
   professionalDetails?: {

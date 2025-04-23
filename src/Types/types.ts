@@ -19,6 +19,10 @@ export interface CandidateContextProps {
     errorMessage: string;
     token: string;
     selectedType: string;
+    selectedSkills:Selected[];
+    selectedLocation:Selected[];
+    selectedExperience:string[];
+    selectedNoticeperiod:number | null;
     profile: candidateProfile;
     dispatch: Dispatch<Action>;
 }
@@ -41,49 +45,6 @@ export interface commonType {
     name: string
 }
 
-export interface Candidates {
-    id: string;
-    firstName: string;
-    middleName: string;
-    lastName: string
-    email: string;
-    phone: number;
-    dateOfBirth: null;
-    currentAddress: string;
-    permanentAddress: string;
-    gender: string;
-    currentJobTitle: string;
-    currentEmployer: string;
-    yearsOfExperience: number;
-    yearsOfRelevantExperience: number;
-    previousJobTitle: string;
-    previousEmployer: string;
-    currentCTC: number;
-    expectedCTC: number;
-    dateOfAppointment: string;
-    dateOfJoining: string;
-    lastContactedDate: string;
-    resumeFileName: string;
-    // cctc:number;
-    // communicationSkills:string;
-    // contactNumber:string;
-    // country:string;
-    // currentCompanyName:string;
-    // currentMostRecentJobTitle:string;
-    // cvUrl:string;
-    // ectc:number;
-    // emailAddress:string;
-    // firstName:string;
-    // gender:string;
-    // id:number;
-    // lastCompanyName:string;
-    // lastContactedDate:string;
-    // lastName:string;
-    // locationCity:string;
-    // sector:string;
-    // skills:string[];
-    // totalYearsOfExperience:string
-}
 
 
 
@@ -189,9 +150,8 @@ export interface candidateProfile {
         email: string;
         phone: string | null;
         noticePeriod: string;
-        lastContacted: string | null
-        isEmailVerified:boolean
-
+        lastContacted: string | null;
+        isEmailVerified:boolean;
         about:string
     }
 }
@@ -203,4 +163,16 @@ export interface UpdateProfileType {
     jobSearchStatus: string;
     noticePeriod: string | null;
     location: string
+}
+
+export interface Candidates {
+    id:string;
+    name:string;
+    profileDescription:string;
+    skills:{
+        name:string;
+        isMain:boolean
+    }[];
+    totalExperience:string;
+    jobTitle:string
 }
