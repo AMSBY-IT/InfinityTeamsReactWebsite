@@ -17,7 +17,7 @@ export default function PersonalDetails() {
     phone: "",
     jobTypePreference: "",
     jobSearchStatus: "Open",
-    noticePeriod: null,
+    noticePeriod: 0,
     location: ""
   })
 
@@ -34,7 +34,7 @@ export default function PersonalDetails() {
           ...profile.candidate,
           name: updateprofileData.name,
           phone: updateprofileData.phone,
-          noticePeriod: updateprofileData.noticePeriod||'',
+          noticePeriod: updateprofileData.noticePeriod,
   } });
       }
     },
@@ -51,9 +51,17 @@ export default function PersonalDetails() {
   });
 
   const handleClick = () => {
-
+    setUpdateprofileData({
+      name: profile.candidate.name || "",
+      phone: profile.candidate.phone || "",
+      jobTypePreference: "",
+      jobSearchStatus: "Open",
+      noticePeriod: profile.candidate.noticePeriod,
+      location: '',
+    });
     setIsModalOpen(true);
-  }
+  };
+  
 
 
   const handleUpdate = () => {

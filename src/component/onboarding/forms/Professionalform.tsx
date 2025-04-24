@@ -7,7 +7,7 @@ import { useContext, useEffect } from "react";
 
 export interface ProfessionalFormProps {
   professionalDetails?: {
-    noticePeriod: string;
+    noticePeriod: number;
     ctc: number;
     ectc: number;
     experienceLevel: string;

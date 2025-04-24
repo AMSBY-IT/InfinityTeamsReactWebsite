@@ -27,7 +27,7 @@ export const initialState = {
       name: '',
       email: '',
       phone: null,
-      noticePeriod: '',
+      noticePeriod: 0,
       lastContacted: null,
       isEmailVerified: false,
       about:''

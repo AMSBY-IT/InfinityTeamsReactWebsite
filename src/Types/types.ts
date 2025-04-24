@@ -149,7 +149,7 @@ export interface candidateProfile {
         name: string;
         email: string;
         phone: string | null;
-        noticePeriod: string;
+        noticePeriod: number;
         lastContacted: string | null;
         isEmailVerified:boolean;
         about:string
@@ -161,7 +161,7 @@ export interface UpdateProfileType {
     phone: string;
     jobTypePreference: string;
     jobSearchStatus: string;
-    noticePeriod: string | null;
+    noticePeriod: number;
     location: string
 }
 
