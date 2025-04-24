@@ -8,12 +8,73 @@ export const loginUser = async (userCredentials: usercredentials) => {
 
 };
 
+export const updateAbout = async (data:{about:string}) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/about`,data
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+
+};
+
+export const verifEmail=async (t:string)=>{
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/Candidates/verify-email?token=${t}`,
+         {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+
+
+}
+
+export const sendLink=async ()=>{
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/about`
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+
+}
+
 
 export const registerUser = async (userData: userdata) => {
     const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/register`, userData);
     return response.data;
 
 };
+
+export const checkValidEmail=async(email:string)=>{
+    const response=await axios.post("http://vaibhavarora2-001-site17.anytempurl.com/api/Candidates/check-email",{email:email})
+    return response.data
+}
 
 export const getcountries = async () => {
     const token = localStorage.getItem("token");
