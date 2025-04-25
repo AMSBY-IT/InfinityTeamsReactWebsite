@@ -13,9 +13,10 @@ import { useState } from "react";
 export interface ExperienceFormProps {
   experienceData: ExperienceType;
   setExperienceData: React.Dispatch<React.SetStateAction<ExperienceType>>;
+  errors: Record<string, string>
   }
 
-export default function Experienceform({experienceData, setExperienceData}:ExperienceFormProps){
+export default function Experienceform({experienceData, setExperienceData,errors }:ExperienceFormProps){
 
     const { dispatch, designation } =
         useContext(CandidateContext);
@@ -96,7 +97,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
           <TextInput
             label="Company"
             placeHolder="Enter Company Name"
-            helperText="helper text"
+            helperText={errors.companyName || ''}
             value={experienceData?.companyName}
             required
             onChange={(value) => {
@@ -107,6 +108,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
           <DropDown
             options={designation}
             label="Designation"
+            helperText={errors['designation.name']}
             value={experienceData.designation.id}
             required
             onChange={(option) =>
@@ -137,7 +139,7 @@ export default function Experienceform({experienceData, setExperienceData}:Exper
             placeHolder="Enter Description"
             required
             value={experienceData?.jobDetail}
-            helperText="helper text"
+            helperText={errors.jobDetail || ''}
             onChange={(value) => {
               setExperienceData(prev => ({ ...prev, jobDetail: value }));
             }}

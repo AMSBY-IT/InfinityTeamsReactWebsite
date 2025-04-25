@@ -11,12 +11,13 @@ export type Options = {
 type Props = {
   label: string;
   options: Options[];
+  helperText: string
   selectedOptions: Options[];
   onChange: (selectedOptions: Options[]) => void;
   required?: boolean
 };
 
-const MultiSelectDropdown = ({ label, options,selectedOptions, onChange,required }: Props) => {
+const MultiSelectDropdown = ({ label, options,selectedOptions, onChange,required,helperText }: Props) => {
   
 
   const handleChange = (selected: MultiValue<{ value: string; label: string }>) => {
@@ -41,6 +42,9 @@ const MultiSelectDropdown = ({ label, options,selectedOptions, onChange,required
         maxMenuHeight={160}
         styles={customStyles}
       />
+      <div className="flex justify-between items-center mt-2">
+					<p className="text-xs text-red-600">{helperText}</p>
+				</div>
     </div>
   );
 };

@@ -59,7 +59,7 @@ export default function ProfileUpdateform({updateprofileData,setUpdateprofileDat
             setUpdateprofileData(prev => ({ ...prev, phone: value }));
           }}
       />
-      <DropDown options={jobTypePreferenceOptions} label="Job Preference" required onChange={(option) =>
+      <DropDown options={jobTypePreferenceOptions} label="Job Preference" helperText="helper text" required onChange={(option) =>
             setUpdateprofileData(prev => ({
               ...prev,
               jobTypePreference: option.name,

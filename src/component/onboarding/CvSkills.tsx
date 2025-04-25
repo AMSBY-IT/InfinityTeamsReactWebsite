@@ -26,6 +26,7 @@ function CvSkills() {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
 	const [selectedOptions, setSelectedOptions] = useState<Options[]>([]);
+	const [errors, setErrors] = useState<Record<string, string>>({});
 
 	const { data: skillData } = useQuery({
 		queryKey: ["skill"],
@@ -77,11 +78,18 @@ function CvSkills() {
 		const result = cvSkillsSchema.safeParse(formData);
 	  
 		if (!result.success) {
-		  const firstError = result.error.errors[0]?.message || "Invalid input";
-		  toast.error(firstError);
-		  return;
-		}
-	  
+			const fieldErrors: Record<string, string> = {};
+		
+			result.error.errors.forEach((err) => {
+			  if (err.path.length > 0) {
+				fieldErrors[err.path[0] as string] = err.message;
+			  }
+			});
+		
+			setErrors(fieldErrors);
+			return;
+		  }
+		  setErrors({});
 		uploadCVMutation.mutate(result.data.file);
 		skillsMutation.mutate({ skills: result.data.skills });
 	  };
@@ -94,11 +102,12 @@ function CvSkills() {
 
 			<div className="w-full rounded-lg">
 
-				<FileUpload onChange={(file) => setSelectedFile(file)} required/>
+				<FileUpload onChange={(file) => setSelectedFile(file)} required helperText={errors.file || ''}/>
 
 				<MultiSelectDropdown
 					options={skills}
 					label="Skills"
+					helperText={errors.skills || ''}
 					required
 					selectedOptions={selectedOptions}
 					onChange={setSelectedOptions}

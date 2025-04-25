@@ -6,9 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { CandidateContext } from "@/Provider/CandidateContext";
 import { useMutation } from "@tanstack/react-query";
-import {
-  postProfessionalData,
-} from "@/api/services";
+import { postProfessionalData } from "@/api/services";
 import { EducationType, ExperienceType, professionalData } from "@/Types/types";
 import { toast } from "react-toastify";
 import Experienceform from "./forms/Experienceform";
@@ -20,8 +18,8 @@ import Educationform from "./forms/Educationform";
 const educationSchema = z.object({
   instituteName: z.string().min(1, "Institute name is required"),
   courseName: z.string().min(1, "Degree Details is required"),
-  startYear: z.number().int().gte(1900),
-  endYear: z.number().int().gte(1900),
+  startYear: z.number().int().gte(1900).min(1,"start year required"),
+  endYear: z.number().int().gte(1900).min(1,"end year required"),
   finalScore: z.string().min(1, "Total Percentage is required"),
 });
 
@@ -35,23 +33,22 @@ const experienceSchema = z.object({
   }),
   startDate: z.string().nullable(),
   endDate: z.string().nullable(),
-  jobDetail: z.string()
+  jobDetail: z.string().min(1,"Job description required"),
 });
-
 
 // Combined Schema
 const professionalFormSchema = z.object({
   education: z.array(educationSchema).min(1),
   professional: z.array(experienceSchema),
-  noticePeriod: z.number(),
-  ctc: z.number(),
-  ectc: z.number(),
-  experienceLevel: z.string(),
+  noticePeriod: z.number().min(1,"notice period required"),
+  ctc: z.number().min(1,"ctc required"),
+  ectc: z.number().min(1,"ectc required"),
+  experienceLevel: z.string().min(1,"experience level required"),
 });
 
 function ProfessionalInformation() {
   const { selectedType } = useContext(CandidateContext);
-
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [educationData, setEducationData] = useState<EducationType>({
     instituteName: "",
@@ -60,8 +57,6 @@ function ProfessionalInformation() {
     endYear: new Date().getFullYear(),
     finalScore: "",
   });
-
-
 
   const [experienceData, setExperienceData] = useState<ExperienceType>({
     isCurrent: false,
@@ -78,8 +73,6 @@ function ProfessionalInformation() {
     ectc: 0,
     experienceLevel: "",
   });
-
-
 
   const professionalMutation = useMutation({
     mutationFn: postProfessionalData,
@@ -102,42 +95,67 @@ function ProfessionalInformation() {
           courseName: educationData.courseName,
           startYear: educationData.startYear,
           endYear: educationData.endYear,
-          finalScore: educationData.finalScore
+          finalScore: educationData.finalScore,
         },
       ],
       professional:
         selectedType === "Fresher"
           ? []
           : [
-            {
-              isCurrent: experienceData.isCurrent,
-              companyName: experienceData.companyName,
-              designation: {
-                id: experienceData.designation.id,
-                name: experienceData.designation.name,
+              {
+                isCurrent: experienceData.isCurrent,
+                companyName: experienceData.companyName,
+                designation: {
+                  id: experienceData.designation.id,
+                  name: experienceData.designation.name,
+                },
+                startDate: experienceData.startDate
+                  ? experienceData.startDate
+                  : null,
+                endDate: experienceData.endDate ? experienceData.endDate : null,
+                jobDetail: experienceData.jobDetail,
               },
-              startDate: experienceData.startDate ? experienceData.startDate : null,
-              endDate: experienceData.endDate ? experienceData.endDate : null,
-              jobDetail: experienceData.jobDetail,
-            },
-          ],
+            ],
       noticePeriod: professionalDetails.noticePeriod,
       ctc: professionalDetails.ctc,
       ectc: professionalDetails.ectc,
       experienceLevel: professionalDetails.experienceLevel,
     };
-  
+
     const result = professionalFormSchema.safeParse(formData);
-  console.log(result,"Rtesult")
+    
     if (!result.success) {
-      const firstError = result.error.errors[0]?.message || "Invalid input";
-      toast.error(firstError);
+      const fieldErrors: Record<string, string> = {};
+
+      result.error.errors.forEach((err) => {
+        if (err.path.length > 0) {
+          const [group, index, field, subfield] = err.path;
+    
+          if (group === "education" && typeof index === "number") {
+            // Handle education[0].field
+            if (typeof field === "string") {
+              fieldErrors[field] = err.message;
+            }
+          } else if (group === "professional" && typeof index === "number") {
+            // Handle professional[0].field or professional[0].designation.name
+            if (field === "designation" && typeof subfield === "string") {
+              fieldErrors[`designation.${subfield}`] = err.message;
+            } else if (typeof field === "string") {
+              fieldErrors[field] = err.message;
+            }
+          }else if(["noticePeriod", "ctc", "ectc", "experienceLevel"].includes(field as string)){
+            fieldErrors[field as string] = err.message;
+          } else {
+            fieldErrors[err.path[0] as string] = err.message;
+          }
+        }
+      });
+      setErrors(fieldErrors);
       return;
     }
-  
+    setErrors({});
     professionalMutation.mutate(result.data);
   };
-  
 
   const navigate = useNavigate();
 
@@ -149,11 +167,23 @@ function ProfessionalInformation() {
     <div>
       {selectedType !== "Fresher" && (
         <div>
-          <Experienceform experienceData={experienceData} setExperienceData={setExperienceData} />
-          <Professionalform professionalDetails={professionalDetails} setProfessionalDetails={setProfessionalDetails} />
+          <Experienceform
+            experienceData={experienceData}
+            setExperienceData={setExperienceData}
+            errors={errors}
+          />
+          <Professionalform
+            professionalDetails={professionalDetails}
+            setProfessionalDetails={setProfessionalDetails}
+            errors={errors}
+          />
         </div>
       )}
-      <Educationform educationData={educationData} setEducationData={setEducationData} />
+      <Educationform
+        educationData={educationData}
+        setEducationData={setEducationData}
+        errors={errors}
+      />
       <div className="flex items-center space-x-2 py-2">
         <PrimaryButton btnText="Save " onClick={handleSubmit} />
         <IconBtn Icons={<ArrowRight />} onClick={handleNextPage} />
