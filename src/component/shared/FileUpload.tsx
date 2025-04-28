@@ -4,20 +4,22 @@ import { Upload } from "lucide-react"
 
 type Props = {
   label?: string
-  helperText?: string
+  helperText: string
   onChange: (file: File | null) => void
   maxSizeBytes?: number
   maxSize?: string
   required?:boolean
+  defaultText?:string
 }
 
 export default function FileUpload({
   label = "Upload file",
-  helperText = "Drag and drop or click to browse",
+  helperText,
   onChange,
   maxSize = "(5 MB max)",
   maxSizeBytes = 5 * 1024 * 1024,
-  required
+  required,
+  defaultText="Drag and drop or click to browse"
 }: Props) {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null)
 
@@ -47,7 +49,7 @@ export default function FileUpload({
   const isFileTooLarge = fileRejections.length > 0 && fileRejections[0].file.size > maxSizeBytes
   return (
     <div className="w-full py-2">
-      <h4 className="text-sm font-medium mb-2">{label}{required && <span className="text-red-500 ml-1">*</span>}</h4>
+      <h4 className="text-sm font-medium mb-2">{label}{required && <span className="text-red-600 ml-1">*</span>}</h4>
       <div
         {...getRootProps()}
         className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-200 ${
@@ -67,7 +69,7 @@ export default function FileUpload({
           >
             <Upload
               className={`w-6 h-6 ${
-                isDragActive ? "text-blue-500" : isDragReject || isFileTooLarge ? "text-red-500" : "text-gray-500"
+                isDragActive ? "text-blue-500" : isDragReject || isFileTooLarge ? "text-red-600" : "text-gray-500"
               }`}
             />
           </div>
@@ -80,13 +82,16 @@ export default function FileUpload({
                   ? "File is too large"
                 : label}
           </p>
-          <p className="text-xs text-gray-500">{selectedFileName ? selectedFileName : `${helperText} ${maxSize}`}</p>
+          <p className="text-xs text-gray-500">{selectedFileName ? selectedFileName : `${defaultText} ${maxSize}`}</p>
           {fileRejections.length > 0  && !isFileTooLarge &&(
-            <p className="text-xs text-red-500 mt-1">File type not accepted</p>
+            <p className="text-xs text-red-600 mt-1">File type not accepted</p>
           )}
-          {isFileTooLarge && <p className="text-xs text-red-500 mt-1">File is too large</p>}
+          {isFileTooLarge && <p className="text-xs text-red-600 mt-1">File is too large</p>}
         </div>
       </div>
+      <div className="flex justify-between items-center mt-2">
+					<p className="text-xs text-red-600">{helperText}</p>
+				</div>
     </div>
   )
 }

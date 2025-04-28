@@ -8,6 +8,7 @@ export type Options = {
 type Props = {
   label: string;
   options: Options[];
+  helperText: string
   value?: string;
   onChange: (option: Options) => void;
   required?: boolean
@@ -41,6 +42,9 @@ const DropDown = (props: Props) => {
           </select>
           <ChevronDown className="absolute right-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
         </div>
+        <div className="flex justify-between items-center mt-2">
+					<p className="text-xs text-red-600">{props.helperText}</p>
+				</div>
       </div>
     </div>
   );

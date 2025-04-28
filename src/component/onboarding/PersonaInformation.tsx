@@ -30,6 +30,7 @@ function PersonaInformation() {
   const [selectedCountry, setSelectedCountry] = useState<Options>({id:'',name:''});
   const [city, setCity] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<Options[]>([]);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const { data: countryData } = useQuery({
     queryKey: ["country"],
@@ -90,13 +91,20 @@ function PersonaInformation() {
     };
 
     const result = personalInfoSchema.safeParse(formData);
-    console.log(result,"res")
+    
     if (!result.success) {
-      const firstError = result.error.errors[0]?.message || "Invalid input";
-      toast.error(firstError);
+      const fieldErrors: Record<string, string> = {};
+      
+      result.error.errors.forEach((err) => {
+        if (err.path.length > 0) {
+          fieldErrors[err.path[0] as string] = err.message;
+        }
+      });
+  
+      setErrors(fieldErrors);
       return;
     }
-
+    setErrors({});
     personalMutation.mutate(result.data);
   };
 
@@ -110,19 +118,21 @@ function PersonaInformation() {
       <DropDown
         options={countries}
         label="Country"
+        helperText={errors.country || ''}
         onChange={handleCountryChange}
         required
       />
       <TextInput
         label="City"
         placeHolder="Enter City"
-        helperText="helper text"
+        helperText={errors.city || ''}
         onChange={(value) => setCity(value)}
         required
       />
       <MultiSelectDropdown
         options={languages}
         label="Language"
+        helperText={errors.language || ''}
         selectedOptions={selectedLanguage}
         onChange={handleLanguageChange}
         required
