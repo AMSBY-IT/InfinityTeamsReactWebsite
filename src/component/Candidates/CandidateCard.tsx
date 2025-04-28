@@ -11,6 +11,7 @@ const CandidateCard = () => {
     dispatch,
     selectedSkills,
     selectedLocation,
+    selectedNoticeperiod,
     selectedExperience,
   } = useContext(CandidateContext);
   console.log("selectedExperience", selectedExperience);
@@ -45,9 +46,10 @@ const CandidateCard = () => {
     fetchCandidates({
       skills: selectedSkills.map((skill) => skill.guid),
       location: selectedLocation.map((loc) => loc.guid),
-      experience: parsedExperience
+      experience: parsedExperience,
+      noticePeriod:selectedNoticeperiod
     });
-  }, [selectedSkills, selectedLocation, selectedExperience]);
+  }, [selectedSkills, selectedLocation, selectedExperience,selectedNoticeperiod]);
 
   return (
     <div className="" role="tabpanel" id="grid">

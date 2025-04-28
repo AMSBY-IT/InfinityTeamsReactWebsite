@@ -345,26 +345,54 @@ export const updateAbout = async (data:{about:string}) => {
     return response.data;
 };
 
-export const getCandidates = async ({ skills,location,experience }: { skills: string[],location:string[],experience:string[] }) => {
+export const getCandidates = async ({
+    skills,
+    location,
+    experience,
+    mainSkills = [],
+    noticePeriod = null,
+    pageIndex = 0,
+    pageSize = 10,
+  }: {
+    skills: string[];
+    location: string[];
+    experience: string[];
+    mainSkills?: string[];
+    noticePeriod: number|null; 
+    pageIndex?: number;
+    pageSize?: number;
+  }) => {
     const token = localStorage.getItem("token");
     if (!token) {
-        toast.error("No token found.");
-        return;
+      toast.error("No token found.");
+      return;
     }
-    const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/filter`,{
-        skills,
-        location,
-        experience
+  
+    const requestPayload = {
+      pageIndex,
+      pageSize,
+      MainSkills: mainSkills,
+      Skills: skills,
+      Location: location,
+      NoticePeriod: noticePeriod,
+      experience,
+    };
+  
+    const requestQuery = encodeURIComponent(JSON.stringify(requestPayload));
+    const url = `http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/filter?request=${requestQuery}`;
+  
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      toast.error("Failed to fetch candidates.");
+      console.error(error);
     }
-        , {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-    );
-    return response.data;
-
-};
+  };
 
 
 
