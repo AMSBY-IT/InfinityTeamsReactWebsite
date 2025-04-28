@@ -1,4 +1,4 @@
-import { registerUser } from "@/api/services";
+import { checkValidEmail, registerUser } from "@/api/services";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
@@ -15,6 +15,7 @@ export const CandidateRegisterForm = () => {
     password: "",
     confirmPassword:"",
 });
+const [err,setErr]=useState("")
 
 const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
   setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,6 +52,14 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   }
   regitserMutation.mutate(formData)
 };
+
+const  handleFocusOut=async ()=>{
+  const resp=await checkValidEmail(formData.email)
+  if(resp.success){
+    setErr(resp.message)
+  }
+  console.log(resp,"repoms")
+}
 
   return (
     <>
@@ -160,10 +169,12 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
               id="email"
               name="email"
               onChange={handleChange}
+              onBlur={handleFocusOut}
               placeholder="Enter your email"
               className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 text-sm sm:text-base focus:outline-none focus:ring-[#6c5ce7] focus:border-[#6c5ce7]"
             ></input>
           </div>
+          <small className="text-gray-900">{err.toLowerCase()}</small>
         </div>
 
         {/* <!-- Password Field --> */}
