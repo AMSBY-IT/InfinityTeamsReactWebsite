@@ -2,10 +2,31 @@
 
 const AboutSection = () => {
     return (
-        <div id="description" className="mb-7">
-            <h6 className="text-2xl max-sm:text-xl font-semibold mb-5">About Candidate</h6>
-            <p className="text-lg max-sm:text-base text-[#7D8087]">We are seeking a skilled Part-Time Software Engineer to join our team, specializing in social media content creation for lead generation purposes. The ideal candidate will have a creative flair, technical proficiency, and a strong understanding of social media trends and algorithms. Must be able to work Monday-Friday during EST business hours. This role will be under the ScaledOn brand, but will be working directly with one of our partners as their dedicated Software Engineer.</p>
-        </div>
+        <div className="bg-white rounded-lg border p-6">
+            <h2 className="text-xl font-semibold mb-4">About the candidate</h2>
+            <p className="text-gray-700 text-md leading-relaxed mb-6">
+              Microsoft is an equal opportunity employer. All qualified applicants will receive consideration for
+              employment without regard to age, ancestry, color, family or medical care leave, gender identity or
+              expression, genetic information, marital status, medical condition, national origin, physical or mental
+              disability, political affiliation, protected veteran status, race, religion, sex (including pregnancy),
+              sexual orientation, or any other characteristic protected by applicable laws, regulations and ordinances.
+              All qualified applicants will receive consideration for employment.
+            </p>
+
+            <div className="space-y-4">
+              <h3 className="font-medium">Responsibilities:</h3>
+              <ul className="list-disc pl-6 text-sm text-gray-700 space-y-2">
+                <li>Deliver the project or solution as per the baseline scope, cost & schedule.</li>
+                <li>Maintain high team & customer satisfaction levels.</li>
+                <li>Ensure high quality delivery without any escalations.</li>
+              </ul>
+            </div>
+
+            <button className="mt-4 text-blue-600 text-sm flex items-center">
+              <span className="mr-1">See more</span>
+              <span className="text-blue-600">•••</span>
+            </button>
+          </div>
     )
 }
 

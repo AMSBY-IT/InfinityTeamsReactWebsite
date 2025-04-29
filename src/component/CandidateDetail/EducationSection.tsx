@@ -4,32 +4,38 @@
 
 const EducationSection = () => {
     return (
-        <div id="responsibility" className="mb-7">
-            <h6 className="text-2xl max-sm:text-xl font-semibold mb-5">Education</h6>
-            <ul className="timeline">
-                <li className="mb-7 pl-7 relative">
-                    <div className="w-3 h-3 bg-untitled-ui--primary600 rounded-full absolute left-0 top-2 z-10"></div>
-                    <span className="timeline__title block mb-1 text-untitled-ui--primary600 text-[18px] max-sm:text-[17px] font-medium">California Institute of Technology</span>
-                    <span className="timeline__subtitle text-[#7D8087] italic text-base block">Master of Science in Computer Science   (2014- 2015)</span>
-                    <p className="mt-2 fw-medium text-lg max-sm:text-base text-[#7D8087]">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                    <div className="vertical-line absolute h-[110%] w-[1px] bg-black opacity-20 top-3 left-[5px] z-0"></div>
-                </li>
-                <li className="mb-7 pl-7 relative">
-                    <div className="w-3 h-3 bg-untitled-ui--primary600 rounded-full absolute left-0 top-2 z-10"></div>
-                    <span className="timeline__title block mb-1 text-untitled-ui--primary600 text-[18px] max-sm:text-[17px] font-medium">University of California, Berkeley</span>
-                    <span className="timeline__subtitle text-[#7D8087] italic text-base block">B. Sc. in Computer Science and Engineering   (2010- 2014)</span>
-                    <p className="mt-2 fw-medium text-lg max-sm:text-base text-[#7D8087]">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                    <div className="vertical-line absolute h-[110%] w-[1px] bg-black opacity-20 top-3 left-[5px] z-0"></div>
-                </li>
-                <li className="mb-7 pl-7 relative">
-                    <div className="w-3 h-3 bg-untitled-ui--primary600 rounded-full absolute left-0 top-2 z-10"></div>
-                    <span className="timeline__title block mb-1 text-untitled-ui--primary600 text-[18px] max-sm:text-[17px] font-medium">University of California, Berkeley</span>
-                    <span className="timeline__subtitle text-[#7D8087] italic text-base block">B. Sc. in Computer Science and Engineering   (2010- 2014)</span>
-                    <p className="mt-2 fw-medium text-lg max-sm:text-base text-[#7D8087]">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                    <div className="vertical-line absolute h-[110%] w-[1px] bg-black opacity-20 top-3 left-[5px] z-0"></div>
-                </li>
-            </ul>
+        <div>
+        <h2 className="text-xl font-semibold mb-6">Education</h2>
+
+        <div className="flex gap-4">
+          <div className="flex-shrink-0 w-12 h-12 bg-red-900 rounded-full flex items-center justify-center text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div className="flex-grow">
+            <h3 className="text-lg font-semibold text-gray-900">Harvard University</h3>
+            <div className="flex justify-between">
+              <p className="text-gray-700">London • Business Development</p>
+              <p className="text-gray-700">1994 - 1998</p>
+            </div>
+            <p className="text-gray-500 mt-1">
+              Healthcare Interest — become an expert on emerging healthcare programs and excited to speak with providers
+              about the future of healthcare
+            </p>
+          </div>
         </div>
+      </div>
     )
 }
 
