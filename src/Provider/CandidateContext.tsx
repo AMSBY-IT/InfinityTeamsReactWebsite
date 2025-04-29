@@ -21,6 +21,7 @@ export const initialState = {
   designation: [] as commonType[],
   degree: [] as commonType[],
   isChecked: {} as Record<string, boolean>,
+  radioSelect:null as number | null,
   selectedType: 'Fresher',
   profile: {
     candidate: {

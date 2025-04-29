@@ -1,5 +1,3 @@
-
-
 const AboutSection = () => {
     return (
         <div className="bg-white rounded-lg border p-6">

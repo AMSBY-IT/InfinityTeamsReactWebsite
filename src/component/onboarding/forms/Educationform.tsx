@@ -11,9 +11,10 @@ import React, { useContext, useEffect } from "react";
 export interface EducationFormProps {
   educationData: EducationType;
   setEducationData: React.Dispatch<React.SetStateAction<EducationType>>;
+  errors?: Record<string, string>
 }
 
-function Educationform({ educationData, setEducationData }: EducationFormProps) {
+function Educationform({ educationData, setEducationData,errors }: EducationFormProps) {
 
   const { dispatch, degree } =
     useContext(CandidateContext);
@@ -69,7 +70,7 @@ function Educationform({ educationData, setEducationData }: EducationFormProps) 
         <TextInput
           label="Institutions Name "
           placeHolder="Enter School Name"
-          helperText="helper text"
+          helperText={errors?.instituteName || ''}
           value={educationData?.instituteName}
           onChange={(value) => {
             setEducationData(prev => ({ ...prev, instituteName: value }));
@@ -78,6 +79,7 @@ function Educationform({ educationData, setEducationData }: EducationFormProps) 
 
         <DropDown
           options={degree}
+          helperText={errors?.courseName || ''}
           label="Degree"
           onChange={(option) =>
             setEducationData(prev => ({
@@ -90,7 +92,7 @@ function Educationform({ educationData, setEducationData }: EducationFormProps) 
         <TextInput
           label="Total Percentage"
           placeHolder="Enter Percentage"
-          helperText="helper text"
+          helperText={errors?.finalScore || ''}
           value={educationData?.finalScore}
           onChange={(value) => {
             setEducationData(prev => ({ ...prev, finalScore: value }));

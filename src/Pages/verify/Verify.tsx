@@ -1,18 +1,25 @@
  
+import { verifEmail } from "@/api/services"
 import { Button } from "@/component/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/component/ui/card"
 import { CheckCircle, Loader2, XCircle } from "lucide-react"
-import  { useState } from 'react'
+import  { useEffect, useState } from 'react'
 
 const  Verify=()=> {
-  const searchParams = "token"
-  const token = "ttoken"
+  const [tokebUrl,setToken] = useState('')
   const [verificationState, setVerificationState] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
+  useEffect(()=>{
+    const token=window.location.href
+    const t=token.split("=")[1]
+    setToken(t)
+
+  },[])
+
   // Function to verify the email
   const verifyEmail = async () => {
-    if (!token) {
+    if (!tokebUrl) {
       setVerificationState("error")
       setErrorMessage("Verification token is missing")
       return
@@ -21,21 +28,15 @@ const  Verify=()=> {
     try {
       setVerificationState("loading")
 
-      const response = await fetch("/api/verify-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      })
+      const response = await verifEmail(tokebUrl)
 
-      const data = await response.json()
 
-      if (response.ok) {
+
+      if (response.success) {
         setVerificationState("success")
       } else {
         setVerificationState("error")
-        setErrorMessage(data.message || "Failed to verify email")
+        setErrorMessage(response.message || "Failed to verify email")
       }
     } catch (error) {
       setVerificationState("error")
@@ -46,7 +47,6 @@ const  Verify=()=> {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      {searchParams}
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Email Verification</CardTitle>
@@ -89,7 +89,7 @@ const  Verify=()=> {
 
           {verificationState === "success" && (
             <Button asChild className="w-full">
-              <a href="/dashboard">Go to Dashboard</a>
+              <a href="/auth/login">Go to Dashboard</a>
             </Button>
           )}
 

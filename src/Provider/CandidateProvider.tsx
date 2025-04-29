@@ -22,6 +22,7 @@ export type Action =
   | { type: "SET_LANGUAGES"; payload: commonType[] }
   | { type: "SET_CANDIDATES"; payload: Candidates[] }
   | { type: "SET_CHECKED"; payload: { id: string; checked: boolean } }
+  | { type: "SET_RADIOCHECK"; payload:number | null }
   | { type: "SET_SELECTEDTYPE"; payload: string }
   | { type: "SET_SELECTEDSKILLS"; payload: Selected[] }
   | { type: "SET_SELECTEDLOCATION"; payload: Selected[] }
@@ -66,6 +67,8 @@ const Reducer = (state: typeof initialState, action: Action) => {
       return { ...state, selectedNoticeperiod: action.payload };
     case "SET_CANDIDATES":
       return { ...state, candidates: action.payload };
+    case "SET_RADIOCHECK":
+      return { ...state, radioSelect: action.payload };
     case "SET_CHECKED":
       return {
         ...state,
@@ -94,7 +97,7 @@ const Reducer = (state: typeof initialState, action: Action) => {
           experiences: action.payload,
         },
       };
-      case "UPDATE_CANDIDATEINFO":
+    case "UPDATE_CANDIDATEINFO":
       return {
         ...state,
         profile: {
@@ -102,7 +105,7 @@ const Reducer = (state: typeof initialState, action: Action) => {
           candidate: action.payload,
         },
       };
-      
+
     default:
       return state;
   }

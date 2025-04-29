@@ -27,7 +27,7 @@ export default function  TextInput({ label, placeHolder, helperText,value,onChan
 
 				</div>
 				<div className="flex justify-between items-center mt-2">
-					<p className="text-xs text-gray-500">{helperText}</p>
+					<p className="text-xs text-red-600">{helperText}</p>
 				</div>
 			</div>
 		</div>

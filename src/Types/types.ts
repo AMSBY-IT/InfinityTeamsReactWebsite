@@ -15,6 +15,7 @@ export interface CandidateContextProps {
     candidates: Candidates[];
     loading: boolean;
     isChecked: Record<string, boolean>;
+    radioSelect:number|null,
     isLogin: boolean;
     errorMessage: string;
     token: string;

@@ -8,12 +8,73 @@ export const loginUser = async (userCredentials: usercredentials) => {
 
 };
 
+export const updateAbout = async (data:{about:string}) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/about`,data
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+
+};
+
+export const verifEmail=async (t:string)=>{
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/Candidates/verify-email?token=${t}`,
+         {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+
+
+}
+
+export const sendLink=async ()=>{
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("No token found.");
+        return;
+    }
+    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/about`
+        , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }
+    );
+    return response.data;
+
+}
+
 
 export const registerUser = async (userData: userdata) => {
     const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/register`, userData);
     return response.data;
 
 };
+
+export const checkValidEmail=async(email:string)=>{
+    const response=await axios.post("http://vaibhavarora2-001-site17.anytempurl.com/api/Candidates/check-email",{email:email})
+    return response.data
+}
 
 export const getcountries = async () => {
     const token = localStorage.getItem("token");
@@ -267,43 +328,55 @@ export const updateProfile = async (data:UpdateProfileType) => {
     return response.data;
 };
 
-export const updateAbout = async (data:{about:string}) => {
+
+export const getCandidates = async ({
+    skills,
+    location,
+    experience,
+    mainSkills = [],
+    noticePeriod = null,
+    pageIndex = 0,
+    pageSize = 10,
+  }: {
+    skills: string[];
+    location: string[];
+    experience: string[];
+    mainSkills?: string[];
+    noticePeriod: number|null; 
+    pageIndex?: number;
+    pageSize?: number;
+  }) => {
     const token = localStorage.getItem("token");
     if (!token) {
-        console.error("No token found.");
-        return;
+      toast.error("No token found.");
+      return;
     }
-    const response = await axios.put(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile/about`,data
-        , {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            }
-        }
-    );
-    return response.data;
-};
-
-export const getCandidates = async ({ skills,location,experience }: { skills: string[],location:string[],experience:string[] }) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        toast.error("No token found.");
-        return;
+  
+    const requestPayload = {
+      pageIndex,
+      pageSize,
+      MainSkills: mainSkills,
+      Skills: skills,
+      Location: location,
+      NoticePeriod: noticePeriod,
+      experience,
+    };
+  
+    const requestQuery = encodeURIComponent(JSON.stringify(requestPayload));
+    const url = `http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/filter?request=${requestQuery}`;
+  
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      toast.error("Failed to fetch candidates.");
+      console.error(error);
     }
-    const response = await axios.post(`http://vaibhavarora2-001-site17.anytempurl.com/api/candidates/filter`,{
-        skills,
-        location,
-        experience
-    }
-        , {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-    );
-    return response.data;
-
-};
+  };
 
 
 
