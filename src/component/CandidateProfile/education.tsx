@@ -4,15 +4,16 @@ import { useContext, useState } from "react";
 import Educationform from "../onboarding/forms/Educationform";
 import Modal from "../ui/Modal";
 import { EducationType } from "@/Types/types";
-import { updateEducation } from "@/api/services";
+import { postProfessionalData, updateEducation } from "@/api/services";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import axios from "axios";
 
 export default function Education() {
   const { profile, dispatch } = useContext(CandidateContext);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [educationId, setEducationId] = useState('')
+  const [educationId, setEducationId] = useState("");
   const [educationData, setEducationData] = useState<EducationType>({
     instituteName: "",
     courseName: "",
@@ -22,7 +23,8 @@ export default function Education() {
   });
 
   const updateEducationMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string, data: EducationType }) => updateEducation(id, data),
+    mutationFn: ({ id, data }: { id: string; data: EducationType }) =>
+      updateEducation(id, data),
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
@@ -34,13 +36,33 @@ export default function Education() {
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-
-        const errorMessage = error.response?.data?.message || "An unknown error occurred.";
+        const errorMessage =
+          error.response?.data?.message || "An unknown error occurred.";
         toast.error("Error: " + errorMessage);
       } else {
-
         toast.error("Error: " + error.message);
       }
+    },
+  });
+
+  const addEducation = useMutation({
+    mutationFn: postProfessionalData,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(data.message);
+        console.log("data",data)
+        if (educationData) {
+          const newEducation = {
+            ...educationData,
+            id:'',
+          };
+          const updatedEducations = [...profile.educations, newEducation];
+          dispatch({ type: "UPDATE_EDUCATION", payload: updatedEducations });
+        }
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -55,20 +77,48 @@ export default function Education() {
         finalScore: selectedEducation.finalScore,
       });
       setEducationId(id);
+      setIsEditMode(true);
       setIsModalOpen(true);
     }
   };
 
   const handleUpdate = () => {
-    updateEducationMutation.mutate({ id: educationId, data: educationData })
-    setIsModalOpen(false)
-  }
+    if (isEditMode) {
+      updateEducationMutation.mutate({ id: educationId, data: educationData });
+    } else {
+      addEducation.mutate({
+        education: [educationData],
+        professional: [],
+        experienceLevel: "",
+      });
+    }
+    setIsModalOpen(false);
+  };
 
+  const handleAdd = () => {
+    setEducationData({
+      instituteName: "",
+      courseName: "",
+      startYear: new Date().getFullYear(),
+      endYear: new Date().getFullYear(),
+      finalScore: "0",
+    });
+    setIsModalOpen(true);
+    setIsEditMode(false);
+  };
 
   return (
     <>
       <div className="bg-white rounded-lg border p-4">
-        <h2 className="text-xl font-semibold mb-4">Education</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Education</h2>
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            onClick={handleAdd}
+          >
+            <Edit2 size={18} />
+          </button>
+        </div>
         {/* Job 1 */}
         {profile.educations.map((e) => (
           <div key={e.id} className="mb-8">
@@ -93,7 +143,10 @@ export default function Education() {
         onClose={() => setIsModalOpen(false)}
         title="Update Education"
       >
-        <Educationform educationData={educationData} setEducationData={setEducationData} />
+        <Educationform
+          educationData={educationData}
+          setEducationData={setEducationData}
+        />
         <div className="flex justify-end mt-4 gap-2">
           <button
             onClick={() => setIsModalOpen(false)}

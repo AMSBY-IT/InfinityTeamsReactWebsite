@@ -111,10 +111,10 @@ export interface ExperienceType {
 export interface professionalData {
     education: EducationType[];
     professional: ExperienceType[];
-    experienceLevel: string;
-    noticePeriod: number;
-    ctc: number;
-    ectc: number
+    experienceLevel?: string;
+    noticePeriod?: number;
+    ctc?: number;
+    ectc?: number
 }
 
 export interface skillsData {
