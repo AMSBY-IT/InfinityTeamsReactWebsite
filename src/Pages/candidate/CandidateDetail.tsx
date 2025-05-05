@@ -1,8 +1,12 @@
+import NameSection from "@/component/CandidateDetail/NameSection";
 import { useEffect } from "react";
-import Header from "../../component/Header";
-import NameSection from "../../component/CandidateDetail/NameSection";
-import CandidateInfo from "../../component/CandidateDetail/CandidateInfo";
-import Footer from "../../component/Footer";
+
+import AboutSection from "@/component/CandidateDetail/AboutSection";
+import SkillsSection from "@/component/CandidateDetail/SkillsSection";
+import CandidateOverview from "@/component/CandidateDetail/CandidateOverview";
+import ExperienceSection from "@/component/CandidateDetail/ExperienceSection";
+import EducationSection from "@/component/CandidateDetail/EducationSection";
+
 
 
 const CandidateDetail = () => {
@@ -12,18 +16,33 @@ const CandidateDetail = () => {
 
     return (
         <>
-            <Header />
-            <div className="">
-                <div className="max-w-7xl mx-auto max-xl:max-w-5xl py-12">
-                    <div className="mx-auto max-sm:w-11/12 max-lg:w-11/12">
-                        <div className="">
-                            <NameSection />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <CandidateInfo />
-            <Footer />
+        <div className="max-w-6xl mx-auto p-4">
+        <NameSection/>
+        </div>
+            
+            <div className="max-w-6xl mx-auto p-4">
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Left Column */}
+        <div className="flex-1 space-y-6">
+          {/* About the candidate */}
+          <AboutSection/>
+          {/* Skills */}
+          <SkillsSection/>
+        </div>
+
+        {/* Right Column */}
+        <div className="md:w-80 space-y-6">
+          {/* Salary */}
+          <CandidateOverview/>
+        </div>
+      </div>
+    </div>
+    <div className="max-w-6xl mx-auto p-4">
+    <div className="bg-white rounded-lg border p-6">
+        <ExperienceSection/>
+        <EducationSection/>
+    </div>
+    </div>
         </>
     )
 }
