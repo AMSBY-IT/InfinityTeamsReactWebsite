@@ -1,6 +1,5 @@
-import { CandidateContext } from '@/Provider/CandidateContext';
 import { Briefcase, BriefcaseBusiness, Edit2 } from 'lucide-react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Experienceform from '../onboarding/forms/Experienceform';
 import Modal from '../ui/Modal';
 import { ExperienceType } from '@/Types/types';
@@ -8,9 +7,10 @@ import { updateExperience } from '@/api/services';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useProfile } from '@/hooks/useProfile';
 
 export default function WorkExperience() {
-  const { profile, dispatch } = useContext(CandidateContext);
+  const { candidateData, setExperiences } = useProfile();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [experienceId, setExperienceId] = useState('');
   const [experienceData, setExperienceData] = useState<ExperienceType>({
@@ -28,10 +28,17 @@ export default function WorkExperience() {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
-        const updatedExperiences = profile.experiences.map((exp) =>
-          exp.id === experienceId ? { ...exp, ...experienceData } : exp
+        const updatedExperiences = candidateData.experiences.map((exp) =>
+          exp.id === experienceId
+            ? {
+                ...exp,
+                ...experienceData,
+                startDate: experienceData.startDate || '',
+                endDate: experienceData.endDate || '',
+              }
+            : exp
         );
-        dispatch({ type: 'UPDATE_EXPERIENCE', payload: updatedExperiences });
+        setExperiences(updatedExperiences);
       }
     },
     onError: (error) => {
@@ -46,7 +53,9 @@ export default function WorkExperience() {
   });
 
   const handleClick = (id: string) => {
-    const selectedExperience = profile.experiences.find((e) => e.id === id);
+    const selectedExperience = candidateData.experiences.find(
+      (e) => e.id === id
+    );
     if (selectedExperience) {
       setExperienceData({
         isCurrent: selectedExperience?.isCurrent,
@@ -94,7 +103,7 @@ export default function WorkExperience() {
           </div>
         </div>
         {/* Job 1 */}
-        {profile.experiences.map((e) => (
+        {candidateData.experiences.map((e) => (
           <div key={e.id} className='mb-8 mt-2'>
             <div className='flex justify-between items-center'>
               <h3 className='  test-base font-semibold text-gray-700'>

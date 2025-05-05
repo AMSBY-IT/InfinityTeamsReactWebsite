@@ -1,9 +1,9 @@
-import { CandidateContext } from '@/Provider/CandidateContext';
+import { useProfile } from '@/hooks/useProfile';
+
 import { Atom } from 'lucide-react';
-import { useContext } from 'react';
 
 export default function TechnicalSkills() {
-  const { profile } = useContext(CandidateContext);
+  const { candidateData } = useProfile();
   return (
     <div className='bg-white rounded-lg border p-4'>
       <div className='flex text-gray-700 items-center mxb-4'>
@@ -11,7 +11,7 @@ export default function TechnicalSkills() {
           <Atom size={18} />
         </div>
         <div>
-          <h2 className='text-lg font-semibold'>Work Experience</h2>
+          <h2 className='text-lg font-semibold'>Skills </h2>
         </div>
       </div>
       <div className='mb-6'>
@@ -44,7 +44,7 @@ export default function TechnicalSkills() {
       <div>
         <h3 className='font-medium mb-3'>Other skills</h3>
         <div className='flex flex-wrap gap-3'>
-          {profile.skills.map((s) => (
+          {candidateData.skills.map((s) => (
             <div key={s.id} className='px-3 py-1.5 rounded-md bg-gray-100'>
               <span>{s.name}</span>
             </div>

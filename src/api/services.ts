@@ -1,3 +1,4 @@
+import { CandidateResponse } from "@/atoms/profile";
 import { usercredentials, userdata, personalData, professionalData, skillsData, EducationType, ExperienceType, UpdateProfileType } from "@/Types/types";
 import axios from "axios";
 import { toast } from 'react-toastify';
@@ -269,14 +270,14 @@ export const getCandidateProfile = async () => {
         console.error("No token found.");
         return;
     }
-    const response = await axios.get(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile`
+    const response = await axios.get<{data:CandidateResponse}>(`http://vaibhavarora2-001-site17.anytempurl.com/api/profile`
         , {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }
     );
-    return response.data.data;
+    return response.data;
 };
 
 export const updateEducation = async (id:string,data:EducationType) => {

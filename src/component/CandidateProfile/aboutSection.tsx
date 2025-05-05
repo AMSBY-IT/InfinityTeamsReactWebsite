@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Edit2, User2 } from 'lucide-react';
+import { Edit, Edit2, User2 } from 'lucide-react';
 import RichTexteditor from '../shared/RichTexteditor';
 import Modal from '../ui/Modal';
 import { EditorState } from 'lexical';
@@ -9,27 +9,22 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { CandidateContext } from '@/Provider/CandidateContext';
 import RichTextViewer from '../shared/RichTextViewer';
+import { useProfile } from '@/hooks/useProfile';
 
 export default function AboutCandidateSection() {
-  const { profile, dispatch } = useContext(CandidateContext);
+  const { profile } = useContext(CandidateContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editorInitialValue, setEditorInitialValue] = useState<string>('');
-
+  const { candidateData, setCandidate } = useProfile();
   const [about, setAbout] = useState('');
 
-  console.log('about', about);
   const updateAboutMutation = useMutation({
     mutationFn: updateAbout,
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
-        dispatch({
-          type: 'UPDATE_CANDIDATEINFO',
-          payload: {
-            ...profile.candidate,
-            about: about,
-          },
-        });
+        console.log(data.data.about);
+        setCandidate({ about: data.data.about! as string });
       }
     },
     onError: (error) => {
@@ -78,8 +73,10 @@ export default function AboutCandidateSection() {
           </button>
         </div>
 
-        {profile.candidate.about ? (
-          <RichTextViewer content={profile.candidate.about} />
+        {candidateData.candidate.about ? (
+          <>
+            <RichTextViewer content={candidateData.candidate.about} />
+          </>
         ) : (
           <p className='text-gray-500 italic'>No about info yet.</p>
         )}
@@ -89,6 +86,7 @@ export default function AboutCandidateSection() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title='Edit About Section'
+        icon={<Edit />}
       >
         <RichTexteditor
           onChange={handleEditorChange}

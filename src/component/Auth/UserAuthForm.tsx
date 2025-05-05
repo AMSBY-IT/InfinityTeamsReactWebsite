@@ -1,46 +1,20 @@
-import {
-  getCandidateProfile,
-  getOnboardingStatus,
-  loginUser,
-} from '@/api/services';
-import { CandidateContext } from '@/Provider/CandidateContext';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { getOnboardingStatus, loginUser } from '@/api/services';
+import { useProfile } from '@/hooks/useProfile';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const UserAuthForm = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
-  const { dispatch } = useContext(CandidateContext);
-  const {
-    data: profileData,
-    refetch: fetchProfile,
-    isSuccess,
-  } = useQuery({
-    queryKey: ['profile'],
-    queryFn: getCandidateProfile,
-    enabled: false,
-  });
+  const { candidateData } = useProfile();
 
   useEffect(() => {
-    dispatch({ type: 'SET_CANDIDATEPROFILE', payload: profileData });
-    console.log({ profileData });
-    if (
-      isSuccess &&
-      token &&
-      profileData &&
-      !profileData?.candidate?.isEmailVerified
-    ) {
-      localStorage.setItem(
-        'emailVerify',
-        profileData?.candidate?.isEmailVerified
-      );
-      localStorage.setItem('email', profileData?.candidate?.email);
+    if (!candidateData?.candidate.isEmailVerified) {
       navigate('/email-not-verified');
     }
-  }, [profileData, token, isSuccess]);
+  }, [candidateData]);
 
   const [credentials, setCredentials] = useState({
     email: '',
@@ -58,8 +32,7 @@ const UserAuthForm = () => {
         localStorage.setItem('token', data.data.token);
         try {
           const status = await getOnboardingStatus();
-          const profile = await fetchProfile();
-          if (!profile.data.candidate.isEmailVerified) {
+          if (!candidateData.candidate.isEmailVerified) {
             navigate('/email-not-verified');
           }
 

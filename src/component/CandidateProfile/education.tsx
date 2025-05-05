@@ -1,6 +1,5 @@
-import { CandidateContext } from '@/Provider/CandidateContext';
 import { Edit2, GraduationCap } from 'lucide-react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Educationform from '../onboarding/forms/Educationform';
 import Modal from '../ui/Modal';
 import { EducationType } from '@/Types/types';
@@ -8,9 +7,10 @@ import { updateEducation } from '@/api/services';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useProfile } from '@/hooks/useProfile';
 
 export default function Education() {
-  const { profile, dispatch } = useContext(CandidateContext);
+  const { candidateData, setEducations } = useProfile();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [educationId, setEducationId] = useState('');
   const [educationData, setEducationData] = useState<EducationType>({
@@ -27,10 +27,12 @@ export default function Education() {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.message);
-        const updatedEducations = profile.educations.map((edu) =>
+        console.log(data.data);
+        const updatedEducations = candidateData.educations.map((edu) =>
           edu.id === educationId ? { ...edu, ...educationData } : edu
         );
-        dispatch({ type: 'UPDATE_EDUCATION', payload: updatedEducations });
+        setEducations(updatedEducations);
+        // dispatch({ type: 'UPDATE_EDUCATION', payload: updatedEducations });
       }
     },
     onError: (error) => {
@@ -45,7 +47,7 @@ export default function Education() {
   });
 
   const handleClick = (id: string) => {
-    const selectedEducation = profile.educations.find((e) => e.id === id);
+    const selectedEducation = candidateData.educations.find((e) => e.id === id);
     if (selectedEducation) {
       setEducationData({
         instituteName: selectedEducation.instituteName,
@@ -76,7 +78,7 @@ export default function Education() {
           </div>
         </div>
         {/* Job 1 */}
-        {profile.educations.map((e) => (
+        {candidateData.educations.map((e) => (
           <div key={e.id} className='mb-8'>
             <div className='flex justify-between items-center text-gray-700'>
               <div className='flex'>
