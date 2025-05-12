@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import Experienceform from "../onboarding/forms/Experienceform";
 import Modal from "../ui/Modal";
 import { ExperienceType } from "@/Types/types";
-import { updateExperience } from "@/api/services";
+import { postProfessionalData, updateExperience } from "@/api/services";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -12,6 +12,7 @@ import axios from "axios";
 
 export default function WorkExperience() {
   const { profile, dispatch } = useContext(CandidateContext);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [experienceId, setExperienceId] = useState('')
   const [experienceData, setExperienceData] = useState<ExperienceType>({
@@ -46,6 +47,26 @@ export default function WorkExperience() {
     },
   });
 
+  const addExperience = useMutation({
+      mutationFn: postProfessionalData,
+      onSuccess: (data) => {
+        if (data.success) {
+          toast.success(data.message);
+          if (experienceData) {
+            const newExperience = {
+              ...experienceData,
+              id:'',
+            };
+            const updatedExperiences = [...profile.experiences, newExperience];
+            dispatch({ type: "UPDATE_EXPERIENCE", payload: updatedExperiences });
+          }
+        }
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+
   const handleClick = (id: string) => {
     const selectedExperience = profile.experiences.find((e) => e.id === id);
     if (selectedExperience) {
@@ -58,13 +79,23 @@ export default function WorkExperience() {
         jobDetail: selectedExperience?.jobDetail,
       });
       setExperienceId(id);
+      setIsEditMode(true)
       setIsModalOpen(true);
     }
   };
 
   const handleUpdate = () => {
-    updateExperienceMutation.mutate({ id: experienceId, data: experienceData })
-    setIsModalOpen(false)
+    if (isEditMode) {
+      updateExperienceMutation.mutate({ id: experienceId, data: experienceData });
+    } else {
+      addExperience.mutate({
+        education:[],
+        professional:[experienceData],
+        experienceLevel:''
+        
+      });
+    }
+    setIsModalOpen(false);
   }
 
   function formatDate(dateString: string | null): string {
@@ -80,10 +111,28 @@ export default function WorkExperience() {
     return date.toLocaleDateString("en-US", options);
   }
 
+  const handleAdd =()=>{
+    setExperienceData({
+      isCurrent: false,
+      companyName: "",
+      designation: { id: "", name: "" },
+      startDate: null,
+      endDate: null,
+      jobDetail: "",
+    });
+    setIsModalOpen(true)
+    setIsEditMode(false)
+  }
+
   return (
     <>
       <div className="bg-white rounded-lg border p-4">
-        <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
+        <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold">Work Experience</h2>
+        <button className="text-gray-500 hover:text-gray-700" onClick={handleAdd}>
+          <Edit2 size={18} />
+        </button>
+        </div>
         {/* Job 1 */}
         {profile.experiences.map((e) => (
           <div key={e.id} className="mb-8">
