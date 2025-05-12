@@ -14,6 +14,7 @@ import AppHeader from "@/component/shared/AppHeader";
 import Verify from "@/Pages/verify/Verify";
 import { CandidateList } from "@/Pages/candidate/CandidateList";
 import VerifyEmailPrompt from "@/component/onboarding/VerifyEmailPrompt";
+import CandidateDetail from "@/Pages/candidate/CandidateDetail";
 
 
 function Index() {
@@ -22,6 +23,7 @@ function Index() {
 
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/detail" element={<CandidateDetail />} />
 				<Route path="/404" element={<>4040 page</>} />
 				<Route path="/auth/login" element={<LoginPage />} />
 				<Route path="/auth/register" element={<Register />} />

@@ -1,5 +1,4 @@
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
+
 import { CandidateFilter } from "../../component/Candidates/CandidateFilter";
 import { useContext } from "react";
 import { CandidateContext } from "../../Provider/CandidateContext";
@@ -14,9 +13,6 @@ export const CandidateList = () => {
 
     const context = useContext(CandidateContext);
 
-    if (!context) {
-        return <p>Error: CandidateContext is not provided!</p>;
-    }
 
     const { loading } = context;
 
@@ -25,7 +21,7 @@ export const CandidateList = () => {
     return (
         <>
             <div className="h-full">
-                <Header />
+                
                 <CandidateFilter />
                 <div className="max-w-7xl mx-auto max-xl:max-w-5xl">
                     <div className="py-9 mx-auto max-sm:w-11/12 max-lg:w-11/12">
@@ -40,7 +36,6 @@ export const CandidateList = () => {
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
         </>
     )
